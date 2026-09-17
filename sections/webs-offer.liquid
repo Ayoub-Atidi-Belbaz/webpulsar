@@ -6,7 +6,7 @@
 -%}
 
 <section class="section qw-offer" data-qw-offer>
-  <span class="halo halo--bc" style="--halo-color: var(--c-violet); --halo-opacity: 0.2;" aria-hidden="true"></span>
+  <span class="halo halo--bc" data-parallax="0.08" style="--halo-color: var(--c-violet); --halo-opacity: 0.2;" aria-hidden="true"></span>
 
   <div class="wrap">
     <div class="section-head section-head--center">
@@ -19,7 +19,7 @@
       {%- endif -%}
     </div>
 
-    <div class="qw-offer__card" data-reveal="scale">
+    <div class="qw-offer__card card--glow" data-reveal="scale">
       <div>
         {%- if s.plan_name != blank -%}
           <p class="qw-offer__badge">
@@ -29,7 +29,7 @@
 
         <div class="qw-offer__price">
           <span class="qw-price qw-price--xl">
-            <span>{{ s.price }}</span>
+            <span data-count-to="{{ s.price }}" data-count-decimals="0">0</span>
             <span class="qw-price__cur">{{ s.currency }}</span>
           </span>
           {%- if s.pay_label != blank -%}
@@ -65,6 +65,16 @@
       </div>
 
       <div>
+        <div class="qw-offer__mockup" data-parallax="0.04">
+          {% render 'webs-mockup', kind: s.mockup_kind, image: s.mockup_image, phone: false %}
+          {%- if s.chip1_text != blank -%}
+            <span class="qw-devices__chip qw-devices__chip--a">{% render 'icon', name: 'check', size: 13 %} {{ s.chip1_text }}</span>
+          {%- endif -%}
+          {%- if s.chip2_text != blank -%}
+            <span class="qw-devices__chip qw-devices__chip--b">{% render 'icon', name: 'check', size: 13 %} {{ s.chip2_text }}</span>
+          {%- endif -%}
+        </div>
+
         {%- if s.list_title != blank -%}
           <p class="qw-offer__list-title">{{ s.list_title }}</p>
         {%- endif -%}
@@ -111,7 +121,28 @@
     { "type": "url", "id": "cta2_url", "label": "Enlace secundario" },
     { "type": "header", "content": "Incluye" },
     { "type": "text", "id": "list_title", "label": "Título de la lista", "default": "Qué incluye" },
-    { "type": "textarea", "id": "note", "label": "Nota de transparencia", "default": "Dominio, hosting y servicios adicionales no incluidos. Te decimos el coste exacto antes de empezar." }
+    { "type": "textarea", "id": "note", "label": "Nota de transparencia", "default": "Dominio, hosting y servicios adicionales no incluidos. Te decimos el coste exacto antes de empezar." },
+    { "type": "header", "content": "Maqueta de ejemplo" },
+    { "type": "paragraph", "content": "Se muestra junto a la lista de qué incluye. Si subes una foto de una web real, se usa esa; si no, se genera una maqueta de ejemplo." },
+    {
+      "type": "select",
+      "id": "mockup_kind",
+      "label": "Tipo de negocio de ejemplo",
+      "options": [
+        { "value": "peluqueria", "label": "Peluquería" },
+        { "value": "estetica", "label": "Centro de estética" },
+        { "value": "unas", "label": "Uñas" },
+        { "value": "fisio", "label": "Fisioterapia" },
+        { "value": "taller", "label": "Taller mecánico" },
+        { "value": "restaurante", "label": "Restaurante" },
+        { "value": "electricista", "label": "Electricista" },
+        { "value": "inmobiliaria", "label": "Inmobiliaria" }
+      ],
+      "default": "peluqueria"
+    },
+    { "type": "image_picker", "id": "mockup_image", "label": "Foto de una web real (opcional)", "info": "Sustituye la maqueta de ejemplo por esta imagen." },
+    { "type": "text", "id": "chip1_text", "label": "Chip flotante 1", "default": "Entrega en 7 días" },
+    { "type": "text", "id": "chip2_text", "label": "Chip flotante 2", "default": "4,9 de valoración" }
   ],
   "blocks": [
     {

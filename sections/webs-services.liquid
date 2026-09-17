@@ -5,6 +5,14 @@
 -%}
 
 <section class="section qw-services" id="servicios">
+  <span class="halo halo--tl" data-parallax="0.06" style="--halo-color: var(--c-violet); --halo-opacity: 0.16;" aria-hidden="true"></span>
+  <span class="halo halo--bl" data-parallax="0.08" style="--halo-color: var(--c-cyan); --halo-opacity: 0.12;" aria-hidden="true"></span>
+  {%- if s.bg_image != blank -%}
+    <div class="qw-services__bg" data-parallax="0.03" aria-hidden="true">
+      {{ s.bg_image | image_url: width: 1600 | image_tag: loading: 'lazy', alt: '' }}
+    </div>
+  {%- endif -%}
+
   <div class="wrap">
     <div class="section-head section-head--center">
       {%- if s.eyebrow != blank -%}
@@ -22,7 +30,7 @@
     <div class="qw-services__grid" data-stagger="60" data-stagger-max="9">
       {%- for block in section.blocks -%}
         {%- assign b = block.settings -%}
-        <article class="qw-service" data-reveal {{ block.shopify_attributes }}>
+        <article class="qw-service card--glow" data-reveal {{ block.shopify_attributes }}>
           <span class="qw-service__icon">
             {%- case b.icon -%}
               {%- when 'cart' -%}
@@ -76,7 +84,9 @@
     { "type": "text", "id": "heading_accent", "label": "Parte destacada" },
     { "type": "textarea", "id": "body", "label": "Subtítulo", "default": "Cuando la web está en marcha, estos son los siguientes pasos que suelen pedirnos." },
     { "type": "text", "id": "cta_label", "label": "Botón", "default": "Cuéntanos qué necesitas" },
-    { "type": "url", "id": "cta_url", "label": "Enlace del botón" }
+    { "type": "url", "id": "cta_url", "label": "Enlace del botón" },
+    { "type": "header", "content": "Fondo" },
+    { "type": "image_picker", "id": "bg_image", "label": "Imagen de fondo (opcional)", "info": "Se muestra muy tenue detrás de las tarjetas, a modo de textura." }
   ],
   "blocks": [
     {

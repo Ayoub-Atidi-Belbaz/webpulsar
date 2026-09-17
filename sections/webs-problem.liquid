@@ -32,20 +32,26 @@
         {%- endif -%}
       </div>
 
-      <div data-reveal="right" style="--reveal-delay: 120ms">
-        <div class="qw-serp" aria-hidden="true">
+      <div data-reveal="right" data-parallax="0.05" style="--reveal-delay: 120ms">
+        <div class="qw-serp card--glow" data-serp aria-hidden="true">
           <div class="qw-serp__bar">
             <div class="qw-serp__field">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4"/></svg>
-              {{ s.query }}<span class="qw-serp__caret"></span>
+              <span data-serp-query data-serp-text="{{ s.query | escape }}">{{ s.query }}</span><span class="qw-serp__caret"></span>
             </div>
           </div>
 
-          <div class="qw-serp__list">
+          <div class="qw-serp__list" data-serp-results>
             {%- for block in results -%}
               {%- assign b = block.settings -%}
               <div class="qw-serp__item{% if b.is_you %} qw-serp__item--you{% endif %}">
-                <span class="qw-serp__avatar">{{ b.name | slice: 0 }}</span>
+                {%- if b.image != blank -%}
+                  <span class="qw-serp__avatar qw-serp__avatar--photo">
+                    {{ b.image | image_url: width: 80 | image_tag: loading: 'lazy', width: 34, height: 34, alt: b.name }}
+                  </span>
+                {%- else -%}
+                  <span class="qw-serp__avatar">{{ b.name | slice: 0 }}</span>
+                {%- endif -%}
                 <div>
                   <p class="qw-serp__name">{{ b.name }}</p>
                   <div class="qw-serp__meta">
@@ -79,6 +85,61 @@
   </div>
 </section>
 
+<script>
+  (function () {
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function boot(root) {
+      (root || document).querySelectorAll('[data-serp]').forEach(function (serp) {
+        if (serp.__typed) return;
+        serp.__typed = true;
+
+        var query = serp.querySelector('[data-serp-query]');
+        var results = serp.querySelector('[data-serp-results]');
+        var text = query ? query.dataset.serpText || query.textContent : '';
+
+        if (reduced || !query || !results) return;
+
+        results.classList.add('is-waiting');
+        query.textContent = '';
+
+        function typeIn() {
+          var i = 0;
+          var iv = setInterval(function () {
+            i++;
+            query.textContent = text.slice(0, i);
+            if (i >= text.length) {
+              clearInterval(iv);
+              results.classList.remove('is-waiting');
+              results.classList.add('is-in');
+            }
+          }, 45);
+        }
+
+        if ('IntersectionObserver' in window) {
+          var io = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+              if (!entry.isIntersecting) return;
+              io.unobserve(entry.target);
+              setTimeout(typeIn, 250);
+            });
+          }, { threshold: 0.4 });
+          io.observe(serp);
+        } else {
+          typeIn();
+        }
+      });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', function () { boot(document); });
+    } else {
+      boot(document);
+    }
+    document.addEventListener('shopify:section:load', function (e) { boot(e.target); });
+  })();
+</script>
+
 {% schema %}
 {
   "name": "Webs · Problema",
@@ -105,6 +166,7 @@
       "limit": 4,
       "settings": [
         { "type": "text", "id": "name", "label": "Nombre del negocio", "default": "Salón Aurora" },
+        { "type": "image_picker", "id": "image", "label": "Foto (opcional)", "info": "Si la dejas vacía, se muestra la inicial del nombre en un círculo de color." },
         { "type": "text", "id": "meta", "label": "Línea de datos", "default": "4,9 · Peluquería · A 350 m" },
         { "type": "checkbox", "id": "has_site", "label": "Tiene sitio web", "default": true },
         { "type": "text", "id": "site_label", "label": "Texto del enlace web", "default": "Sitio web" },
