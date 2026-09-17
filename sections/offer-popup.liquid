@@ -1,0 +1,132 @@
+{{ 'offer-popup.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'qm-webs.js' | asset_url }}" defer="defer"></script>
+
+{%- liquid
+  assign s = section.settings
+-%}
+
+<div class="offer-popup" data-offer-popup data-delay="{{ s.delay_seconds | default: 5 }}" data-frequency="{{ s.frequency }}" aria-hidden="true">
+  <div class="offer-popup__overlay" data-offer-popup-dismiss></div>
+  <div class="offer-popup__panel" role="dialog" aria-modal="true" aria-label="{{ s.heading }}">
+    <button type="button" class="offer-popup__close" data-offer-popup-dismiss aria-label="{{ 'accessibility.close' | t }}">
+      {% render 'icon', name: 'close', size: 15 %}
+    </button>
+
+    {%- if s.badge != blank -%}
+      <span class="chip chip--violet offer-popup__badge">{{ s.badge }}</span>
+    {%- endif -%}
+
+    <h2 class="offer-popup__title">{{ s.heading }}</h2>
+
+    {%- if s.body != blank -%}
+      <p class="offer-popup__body">{{ s.body }}</p>
+    {%- endif -%}
+
+    <div class="offer-popup__actions">
+      <a
+        href="{% if s.variant_id != blank %}/cart/{{ s.variant_id }}:1{% else %}{{ s.cta_url | default: '#planes' }}{% endif %}"
+        class="btn btn--primary btn--lg btn--full"
+        data-qw-cta="click_offer_popup"
+        data-plan="starter"
+        {%- if s.variant_id != blank %}
+          data-qw-buy="{{ s.variant_id }}"
+        {%- endif %}
+      >
+        {{ s.cta_label }}
+      </a>
+      <button type="button" class="btn btn--text offer-popup__skip" data-offer-popup-dismiss>
+        {{ s.dismiss_label }}
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    function boot() {
+      var popup = document.querySelector('[data-offer-popup]');
+      if (!popup || popup.__offerPopupInit) return;
+      popup.__offerPopupInit = true;
+
+      var STORAGE_KEY = 'qwOfferPopupSeenAt';
+      var frequency = popup.dataset.frequency || 'session';
+      var delay = (parseFloat(popup.dataset.delay) || 5) * 1000;
+
+      function alreadyShown() {
+        try {
+          if (frequency === 'always') return false;
+          if (frequency === 'session') return sessionStorage.getItem(STORAGE_KEY) === '1';
+          var days = parseInt(frequency, 10) || 1;
+          var seenAt = parseInt(localStorage.getItem(STORAGE_KEY) || '0', 10);
+          return Date.now() - seenAt < days * 24 * 60 * 60 * 1000;
+        } catch (e) {
+          return false;
+        }
+      }
+
+      function markShown() {
+        try {
+          if (frequency === 'session') sessionStorage.setItem(STORAGE_KEY, '1');
+          else if (frequency !== 'always') localStorage.setItem(STORAGE_KEY, String(Date.now()));
+        } catch (e) {}
+      }
+
+      function open() {
+        popup.setAttribute('aria-hidden', 'false');
+        markShown();
+      }
+      function close() {
+        popup.setAttribute('aria-hidden', 'true');
+      }
+
+      popup.querySelectorAll('[data-offer-popup-dismiss]').forEach(function (el) {
+        el.addEventListener('click', close);
+      });
+      document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape') close();
+      });
+
+      if (!alreadyShown()) {
+        setTimeout(open, delay);
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', boot);
+    } else {
+      boot();
+    }
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Popup de oferta",
+  "tag": "div",
+  "settings": [
+    { "type": "number", "id": "delay_seconds", "label": "Segundos antes de mostrarse", "default": 5 },
+    {
+      "type": "select",
+      "id": "frequency",
+      "label": "Frecuencia",
+      "options": [
+        { "value": "always", "label": "Cada vez que entra" },
+        { "value": "session", "label": "Una vez por visita" },
+        { "value": "1", "label": "Una vez al día" },
+        { "value": "7", "label": "Una vez a la semana" }
+      ],
+      "default": "session"
+    },
+    { "type": "header", "content": "Contenido" },
+    { "type": "text", "id": "badge", "label": "Etiqueta", "default": "OFERTA DE LANZAMIENTO" },
+    { "type": "text", "id": "heading", "label": "Titular", "default": "¿Quieres esta oferta?" },
+    { "type": "textarea", "id": "body", "label": "Texto", "default": "Consigue tu web profesional por 49 €. Sin cuotas ni permanencia." },
+    { "type": "header", "content": "Botón" },
+    { "type": "text", "id": "cta_label", "label": "Texto del botón", "default": "Quiero mi web por 49 €" },
+    { "type": "url", "id": "cta_url", "label": "Enlace del botón (alternativo)", "info": "Se usa sólo si el ID de variante de abajo está vacío." },
+    { "type": "text", "id": "variant_id", "label": "ID de variante del plan STARTER", "info": "Si lo rellenas, el botón añade esta variante al carrito.", "default": "64575079678321" },
+    { "type": "text", "id": "dismiss_label", "label": "Botón de cerrar", "default": "No, gracias" }
+  ],
+  "presets": [{ "name": "Popup de oferta" }]
+}
+{% endschema %}

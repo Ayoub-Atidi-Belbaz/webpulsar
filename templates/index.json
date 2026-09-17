@@ -9,6 +9,20 @@
  */
 {
   "sections": {
+    "oferta_popup": {
+      "type": "offer-popup",
+      "settings": {
+        "delay_seconds": 5,
+        "frequency": "session",
+        "badge": "OFERTA DE LANZAMIENTO",
+        "heading": "¿Quieres esta oferta?",
+        "body": "Consigue tu web profesional por 49 €. Sin cuotas ni permanencia.",
+        "cta_label": "Quiero mi web por 49 €",
+        "cta_url": "",
+        "variant_id": "64575079678321",
+        "dismiss_label": "No, gracias"
+      }
+    },
     "hero": {
       "type": "webs-hero",
       "blocks": {
@@ -327,6 +341,6 @@
     }
   },
   "order": [
-    "hero", "problema", "calculadora", "oferta", "planes", "mantenimiento", "demos", "metricas", "proceso", "servicios", "faq", "cierre", "barra"
+    "oferta_popup", "hero", "problema", "calculadora", "oferta", "planes", "mantenimiento", "demos", "metricas", "proceso", "servicios", "faq", "cierre", "barra"
   ]
 }
