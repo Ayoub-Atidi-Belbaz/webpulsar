@@ -163,7 +163,8 @@
             "currency": "€",
             "period": "/mes",
             "tagline": "Para webs de una página que solo necesitan estar al día.",
-            "features": "Actualizaciones de la web\nPequeños cambios de contenido\nSoporte por WhatsApp o email"
+            "change_limit": "Hasta 2 cambios al mes",
+            "features": "Actualizaciones de la web\nSoporte por WhatsApp o email"
           }
         },
         "c2": {
@@ -174,7 +175,8 @@
             "currency": "€",
             "period": "/mes",
             "tagline": "Para webs de varias páginas con contenido que cambia a menudo.",
-            "features": "Todo lo del básico\nMás cambios de contenido al mes\nRespuesta prioritaria\nRevisión periódica de la web"
+            "change_limit": "Hasta 5 cambios al mes",
+            "features": "Todo lo del básico\nRespuesta prioritaria\nRevisión periódica de la web"
           }
         },
         "c3": {
@@ -185,7 +187,8 @@
             "currency": "€",
             "period": "/mes",
             "tagline": "Para webs con reservas, formularios o integraciones activas.",
-            "features": "Todo lo del PRO\nCambios y ajustes sin contar\nSoporte de las funciones avanzadas\nInforme de rendimiento"
+            "change_limit": "Cambios ilimitados",
+            "features": "Todo lo del PRO\nSoporte de las funciones avanzadas\nInforme de rendimiento"
           }
         }
       },
@@ -194,7 +197,7 @@
         "eyebrow": "Mantenimiento",
         "heading": "¿Quieres olvidarte de la parte técnica?",
         "body": "Opcional en todos los planes. Si lo prefieres, te entregamos la web y la gestionas tú.",
-        "note": "El mantenimiento cubre actualizaciones, pequeños cambios de contenido y soporte. El volumen de cambios y el tiempo de respuesta varían según el plan. Se factura mes a mes y puedes darte de baja cuando quieras.",
+        "note": "El mantenimiento cubre actualizaciones, cambios de contenido y soporte. Cada nivel indica cuántos cambios puedes pedir al mes (los cambios no usados no se acumulan al mes siguiente). Se factura mes a mes y puedes darte de baja cuando quieras.",
         "cta_label": "Preguntar por el mantenimiento",
         "cta_url": ""
       }
