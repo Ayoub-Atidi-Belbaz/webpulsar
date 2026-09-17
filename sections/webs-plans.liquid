@@ -146,6 +146,13 @@
         <span>{{ s.promo_legal_note }}</span>
       </p>
     {%- endif -%}
+
+    {%- if s.card_promo_note != blank -%}
+      <p class="qw-note" style="margin-top: var(--s-4); max-width: 680px; margin-inline: auto;" data-reveal="fade">
+        {% render 'icon', name: 'gift', size: 15 %}
+        <span>{{ s.card_promo_note }}</span>
+      </p>
+    {%- endif -%}
   </div>
 </section>
 
@@ -216,7 +223,8 @@
     { "type": "text", "id": "heading_accent", "label": "Parte destacada" },
     { "type": "textarea", "id": "body", "label": "Subtítulo", "default": "Empieza por lo básico y sube de plan cuando tu negocio lo pida. Sin permanencia en ningúno." },
     { "type": "textarea", "id": "foot_note", "label": "Nota bajo los planes", "default": "Hosting no incluido en ningún plan. El dominio está incluido temporalmente en los planes PRO y BUSINESS durante la promoción de lanzamiento; en el resto de planes se paga aparte. Te pasamos el coste exacto antes de empezar." },
-    { "type": "textarea", "id": "promo_legal_note", "label": "Nota legal de la promoción", "info": "Se muestra debajo de la nota anterior, solo si tiene texto.", "default": "Dominio incluido durante el periodo promocional. La renovación posterior se realizará según las condiciones vigentes." }
+    { "type": "textarea", "id": "promo_legal_note", "label": "Nota legal de la promoción", "info": "Se muestra debajo de la nota anterior, solo si tiene texto.", "default": "Dominio incluido durante el periodo promocional. La renovación posterior se realizará según las condiciones vigentes." },
+    { "type": "textarea", "id": "card_promo_note", "label": "Nota de la tarjeta de regalo (PRO+)", "info": "Se muestra debajo de las notas anteriores, solo si tiene texto.", "default": "A partir del plan PRO, te regalamos una tarjeta física para el mostrador de tu negocio. Por ahora, esta tarjeta solo está disponible para negocios de la Región de Murcia." }
   ],
   "blocks": [
     {

@@ -940,6 +940,7 @@
 }
 .qw-care__price { margin-top: var(--s-4); }
 .qw-care__text { margin-top: var(--s-4); font-size: var(--t-sm); color: var(--c-text-soft); line-height: 1.6; }
+.qw-care__limit { margin-top: var(--s-4); }
 .qw-care__list { margin-top: var(--s-5); }
 .qw-care__foot { margin-top: var(--s-7); }
 
