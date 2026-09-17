@@ -699,6 +699,8 @@
    6. PLANES
    ========================================================================== */
 
+.qw-plans__carousel { position: relative; }
+
 .qw-plans__grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -706,7 +708,61 @@
   align-items: start;
 }
 @media (max-width: 1199px) { .qw-plans__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 760px; margin-inline: auto; } }
-@media (max-width: 749px) { .qw-plans__grid { grid-template-columns: minmax(0, 1fr); max-width: 420px; margin-inline: auto; } }
+
+/* Móvil: en vez de apilar las tarjetas, carrusel horizontal con snap. La
+   siguiente tarjeta asoma un poco (flex-basis 82%) para que se note que se
+   puede deslizar, y los puntos + el aviso de abajo lo dejan aún más claro. */
+@media (max-width: 749px) {
+  .qw-plans__grid {
+    display: flex;
+    gap: var(--s-4);
+    max-width: none;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-inline: var(--page-pad);
+    margin-inline: calc(var(--page-pad) * -1);
+    padding-bottom: var(--s-2);
+  }
+  .qw-plans__grid::-webkit-scrollbar { display: none; }
+  .qw-plans__grid > .qw-receipt-wrap {
+    flex: 0 0 82%;
+    max-width: 340px;
+    scroll-snap-align: center;
+  }
+}
+
+.qw-plans__hint {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s-2);
+  margin-top: var(--s-5);
+  font-size: var(--t-xs);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--c-text-dim);
+}
+.qw-plans__hint svg { width: 13px; height: 13px; opacity: 0.7; }
+.qw-plans__hint svg:first-child { transform: scaleX(-1); }
+
+.qw-plans__dots { display: none; justify-content: center; gap: var(--s-2); margin-top: var(--s-4); }
+.qw-plans__dot {
+  width: 7px;
+  height: 7px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: var(--c-line-strong);
+  transition: background-color var(--d-base) var(--e-out), transform var(--d-base) var(--e-out);
+}
+.qw-plans__dot.is-active { background: var(--c-violet); transform: scale(1.3); }
+
+@media (max-width: 749px) {
+  .qw-plans__hint { display: flex; }
+  .qw-plans__dots { display: flex; }
+}
 
 .qw-plan {
   position: relative;

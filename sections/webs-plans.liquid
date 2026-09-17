@@ -20,7 +20,8 @@
       {%- endif -%}
     </div>
 
-    <div class="qw-plans__grid" data-stagger="90">
+    <div class="qw-plans__carousel" data-plans-carousel>
+      <div class="qw-plans__grid" data-stagger="90" data-plans-track>
       {%- for block in section.blocks -%}
         {%- liquid
           assign b = block.settings
@@ -101,6 +102,15 @@
           </article>
         </div>
       {%- endfor -%}
+      </div>
+
+      <p class="qw-plans__hint" aria-hidden="true">
+        {% render 'icon', name: 'arrow-right', size: 14 %}
+        Desliza para ver todos los planes
+        {% render 'icon', name: 'arrow-right', size: 14 %}
+      </p>
+
+      <div class="qw-plans__dots" data-plans-dots role="tablist" aria-label="Planes"></div>
     </div>
 
     {%- if s.foot_note != blank -%}
@@ -111,6 +121,63 @@
     {%- endif -%}
   </div>
 </section>
+
+<script>
+  (function () {
+    function boot(root) {
+      var carousel = (root || document).querySelector('[data-plans-carousel]');
+      if (!carousel || carousel.__plansInit) return;
+      carousel.__plansInit = true;
+
+      var track = carousel.querySelector('[data-plans-track]');
+      var dotsWrap = carousel.querySelector('[data-plans-dots]');
+      var cards = Array.prototype.slice.call(track.children);
+      if (cards.length < 2) return;
+
+      cards.forEach(function (card, i) {
+        var dot = document.createElement('button');
+        dot.type = 'button';
+        dot.className = 'qw-plans__dot';
+        dot.setAttribute('aria-label', 'Ir al plan ' + (i + 1));
+        dot.addEventListener('click', function () {
+          cards[i].scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+        });
+        dotsWrap.appendChild(dot);
+      });
+      var dots = Array.prototype.slice.call(dotsWrap.children);
+
+      function updateActive() {
+        var trackRect = track.getBoundingClientRect();
+        var center = trackRect.left + trackRect.width / 2;
+        var closest = 0;
+        var closestDist = Infinity;
+        cards.forEach(function (card, i) {
+          var r = card.getBoundingClientRect();
+          var dist = Math.abs((r.left + r.width / 2) - center);
+          if (dist < closestDist) { closestDist = dist; closest = i; }
+        });
+        dots.forEach(function (dot, i) { dot.classList.toggle('is-active', i === closest); });
+      }
+
+      var ticking = false;
+      track.addEventListener('scroll', function () {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(function () { updateActive(); ticking = false; });
+      }, { passive: true });
+
+      window.addEventListener('resize', updateActive);
+      updateActive();
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', function () { boot(document); });
+    } else {
+      boot(document);
+    }
+    document.addEventListener('shopify:section:load', function (e) { boot(e.target); });
+  })();
+</script>
 
 {% schema %}
 {
