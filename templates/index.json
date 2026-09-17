@@ -250,34 +250,6 @@
         "cta_url": ""
       }
     },
-    "equipo": {
-      "type": "webs-team",
-      "blocks": {
-        "e1": { "type": "member", "settings": { "name": "Oussama", "role": "Co-Founder & Diseño y Desarrollo Web", "bio": "Diseña y construye cada web de principio a fin, desde la estructura hasta el detalle final." } },
-        "e2": { "type": "member", "settings": { "name": "Ayoub", "role": "Co-Founder & Arquitectura Técnica", "bio": "Se asegura de que cada web esté bien construida por dentro: rápida, ordenada y fácil de mantener." } }
-      },
-      "block_order": ["e1", "e2"],
-      "settings": {
-        "eyebrow": "Quién hay detrás",
-        "heading": "Personas reales, no una agencia anónima.",
-        "body": "El mismo equipo que responde tu WhatsApp es el que diseña y monta tu web."
-      }
-    },
-    "confianza": {
-      "type": "webs-trust",
-      "blocks": {
-        "q1": { "type": "point", "settings": { "icon": "shield", "title": "Datos protegidos", "text": "Tus datos y los de tu negocio nunca se comparten con terceros ni se usan para nada que no sea construir tu web." } },
-        "q2": { "type": "point", "settings": { "icon": "check", "title": "Presupuesto cerrado", "text": "Sabes el precio exacto antes de empezar. Sin sorpresas ni cargos añadidos a mitad de proyecto." } },
-        "q3": { "type": "point", "settings": { "icon": "clock", "title": "Soporte en menos de 24h", "text": "Escribes por WhatsApp o email y te respondemos el mismo día, no en una cola de tickets." } },
-        "q4": { "type": "point", "settings": { "icon": "globe", "title": "Sin permanencia", "text": "La web es tuya. Ni cuotas obligatorias ni letra pequeña para poder irte cuando quieras." } }
-      },
-      "block_order": ["q1", "q2", "q3", "q4"],
-      "settings": {
-        "eyebrow": "Por qué confiar en nosotros",
-        "heading": "Construido para negocios reales, no para maquetas bonitas.",
-        "body": ""
-      }
-    },
     "faq": {
       "type": "faq-accordion",
       "blocks": {
@@ -316,7 +288,7 @@
         "heading": "Tu negocio ya existe.",
         "heading_accent": "Ahora haz que también exista online.",
         "body": "Empieza con una web profesional desde 49 €. Cuéntanos cómo es tu negocio y te decimos exactamente qué necesitas.",
-        "whatsapp": "",
+        "whatsapp": "34632358260",
         "wa_intro": "Hola, quiero mi web.",
         "wa_label": "Prefiero escribir por WhatsApp",
         "endpoint": "",
@@ -355,6 +327,6 @@
     }
   },
   "order": [
-    "hero", "problema", "calculadora", "oferta", "planes", "mantenimiento", "demos", "metricas", "proceso", "servicios", "equipo", "confianza", "faq", "cierre", "barra"
+    "hero", "problema", "calculadora", "oferta", "planes", "mantenimiento", "demos", "metricas", "proceso", "servicios", "faq", "cierre", "barra"
   ]
 }
