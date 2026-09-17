@@ -47,6 +47,8 @@
 }
 .qw-note svg { flex: none; width: 17px; height: 17px; margin-top: 0.2em; color: var(--c-text-faint); }
 .qw-note strong { color: var(--c-text-soft); font-weight: 600; }
+.qw-note--muted { padding: var(--s-3) var(--s-4); border-style: solid; background: transparent; font-size: var(--t-xs); color: var(--c-text-faint); }
+.qw-note--muted svg { width: 14px; height: 14px; color: var(--c-text-faint); }
 
 .qw-ticks { display: grid; gap: var(--s-3); }
 
@@ -849,6 +851,69 @@
 .qw-plan__list { margin-top: var(--s-5); }
 .qw-plan__cta { margin-top: var(--s-6); padding-top: var(--s-5); }
 .qw-plan__foot { margin-top: auto; }
+
+/* Promoción de dominio gratis, dentro de la tarjeta recibo (PRO / BUSINESS) */
+.qw-receipt__promo {
+  --d-reveal: 450ms;
+  margin-top: var(--s-5);
+  padding: var(--s-4) var(--s-4) var(--s-4);
+  border-radius: var(--r-sm);
+  border: 1px solid rgba(108, 59, 255, 0.32);
+  background: linear-gradient(160deg, rgba(108, 59, 255, 0.14), rgba(108, 59, 255, 0.04));
+  box-shadow: 0 0 32px -18px rgba(108, 59, 255, 0.8);
+}
+.qw-receipt__promo-tag {
+  margin-bottom: var(--s-3);
+  padding: 0.3rem 0.65rem;
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.qw-receipt__promo-row { display: flex; align-items: flex-start; gap: var(--s-3); }
+.qw-receipt__promo-icon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  margin-top: 0.1em;
+  border-radius: 50%;
+  color: #d8c7ff;
+  background: rgba(108, 59, 255, 0.22);
+}
+.qw-receipt__promo-icon svg { width: 15px; height: 15px; }
+.qw-receipt__promo-copy { min-width: 0; }
+.qw-receipt__promo-title {
+  font-family: var(--f-body);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--c-text);
+}
+.qw-receipt__promo-highlight {
+  margin-top: 0.15rem;
+  font-family: var(--f-mono);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  color: #d8c7ff;
+}
+.qw-receipt__promo-note {
+  margin-top: var(--s-3);
+  font-size: 0.68rem;
+  line-height: 1.5;
+  color: var(--c-text-dim);
+}
+
+/* Business: mismo bloque, con un pelín más de peso visual que PRO */
+.qw-receipt__promo--emphasis {
+  border-color: rgba(108, 59, 255, 0.48);
+  box-shadow: 0 0 40px -16px rgba(108, 59, 255, 0.95);
+}
+.qw-receipt__promo--emphasis .qw-receipt__promo-icon { background: rgba(108, 59, 255, 0.32); }
+.qw-receipt__promo--emphasis .qw-receipt__promo-highlight { font-size: 0.95rem; color: #e4d6ff; }
 
 /* ==========================================================================
    7. MANTENIMIENTO

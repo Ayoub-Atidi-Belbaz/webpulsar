@@ -139,7 +139,9 @@
             "tagline": "Para negocios que quieren una presencia online más completa.",
             "features": "Hasta 5 páginas\nDiseño personalizado\nSEO básico\nWhatsApp\nFormularios\nGoogle Maps\nRedes sociales\nGalería profesional\nOptimización móvil",
             "cta_label": "Quiero la PRO", "cta_url": "", "event": "click_pro", "plan_value": "pro", "featured": true, "flag": "MÁS ELEGIDO",
-            "variant_id": "64575079776625"
+            "variant_id": "64575079776625",
+            "promo_enabled": true, "promo_tag": "Promoción de lanzamiento", "promo_title": "Dominio gratis",
+            "promo_highlight": "1 año incluido", "promo_note": "Dominio incluido durante el primer año.", "promo_emphasis": false
           }
         },
         "business": {
@@ -149,7 +151,9 @@
             "tagline": "Para negocios que quieren convertir su web en una herramienta de ventas.",
             "features": "Web completa\nReservas y citas\nAutomatizaciones\nSEO avanzado\nFormularios avanzados\nIntegraciones\nGoogle Business\nAnalítica\nFuncionalidades personalizadas",
             "cta_label": "Quiero BUSINESS", "cta_url": "", "event": "click_business", "plan_value": "business", "featured": false, "flag": "",
-            "variant_id": "64575079842161"
+            "variant_id": "64575079842161",
+            "promo_enabled": true, "promo_tag": "Promoción de lanzamiento", "promo_title": "Dominio gratis",
+            "promo_highlight": "2 años incluidos", "promo_note": "Dominio incluido durante los primeros 2 años.", "promo_emphasis": true
           }
         },
         "amedida": {
@@ -169,7 +173,8 @@
         "heading": "Elige hasta dónde quieres llegar.",
         "heading_accent": "",
         "body": "Empieza por lo básico y sube de plan cuando tu negocio lo pida. Sin permanencia en ninguno.",
-        "foot_note": "Dominio y hosting no incluidos en ningún plan. Te pasamos el coste exacto antes de empezar y puedes contratarlos por tu cuenta si lo prefieres."
+        "foot_note": "Hosting no incluido en ningún plan. El dominio está incluido temporalmente en los planes PRO y BUSINESS durante la promoción de lanzamiento; en el resto de planes se paga aparte. Te pasamos el coste exacto antes de empezar.",
+        "promo_legal_note": "Dominio incluido durante el periodo promocional. La renovación posterior se realizará según las condiciones vigentes."
       }
     },
     "mantenimiento": {
@@ -268,7 +273,7 @@
       "type": "faq-accordion",
       "blocks": {
         "q1": { "type": "faq", "settings": { "question": "¿Qué incluye la web de 49 €?", "answer": "<p>Una página profesional con la información de tu negocio, tus servicios, fotos, ubicación, formulario de contacto y botón de WhatsApp. Adaptada a móvil y lista para publicar.</p>" } },
-        "q2": { "type": "faq", "settings": { "question": "¿El dominio está incluido?", "answer": "<p>No. El dominio se paga aparte porque queda a tu nombre y se renueva cada año. Te decimos el coste exacto antes de empezar y, si quieres, lo gestionamos por ti.</p>" } },
+        "q2": { "type": "faq", "settings": { "question": "¿El dominio está incluido?", "answer": "<p>Depende del plan. En la web de 49 € y en A MEDIDA el dominio se paga aparte porque queda a tu nombre. En los planes PRO y BUSINESS el dominio está incluido durante la promoción de lanzamiento (1 y 2 años respectivamente); pasado ese periodo, la renovación se factura según las condiciones vigentes.</p>" } },
         "q3": { "type": "faq", "settings": { "question": "¿El hosting está incluido?", "answer": "<p>Tampoco. Es un servicio recurrente con coste propio y preferimos no esconderlo dentro del precio. Te recomendamos una opción concreta según lo que necesite tu web.</p>" } },
         "q4": { "type": "faq", "settings": { "question": "¿Cuánto tardáis?", "answer": "<p>La web de 49 € suele estar lista en pocos días desde que recibimos tus textos y tus fotos. Antes de empezar te damos una fecha concreta y la cumplimos.</p>" } },
         "q5": { "type": "faq", "settings": { "question": "¿Puedo pedir cambios?", "answer": "<p>Sí. Cada plan incluye una ronda de cambios sobre la primera versión. A partir de ahí, los cambios puntuales se presupuestan aparte o entran en el mantenimiento si lo contratas.</p>" } },

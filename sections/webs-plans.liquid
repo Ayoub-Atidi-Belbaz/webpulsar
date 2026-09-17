@@ -58,19 +58,6 @@
 
             <div class="qw-receipt__rule"></div>
 
-            <ul class="qw-receipt__items">
-              {%- for feature in features -%}
-                {%- assign line = feature | strip_newlines | strip -%}
-                {%- if line != blank -%}
-                  <li>
-                    <span>{{ line }}</span>
-                    <span class="qw-receipt__leader" aria-hidden="true"></span>
-                    {% render 'icon', name: 'check', size: 11 %}
-                  </li>
-                {%- endif -%}
-              {%- endfor -%}
-            </ul>
-
             <div class="qw-receipt__total">
               <div class="qw-receipt__total-row">
                 <span>Total</span>
@@ -97,6 +84,39 @@
               {{ b.cta_label }}
             </a>
 
+            {%- if b.promo_enabled -%}
+              <div class="qw-receipt__promo{% if b.promo_emphasis %} qw-receipt__promo--emphasis{% endif %}" data-reveal>
+                {%- if b.promo_tag != blank -%}
+                  <span class="chip chip--violet qw-receipt__promo-tag">{{ b.promo_tag }}</span>
+                {%- endif -%}
+                <div class="qw-receipt__promo-row">
+                  <span class="qw-receipt__promo-icon">{% render 'icon', name: 'gift', size: 15 %}</span>
+                  <div class="qw-receipt__promo-copy">
+                    {%- if b.promo_title != blank -%}<p class="qw-receipt__promo-title">{{ b.promo_title }}</p>{%- endif -%}
+                    {%- if b.promo_highlight != blank -%}<p class="qw-receipt__promo-highlight">{{ b.promo_highlight }}</p>{%- endif -%}
+                  </div>
+                </div>
+                {%- if b.promo_note != blank -%}
+                  <p class="qw-receipt__promo-note">{{ b.promo_note }}</p>
+                {%- endif -%}
+              </div>
+            {%- endif -%}
+
+            <div class="qw-receipt__rule"></div>
+
+            <ul class="qw-receipt__items">
+              {%- for feature in features -%}
+                {%- assign line = feature | strip_newlines | strip -%}
+                {%- if line != blank -%}
+                  <li>
+                    <span>{{ line }}</span>
+                    <span class="qw-receipt__leader" aria-hidden="true"></span>
+                    {% render 'icon', name: 'check', size: 11 %}
+                  </li>
+                {%- endif -%}
+              {%- endfor -%}
+            </ul>
+
             <div class="qw-receipt__barcode" aria-hidden="true"></div>
             <p class="qw-receipt__code">{{ order_code }}</p>
           </article>
@@ -117,6 +137,13 @@
       <p class="qw-note" style="margin-top: var(--s-8); max-width: 680px; margin-inline: auto;" data-reveal="fade">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5.5M12 7.6v.2"/></svg>
         <span>{{ s.foot_note }}</span>
+      </p>
+    {%- endif -%}
+
+    {%- if s.promo_legal_note != blank -%}
+      <p class="qw-note qw-note--muted" style="margin-top: var(--s-4); max-width: 680px; margin-inline: auto;" data-reveal="fade">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8 12h8M8 15.5h5"/></svg>
+        <span>{{ s.promo_legal_note }}</span>
       </p>
     {%- endif -%}
   </div>
@@ -188,7 +215,8 @@
     { "type": "text", "id": "heading", "label": "Titular", "default": "Elige hasta dónde quieres llegar." },
     { "type": "text", "id": "heading_accent", "label": "Parte destacada" },
     { "type": "textarea", "id": "body", "label": "Subtítulo", "default": "Empieza por lo básico y sube de plan cuando tu negocio lo pida. Sin permanencia en ningúno." },
-    { "type": "textarea", "id": "foot_note", "label": "Nota bajo los planes", "default": "Dominio y hosting no incluidos en ningún plan. Te pasamos el coste exacto antes de empezar y puedes contratarlos por tu cuenta si lo prefieres." }
+    { "type": "textarea", "id": "foot_note", "label": "Nota bajo los planes", "default": "Hosting no incluido en ningún plan. El dominio está incluido temporalmente en los planes PRO y BUSINESS durante la promoción de lanzamiento; en el resto de planes se paga aparte. Te pasamos el coste exacto antes de empezar." },
+    { "type": "textarea", "id": "promo_legal_note", "label": "Nota legal de la promoción", "info": "Se muestra debajo de la nota anterior, solo si tiene texto.", "default": "Dominio incluido durante el periodo promocional. La renovación posterior se realizará según las condiciones vigentes." }
   ],
   "blocks": [
     {
@@ -222,7 +250,14 @@
         { "type": "text", "id": "plan_value", "label": "Valor en el formulario", "info": "Debe coincidir con una opción del desplegable del formulario para que se preseleccione sola.", "default": "starter" },
         { "type": "header", "content": "Destacado" },
         { "type": "checkbox", "id": "featured", "label": "Marcar como destacado", "default": false },
-        { "type": "text", "id": "flag", "label": "Etiqueta del destacado", "default": "MÁS ELEGIDO" }
+        { "type": "text", "id": "flag", "label": "Etiqueta del destacado", "default": "MÁS ELEGIDO" },
+        { "type": "header", "content": "Promoción de dominio gratis (opcional)" },
+        { "type": "checkbox", "id": "promo_enabled", "label": "Mostrar promoción en esta tarjeta", "default": false },
+        { "type": "text", "id": "promo_tag", "label": "Etiqueta pequeña", "default": "Promoción de lanzamiento" },
+        { "type": "text", "id": "promo_title", "label": "Beneficio destacado", "default": "Dominio gratis" },
+        { "type": "text", "id": "promo_highlight", "label": "Texto de impacto", "info": "Por ejemplo: 1 año incluido.", "default": "1 año incluido" },
+        { "type": "textarea", "id": "promo_note", "label": "Texto secundario", "default": "Dominio incluido durante el primer año." },
+        { "type": "checkbox", "id": "promo_emphasis", "label": "Dar más énfasis visual", "info": "Úsalo en el plan con el beneficio mayor (por ejemplo, BUSINESS frente a PRO).", "default": false }
       ]
     }
   ],
@@ -245,7 +280,9 @@
             "name": "PRO", "price": "199", "pay_label": "Pago único",
             "tagline": "Para negocios que quieren una presencia online más completa.",
             "features": "Hasta 5 páginas\nDiseño personalizado\nSEO básico\nWhatsApp\nFormularios\nGoogle Maps\nRedes sociales\nGalería profesional\nOptimización móvil",
-            "cta_label": "Quiero la PRO", "event": "click_pro", "plan_value": "pro", "featured": true, "flag": "MÁS ELEGIDO"
+            "cta_label": "Quiero la PRO", "event": "click_pro", "plan_value": "pro", "featured": true, "flag": "MÁS ELEGIDO",
+            "promo_enabled": true, "promo_tag": "Promoción de lanzamiento", "promo_title": "Dominio gratis",
+            "promo_highlight": "1 año incluido", "promo_note": "Dominio incluido durante el primer año.", "promo_emphasis": false
           }
         },
         {
@@ -254,7 +291,9 @@
             "name": "BUSINESS", "price": "499", "pay_label": "Pago único",
             "tagline": "Para negocios que quieren convertir su web en una herramienta de ventas.",
             "features": "Web completa\nReservas y citas\nAutomatizaciones\nSEO avanzado\nFormularios avanzados\nIntegraciones\nGoogle Business\nAnalítica\nFuncionalidades personalizadas",
-            "cta_label": "Quiero BUSINESS", "event": "click_business", "plan_value": "business", "featured": false
+            "cta_label": "Quiero BUSINESS", "event": "click_business", "plan_value": "business", "featured": false,
+            "promo_enabled": true, "promo_tag": "Promoción de lanzamiento", "promo_title": "Dominio gratis",
+            "promo_highlight": "2 años incluidos", "promo_note": "Dominio incluido durante los primeros 2 años.", "promo_emphasis": true
           }
         }
       ]
