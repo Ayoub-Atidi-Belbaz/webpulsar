@@ -1,0 +1,29 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "brief": {
+      "type": "brief-form",
+      "blocks": {
+        "step1": { "type": "step", "settings": { "title": "Your details", "hint": "To link the brief to your order", "fields": "email* | Email | you@agency.com\ntext* | Order number | #1001\ntext | Brand or end client | " } },
+        "step2": { "type": "step", "settings": { "title": "The product", "hint": "What we're advertising", "fields": "text* | Product | \nurl | Product URL | https://\ntextarea* | What it does and why it's better | Three sentences is enough" } },
+        "step3": { "type": "step", "settings": { "title": "The angle", "hint": "Who we're talking to and how", "fields": "textarea* | Target audience | Age, context, what they care about\ntextarea* | Sales angle | The main argument you want to test\npills | Tone | Direct; Aspirational; Humor; Testimonial; Educational\ntext | Call to action | Shop now" } },
+        "step4": { "type": "step", "settings": { "title": "References and assets", "hint": "Links, not files", "fields": "textarea | Reference ads | Paste links here, one per line\nurl | Folder with your assets | https://drive.google.com/...\ntextarea | Restrictions | Banned words, claims we can't make, brand guide" } }
+      },
+      "block_order": ["step1", "step2", "step3", "step4"],
+      "settings": {
+        "eyebrow": "Almost there", "heading": "Let's produce", "heading_accent": "your first videos", "body": "Fill out the brief to kick off production. Takes about 10 minutes.",
+        "next_label": "Next", "submit_label": "Submit brief", "footer_note": "References and assets are sent as links (Drive, Dropbox, WeTransfer).",
+        "success_heading": "Brief received", "success_body": "<p>Thanks. We're starting production on your first batch and will email you as soon as it's ready for review.</p>", "success_cta_label": "Back to home", "success_cta_url": "/"
+      }
+    }
+  },
+  "order": ["brief"]
+}

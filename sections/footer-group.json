@@ -1,0 +1,41 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "name": "Pie de página",
+  "type": "footer",
+  "sections": {
+    "footer": {
+      "type": "footer",
+      "blocks": {
+        "menu-1": {
+          "type": "menu",
+          "settings": { "title": "Servicio", "menu": "footer" }
+        },
+        "text-1": {
+          "type": "text",
+          "settings": {
+            "title": "Contacto",
+            "body": "<p>hello@quickmotionai.com<br>Respuesta en menos de 24 horas laborables.</p>"
+          }
+        }
+      },
+      "block_order": ["menu-1", "text-1"],
+      "settings": {
+        "tagline": "Webs profesionales para negocios reales. Sin permanencia, entrega rápida y pensadas para que te contacten tus clientes.",
+        "show_market_selector": true,
+        "rights": "Todos los derechos reservados.",
+        "legal_menu": "legal",
+        "show_payment_icons": true,
+        "watermark": ""
+      }
+    }
+  },
+  "order": ["footer"]
+}

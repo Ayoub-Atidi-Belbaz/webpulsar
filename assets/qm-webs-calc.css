@@ -1,0 +1,68 @@
+/* ==========================================================================
+   18. CALCULADORA DE CLIENTES PERDIDOS
+   ========================================================================== */
+
+.qw-calc__card {
+  position: relative;
+  max-width: 720px;
+  margin-inline: auto;
+  padding: clamp(1.75rem, 1.3rem + 2vw, 3rem);
+  border-radius: var(--r-xl);
+  border: 1px solid var(--c-line-accent);
+  background:
+    radial-gradient(120% 130% at 12% 0%, rgba(108, 59, 255, 0.14), transparent 58%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.012)),
+    var(--c-elev-1);
+  box-shadow: var(--shadow-card), 0 0 100px -50px rgba(108, 59, 255, 0.9);
+}
+
+.qw-calc__inputs { display: grid; gap: var(--s-5); }
+.qw-calc__inputs .field__label strong { color: var(--c-text); font-weight: 700; }
+
+.qw-calc__range {
+  width: 100%;
+  height: 6px;
+  margin-top: var(--s-2);
+  accent-color: var(--c-violet);
+  cursor: pointer;
+}
+
+.qw-calc__results {
+  margin-top: var(--s-7);
+  padding-top: var(--s-6);
+  border-top: 1px dashed var(--c-line-strong);
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--s-4);
+  text-align: center;
+}
+.qw-calc__result-value {
+  display: block;
+  font-family: var(--f-display);
+  font-size: clamp(1.4rem, 1.1rem + 1.2vw, 2.1rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--c-text);
+  font-variant-numeric: tabular-nums;
+}
+.qw-calc__result--accent .qw-calc__result-value {
+  background: var(--g-text);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.qw-calc__result-label {
+  display: block;
+  margin-top: 0.3rem;
+  font-size: var(--t-xs);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--c-text-dim);
+}
+@media (max-width: 599px) { .qw-calc__results { grid-template-columns: minmax(0, 1fr); gap: var(--s-5); } }
+
+.qw-calc__cta { margin-top: var(--s-7); text-align: center; }
+.qw-calc__note { margin-bottom: var(--s-4); font-size: var(--t-sm); color: var(--c-text-soft); }
+
+.qw-calc__disclaimer { margin-top: var(--s-5); text-align: center; font-size: var(--t-xs); color: var(--c-text-faint); }

@@ -1,0 +1,55 @@
+{{ 'sections.css' | asset_url | stylesheet_tag }}
+{{ 'cart.css' | asset_url | stylesheet_tag }}
+
+{%- comment -%}
+  Carrito. Productos digitales: sin estimador de envío ni notas de regalo.
+  El id="CartItems" es lo que cart.js reemplaza tras cada cambio de cantidad.
+{%- endcomment -%}
+
+{%- liquid
+  assign s = section.settings
+-%}
+
+<section class="section cart-page">
+  <div class="wrap wrap--narrow">
+    <h1 class="t-h2 cart-page__title" data-reveal>{{ 'templates.cart.cart' | t }}</h1>
+
+    <div id="CartItems" data-cart-root>
+      {% render 'cart-items-inner',
+        care_heading: s.care_heading,
+        care_note: s.care_note,
+        tier1_name: s.tier1_name, tier1_price: s.tier1_price, tier1_variant: s.tier1_variant, tier1_handle: s.tier1_handle, tier1_features: s.tier1_features,
+        tier2_name: s.tier2_name, tier2_price: s.tier2_price, tier2_variant: s.tier2_variant, tier2_handle: s.tier2_handle, tier2_features: s.tier2_features,
+        tier3_name: s.tier3_name, tier3_price: s.tier3_price, tier3_variant: s.tier3_variant, tier3_handle: s.tier3_handle, tier3_features: s.tier3_features
+      %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Carrito",
+  "tag": "div",
+  "settings": [
+    { "type": "header", "content": "Mantenimiento (popup en el carrito)" },
+    { "type": "paragraph", "content": "Se muestra como un popup Si/No debajo de los productos del carrito si aún no hay ningún mantenimiento añadido. El precio y el cobro mensual se leen en vivo del producto y de su plan de suscripción (Shopify Subscriptions)." },
+    { "type": "text", "id": "care_heading", "label": "Título del popup", "default": "¿Quieres añadir mantenimiento mensual?" },
+    { "type": "textarea", "id": "care_note", "label": "Nota", "default": "Opcional. Se cobra aparte, mes a mes, y puedes darte de baja cuando quieras." },
+    { "type": "text", "id": "tier1_name", "label": "Nivel 1 · nombre", "default": "Básico" },
+    { "type": "text", "id": "tier1_price", "label": "Nivel 1 · precio (solo si el producto no tiene plan aún)", "default": "19,90 €/mes" },
+    { "type": "text", "id": "tier1_variant", "label": "Nivel 1 · ID de variante (alternativo)", "default": "64607260279153" },
+    { "type": "text", "id": "tier1_handle", "label": "Nivel 1 · handle del producto", "info": "El handle de Shopify (lo que va después de /products/). Se usa para leer el precio y el plan de suscripción mensual en vivo.", "default": "mantenimiento-basico" },
+    { "type": "textarea", "id": "tier1_features", "label": "Nivel 1 · incluye", "info": "Una línea por característica.", "default": "Actualizaciones de la web\nPequeños cambios de contenido\nSoporte por WhatsApp o email" },
+    { "type": "text", "id": "tier2_name", "label": "Nivel 2 · nombre", "default": "PRO" },
+    { "type": "text", "id": "tier2_price", "label": "Nivel 2 · precio (solo si el producto no tiene plan aún)", "default": "29,90 €/mes" },
+    { "type": "text", "id": "tier2_variant", "label": "Nivel 2 · ID de variante (alternativo)", "default": "64607260311921" },
+    { "type": "text", "id": "tier2_handle", "label": "Nivel 2 · handle del producto", "default": "mantenimiento-pro" },
+    { "type": "textarea", "id": "tier2_features", "label": "Nivel 2 · incluye", "info": "Una línea por característica.", "default": "Todo lo del básico\nMás cambios de contenido al mes\nRespuesta prioritaria\nRevisión periódica de la web" },
+    { "type": "text", "id": "tier3_name", "label": "Nivel 3 · nombre", "default": "BUSINESS" },
+    { "type": "text", "id": "tier3_price", "label": "Nivel 3 · precio (solo si el producto no tiene plan aún)", "default": "49,90 €/mes" },
+    { "type": "text", "id": "tier3_variant", "label": "Nivel 3 · ID de variante (alternativo)", "default": "64607260541297" },
+    { "type": "text", "id": "tier3_handle", "label": "Nivel 3 · handle del producto", "default": "mantenimiento-business" },
+    { "type": "textarea", "id": "tier3_features", "label": "Nivel 3 · incluye", "info": "Una línea por característica.", "default": "Todo lo del PRO\nCambios y ajustes sin contar\nSoporte de las funciones avanzadas\nInforme de rendimiento" }
+  ]
+}
+{% endschema %}

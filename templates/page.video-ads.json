@@ -1,0 +1,794 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "hero": {
+      "type": "hero-cinematic",
+      "blocks": {
+        "v1": {
+          "type": "video",
+          "settings": {
+            "video_url": "https://cdn.shopify.com/videos/c/vp/275ff9e5f21c48568d818ffa2814a328/275ff9e5f21c48568d818ffa2814a328.SD-480p-1.5Mbps-93534615.mp4",
+            "poster_url": "https://cdn.shopify.com/s/files/1/1035/6097/0609/files/preview_images/275ff9e5f21c48568d818ffa2814a328.thumbnail.0000000000.jpg?v=1788555820",
+            "caption": "Wellness product · pain angle"
+          }
+        },
+        "v2": {
+          "type": "video",
+          "settings": {
+            "video_url": "https://cdn.shopify.com/videos/c/vp/03184c61478e48b3867714ffe03c3fe3/03184c61478e48b3867714ffe03c3fe3.SD-480p-1.5Mbps-93594648.mp4",
+            "poster_url": "https://cdn.shopify.com/s/files/1/1035/6097/0609/files/preview_images/03184c61478e48b3867714ffe03c3fe3.thumbnail.0000000000.jpg?v=1788636528",
+            "caption": "AI UGC · social ad"
+          }
+        },
+        "v3": {
+          "type": "video",
+          "settings": {
+            "video_url": "https://cdn.shopify.com/videos/c/vp/95d1fe48086b40ed9e5c610f241569ce/95d1fe48086b40ed9e5c610f241569ce.SD-480p-1.5Mbps-93534614.mp4",
+            "poster_url": "https://cdn.shopify.com/s/files/1/1035/6097/0609/files/preview_images/95d1fe48086b40ed9e5c610f241569ce.thumbnail.0000000000.jpg?v=1788555829",
+            "caption": "Product demo · comparison"
+          }
+        }
+      },
+      "block_order": ["v1", "v2", "v3"],
+      "settings": {
+        "layout": "split",
+        "eyebrow": "AI-powered creative production for brands & agencies",
+        "heading": "Create professional ads without",
+        "heading_accent": "a traditional production",
+        "body": "Human creative direction, AI-powered production, and advertising expertise — for brands and agencies running paid social campaigns across Meta and TikTok.",
+        "support": "From creative brief to launch-ready ads in as little as 72 hours.",
+        "proof": "",
+        "bullets": "Launch-ready ad creatives\nFast turnaround\nRevisions included\nNo long-term contracts",
+        "cta_primary_label": "See our work",
+        "cta_primary_url": "/pages/portfolio",
+        "cta_secondary_label": "Start your creative batch",
+        "cta_secondary_url": "/pages/pricing",
+        "show_scroll_cue": true,
+        "scroll_label": "Scroll"
+      }
+    },
+    "audience": {
+      "type": "audience-fit",
+      "settings": {
+        "eyebrow": "Who this is for",
+        "heading": "Built for teams that need",
+        "heading_accent": "more creative output",
+        "align": "center"
+      },
+      "blocks": {
+        "au1": {
+          "type": "profile",
+          "settings": {
+            "icon": "target",
+            "icon_color": "violet",
+            "label": "For agencies",
+            "title": "Performance Agencies",
+            "body": "Scale creative production across multiple client accounts without hiring additional editors or managing multiple freelancers."
+          }
+        },
+        "au2": {
+          "type": "profile",
+          "settings": {
+            "icon": "layers",
+            "icon_color": "cyan",
+            "label": "For e-commerce",
+            "title": "DTC & E-commerce Brands",
+            "body": "Test more hooks, creative angles and advertising concepts without expensive traditional shoots."
+          }
+        },
+        "au3": {
+          "type": "profile",
+          "settings": {
+            "icon": "shield",
+            "icon_color": "green",
+            "label": "For health brands",
+            "title": "Healthcare & Wellness Brands",
+            "body": "Turn complex products into simple, engaging and visually compelling advertising creatives."
+          }
+        }
+      },
+      "block_order": ["au1", "au2", "au3"]
+    },
+    "problems": {
+      "type": "problem-grid",
+      "settings": {
+        "eyebrow": "The problem we solve",
+        "heading": "Creative production shouldn't",
+        "heading_accent": "slow down your campaigns",
+        "body": "Most performance marketing teams don't lose money on media buying. They lose it waiting on creative.",
+        "align": "left",
+        "solution_text": "QuickMotion gives your team a production system that keeps up with how fast you need to test.",
+        "cta_label": "See our work",
+        "cta_url": "/pages/portfolio"
+      },
+      "blocks": {
+        "pb1": {
+          "type": "problem",
+          "settings": {
+            "title": "Traditional production is slow",
+            "body": "<p>Weeks from concept to final delivery. By the time the creative lands, the campaign has already been waiting on it.</p>"
+          }
+        },
+        "pb2": {
+          "type": "problem",
+          "settings": {
+            "title": "Freelancers are difficult to manage",
+            "body": "<p>Multiple people, inconsistent quality, endless communication. Coordination becomes its own job.</p>"
+          }
+        },
+        "pb3": {
+          "type": "problem",
+          "settings": {
+            "title": "Testing requires more creative volume",
+            "body": "<p>Winning campaigns come from testing multiple hooks, angles, concepts and formats — not from one polished video.</p>"
+          }
+        },
+        "pb4": {
+          "type": "problem",
+          "settings": {
+            "title": "In-house production doesn't always scale",
+            "body": "<p>Creative demand grows faster than internal teams. Hiring more editors is slow and expensive to reverse.</p>"
+          }
+        }
+      },
+      "block_order": ["pb1", "pb2", "pb3", "pb4"]
+    },
+    "helps": {
+      "type": "value-props",
+      "settings": {
+        "eyebrow": "How QuickMotion helps",
+        "heading": "Built for teams that",
+        "heading_accent": "need to test faster",
+        "body": "More concepts. More angles. More opportunities to find winning creatives — built for paid social teams running Meta and TikTok campaigns.",
+        "align": "left"
+      },
+      "blocks": {
+        "p1": {
+          "type": "prop",
+          "settings": {
+            "icon": "layers",
+            "icon_color": "violet",
+            "title": "More creative variations",
+            "body": "<p>Test multiple hooks, concepts, scripts and creative angles instead of betting the campaign on a single execution.</p>"
+          }
+        },
+        "p2": {
+          "type": "prop",
+          "settings": {
+            "icon": "bolt",
+            "icon_color": "cyan",
+            "title": "Faster production",
+            "body": "<p>Go from brief to launch-ready creative in days instead of weeks, without booking a shoot.</p>"
+          }
+        },
+        "p3": {
+          "type": "prop",
+          "settings": {
+            "icon": "grid",
+            "icon_color": "green",
+            "title": "Scalable output",
+            "body": "<p>Increase creative production without hiring more editors or managing multiple freelancers.</p>"
+          }
+        },
+        "p4": {
+          "type": "prop",
+          "settings": {
+            "icon": "sparkle",
+            "icon_color": "violet",
+            "title": "AI + human creative direction",
+            "body": "<p>We combine generative AI production with advertising strategy and professional creative direction. Not a prompt box.</p>"
+          }
+        }
+      },
+      "block_order": ["p1", "p2", "p3", "p4"]
+    },
+    "video-wall": {
+      "type": "video-wall",
+      "settings": {
+        "side": "left",
+        "eyebrow": "Featured work",
+        "heading": "Every creative here",
+        "heading_accent": "was produced for a real client",
+        "body": "No stock footage, no filler clips. Click any thumbnail to watch it with sound.",
+        "cta_label": "See the full portfolio",
+        "cta_url": "/pages/portfolio"
+      },
+      "blocks": {
+        "w1": {
+          "type": "clip",
+          "settings": {
+            "video_url": "https://cdn.shopify.com/videos/c/vp/03184c61478e48b3867714ffe03c3fe3/03184c61478e48b3867714ffe03c3fe3.SD-480p-1.5Mbps-93594648.mp4",
+            "poster_url": "https://cdn.shopify.com/s/files/1/1035/6097/0609/files/preview_images/03184c61478e48b3867714ffe03c3fe3.thumbnail.0000000000.jpg?v=1788636528",
+            "caption": "Perla Negra Tattoo"
+          }
+        },
+        "w2": {
+          "type": "clip",
+          "settings": {
+            "video_url": "https://cdn.shopify.com/videos/c/vp/5aa9da7f165a486bb48b70d63f2043ce/5aa9da7f165a486bb48b70d63f2043ce.SD-480p-1.5Mbps-93594651.mp4",
+            "poster_url": "https://cdn.shopify.com/s/files/1/1035/6097/0609/files/preview_images/5aa9da7f165a486bb48b70d63f2043ce.thumbnail.0000000000.jpg?v=1788636528",
+            "caption": "Perla Negra Tattoo"
+          }
+        },
+        "w3": {
+          "type": "clip",
+          "settings": {
+            "video_url": "https://cdn.shopify.com/videos/c/vp/530d18cbdb354484ad4a720bc380bf23/530d18cbdb354484ad4a720bc380bf23.SD-480p-1.5Mbps-93594649.mp4",
+            "poster_url": "https://cdn.shopify.com/s/files/1/1035/6097/0609/files/preview_images/530d18cbdb354484ad4a720bc380bf23.thumbnail.0000000000.jpg?v=1788636528",
+            "caption": "Perla Negra Tattoo"
+          }
+        },
+        "w4": {
+          "type": "clip",
+          "settings": {
+            "video_url": "https://cdn.shopify.com/videos/c/vp/69dc6c0874c84941b69c16abc9569792/69dc6c0874c84941b69c16abc9569792.SD-480p-1.5Mbps-93594650.mp4",
+            "poster_url": "https://cdn.shopify.com/s/files/1/1035/6097/0609/files/preview_images/69dc6c0874c84941b69c16abc9569792.thumbnail.0000000000.jpg?v=1788636528",
+            "caption": "Perla Negra Tattoo"
+          }
+        },
+        "w5": {
+          "type": "clip",
+          "settings": {
+            "video_url": "https://cdn.shopify.com/videos/c/vp/275ff9e5f21c48568d818ffa2814a328/275ff9e5f21c48568d818ffa2814a328.SD-480p-1.5Mbps-93534615.mp4",
+            "poster_url": "https://cdn.shopify.com/s/files/1/1035/6097/0609/files/preview_images/275ff9e5f21c48568d818ffa2814a328.thumbnail.0000000000.jpg?v=1788555820",
+            "caption": "Joint relief kit"
+          }
+        },
+        "w6": {
+          "type": "clip",
+          "settings": {
+            "video_url": "https://cdn.shopify.com/videos/c/vp/95d1fe48086b40ed9e5c610f241569ce/95d1fe48086b40ed9e5c610f241569ce.SD-480p-1.5Mbps-93534614.mp4",
+            "poster_url": "https://cdn.shopify.com/s/files/1/1035/6097/0609/files/preview_images/95d1fe48086b40ed9e5c610f241569ce.thumbnail.0000000000.jpg?v=1788555829",
+            "caption": "Joint relief kit"
+          }
+        },
+        "w7": {
+          "type": "clip",
+          "settings": {
+            "video_url": "https://cdn.shopify.com/videos/c/vp/a95869abd9b142d8b91bdea3059ed4e9/a95869abd9b142d8b91bdea3059ed4e9.SD-480p-1.5Mbps-93534613.mp4",
+            "poster_url": "https://cdn.shopify.com/s/files/1/1035/6097/0609/files/preview_images/a95869abd9b142d8b91bdea3059ed4e9.thumbnail.0000000000.jpg?v=1788555831",
+            "caption": "Joint relief kit"
+          }
+        },
+        "w8": {
+          "type": "clip",
+          "settings": {
+            "video_url": "https://cdn.shopify.com/videos/c/vp/d1704e2a47e547d293d05bd2f709abca/d1704e2a47e547d293d05bd2f709abca.SD-480p-1.2Mbps-93598424.mp4",
+            "poster_url": "https://cdn.shopify.com/s/files/1/1035/6097/0609/files/preview_images/d1704e2a47e547d293d05bd2f709abca.thumbnail.0000000000.jpg?v=1788642005",
+            "caption": "ALM Electricidad"
+          }
+        }
+      },
+      "block_order": ["w1", "w2", "w3", "w4", "w5", "w6", "w7", "w8"]
+    },
+    "capabilities": {
+      "type": "capabilities",
+      "settings": {
+        "eyebrow": "What we create",
+        "heading": "Ad creatives built for",
+        "heading_accent": "modern performance marketing",
+        "body": "One production partner across the formats a paid media team actually runs.",
+        "columns": "3",
+        "align": "left",
+        "show_halo": true,
+        "cta_label": "See the full portfolio",
+        "cta_url": "/pages/portfolio"
+      },
+      "blocks": {
+        "c1": {
+          "type": "category",
+          "settings": {
+            "title": "AI UGC ads",
+            "body": "AI-generated creators and spokesperson-style content designed for social advertising.",
+            "video_url": "https://cdn.shopify.com/videos/c/vp/03184c61478e48b3867714ffe03c3fe3/03184c61478e48b3867714ffe03c3fe3.SD-480p-1.5Mbps-93594648.mp4",
+            "poster_url": "https://cdn.shopify.com/s/files/1/1035/6097/0609/files/preview_images/03184c61478e48b3867714ffe03c3fe3.thumbnail.0000000000.jpg?v=1788636528",
+            "caption": "Social ad · 9:16"
+          }
+        },
+        "c2": {
+          "type": "category",
+          "settings": {
+            "title": "Product commercials",
+            "body": "High-quality product-focused video ads with cinematic pacing and a clear offer.",
+            "video_url": "https://cdn.shopify.com/videos/c/vp/d1704e2a47e547d293d05bd2f709abca/d1704e2a47e547d293d05bd2f709abca.SD-480p-1.2Mbps-93598424.mp4",
+            "poster_url": "https://cdn.shopify.com/s/files/1/1035/6097/0609/files/preview_images/d1704e2a47e547d293d05bd2f709abca.thumbnail.0000000000.jpg?v=1788642005",
+            "caption": "Service commercial · 9:16"
+          }
+        },
+        "c3": {
+          "type": "category",
+          "settings": {
+            "title": "Image-to-video",
+            "body": "Transform static product visuals into dynamic advertising content without a reshoot.",
+            "caption": ""
+          }
+        },
+        "c4": {
+          "type": "category",
+          "settings": {
+            "title": "Product demonstrations",
+            "body": "Show how the product works in a way that answers the objection before it is asked.",
+            "video_url": "https://cdn.shopify.com/videos/c/vp/95d1fe48086b40ed9e5c610f241569ce/95d1fe48086b40ed9e5c610f241569ce.SD-480p-1.5Mbps-93534614.mp4",
+            "poster_url": "https://cdn.shopify.com/s/files/1/1035/6097/0609/files/preview_images/95d1fe48086b40ed9e5c610f241569ce.thumbnail.0000000000.jpg?v=1788555829",
+            "caption": "Comparison demo · 9:16"
+          }
+        },
+        "c5": {
+          "type": "category",
+          "settings": {
+            "title": "Performance ad variations",
+            "body": "Multiple hooks, angles, messaging styles and creative concepts built for testing.",
+            "video_url": "https://cdn.shopify.com/videos/c/vp/a95869abd9b142d8b91bdea3059ed4e9/a95869abd9b142d8b91bdea3059ed4e9.SD-480p-1.5Mbps-93534613.mp4",
+            "poster_url": "https://cdn.shopify.com/s/files/1/1035/6097/0609/files/preview_images/a95869abd9b142d8b91bdea3059ed4e9.thumbnail.0000000000.jpg?v=1788555831",
+            "caption": "Objection-handling angle · 9:16"
+          }
+        },
+        "c6": {
+          "type": "category",
+          "settings": {
+            "title": "Healthcare & wellness creatives",
+            "body": "Educational, product-focused and visually engaging creatives for health-related brands.",
+            "video_url": "https://cdn.shopify.com/videos/c/vp/275ff9e5f21c48568d818ffa2814a328/275ff9e5f21c48568d818ffa2814a328.SD-480p-1.5Mbps-93534615.mp4",
+            "poster_url": "https://cdn.shopify.com/s/files/1/1035/6097/0609/files/preview_images/275ff9e5f21c48568d818ffa2814a328.thumbnail.0000000000.jpg?v=1788555820",
+            "caption": "Wellness product · 9:16"
+          }
+        }
+      },
+      "block_order": ["c1", "c2", "c3", "c4", "c5", "c6"]
+    },
+    "industries": {
+      "type": "industries",
+      "settings": {
+        "eyebrow": "Specialization",
+        "heading": "AI creative production for",
+        "heading_accent": "healthcare, wellness & biomedical brands",
+        "body": "We help complex products become simple, engaging, and visually compelling advertising creatives.",
+        "note_title": "Built with responsible messaging in mind",
+        "note_body": "<p>We are not a regulatory or legal advisor and we don't guarantee compliance. All medical, scientific and health-related claims should be provided or approved by the client before production.</p>",
+        "cta_label": "See our healthcare work",
+        "cta_url": "/pages/healthcare",
+        "cta_secondary_label": "Start a project",
+        "cta_secondary_url": "/pages/pricing"
+      },
+      "blocks": {
+        "i1": { "type": "industry", "settings": { "name": "Healthcare" } },
+        "i2": { "type": "industry", "settings": { "name": "Wellness" } },
+        "i3": { "type": "industry", "settings": { "name": "Supplements" } },
+        "i4": { "type": "industry", "settings": { "name": "Skincare" } },
+        "i5": { "type": "industry", "settings": { "name": "Medical devices" } },
+        "i6": { "type": "industry", "settings": { "name": "Health technology" } },
+        "i7": { "type": "industry", "settings": { "name": "Telehealth" } },
+        "i8": { "type": "industry", "settings": { "name": "Medical aesthetics" } },
+        "i9": { "type": "industry", "settings": { "name": "Consumer health" } }
+      },
+      "block_order": ["i1", "i2", "i3", "i4", "i5", "i6", "i7", "i8", "i9"]
+    },
+    "aitools": {
+      "type": "ai-tools",
+      "settings": {
+        "eyebrow": "Why not just use AI tools yourself?",
+        "heading": "AI tools are easy.",
+        "heading_accent": "Great advertising still isn't.",
+        "body": "Generating a clip is the part that got cheap. It is not the part that decides whether the campaign works.",
+        "tool_label": "What an AI tool gives you",
+        "tool_lead": "Content. A clip that renders on demand, at low cost, as many times as you want.",
+        "tool_note": "That part is solved. It is also the part that has the least to do with performance.",
+        "work_label": "What effective advertising still requires",
+        "closer": "You bring the product. We build the creatives.",
+        "cta_label": "",
+        "cta_url": ""
+      },
+      "blocks": {
+        "r1": { "type": "requirement", "settings": { "text": "Creative strategy" } },
+        "r2": { "type": "requirement", "settings": { "text": "Strong hooks" } },
+        "r3": { "type": "requirement", "settings": { "text": "Sales angles" } },
+        "r4": { "type": "requirement", "settings": { "text": "Messaging" } },
+        "r5": { "type": "requirement", "settings": { "text": "Storytelling" } },
+        "r6": { "type": "requirement", "settings": { "text": "Editing" } },
+        "r7": { "type": "requirement", "settings": { "text": "Platform knowledge" } },
+        "r8": { "type": "requirement", "settings": { "text": "Creative direction" } },
+        "r9": { "type": "requirement", "settings": { "text": "Understanding how paid ads work" } }
+      },
+      "block_order": ["r1", "r2", "r3", "r4", "r5", "r6", "r7", "r8", "r9"]
+    },
+    "how-it-works": {
+      "type": "how-it-works",
+      "settings": {
+        "eyebrow": "How it works",
+        "heading": "From brief to",
+        "heading_accent": "launch-ready creative",
+        "body": "Human creative direction at every step. AI is how we produce the work, not how we decide it.",
+        "align": "center",
+        "cta_label": "",
+        "cta_url": ""
+      },
+      "blocks": {
+        "st1": {
+          "type": "step",
+          "settings": {
+            "title": "Submit your brief",
+            "meta": "10 minutes",
+            "body": "<p>Tell us about your product, audience, campaign objective and creative direction.</p>"
+          }
+        },
+        "st2": {
+          "type": "step",
+          "settings": {
+            "title": "Creative development",
+            "meta": "Before anything is generated",
+            "body": "<p>We develop concepts, scripts, visuals and production direction. This is the part that decides whether an ad works.</p>"
+          }
+        },
+        "st3": {
+          "type": "step",
+          "settings": {
+            "title": "AI + human production",
+            "meta": "No shoot required",
+            "body": "<p>We combine generative AI technology with professional creative production and editing.</p>"
+          }
+        },
+        "st4": {
+          "type": "step",
+          "settings": {
+            "title": "Review & revisions",
+            "meta": "Included in every plan",
+            "body": "<p>You review the creatives and request the changes you want before final delivery.</p>"
+          }
+        },
+        "st5": {
+          "type": "step",
+          "settings": {
+            "title": "Launch",
+            "meta": "72 hours from brief",
+            "body": "<p>Receive campaign-ready creatives in every format your paid media channels need.</p>"
+          }
+        }
+      },
+      "block_order": ["st1", "st2", "st3", "st4", "st5"]
+    },
+    "spotlight": {
+      "type": "client-spotlight",
+      "settings": {
+        "eyebrow": "Results",
+        "heading": "One client,",
+        "heading_accent": "four creatives that took off",
+        "body": "",
+        "caption": "Perla Negra Tattoo · Instagram Reels",
+        "metric_value": "100K+",
+        "metric_label": "views",
+        "metric_color": "cyan"
+      },
+      "blocks": {
+        "c1": {
+          "type": "clip",
+          "settings": {
+            "video_url": "https://cdn.shopify.com/videos/c/vp/03184c61478e48b3867714ffe03c3fe3/03184c61478e48b3867714ffe03c3fe3.HD-720p-4.5Mbps-93594648.mp4",
+            "poster_url": "https://cdn.shopify.com/s/files/1/1035/6097/0609/files/preview_images/03184c61478e48b3867714ffe03c3fe3.thumbnail.0000000000.jpg?v=1788636528"
+          }
+        },
+        "c2": {
+          "type": "clip",
+          "settings": {
+            "video_url": "https://cdn.shopify.com/videos/c/vp/5aa9da7f165a486bb48b70d63f2043ce/5aa9da7f165a486bb48b70d63f2043ce.HD-720p-4.5Mbps-93594651.mp4",
+            "poster_url": "https://cdn.shopify.com/s/files/1/1035/6097/0609/files/preview_images/5aa9da7f165a486bb48b70d63f2043ce.thumbnail.0000000000.jpg?v=1788636528"
+          }
+        },
+        "c3": {
+          "type": "clip",
+          "settings": {
+            "video_url": "https://cdn.shopify.com/videos/c/vp/530d18cbdb354484ad4a720bc380bf23/530d18cbdb354484ad4a720bc380bf23.HD-720p-4.5Mbps-93594649.mp4",
+            "poster_url": "https://cdn.shopify.com/s/files/1/1035/6097/0609/files/preview_images/530d18cbdb354484ad4a720bc380bf23.thumbnail.0000000000.jpg?v=1788636528"
+          }
+        },
+        "c4": {
+          "type": "clip",
+          "settings": {
+            "video_url": "https://cdn.shopify.com/videos/c/vp/69dc6c0874c84941b69c16abc9569792/69dc6c0874c84941b69c16abc9569792.HD-720p-4.5Mbps-93594650.mp4",
+            "poster_url": "https://cdn.shopify.com/s/files/1/1035/6097/0609/files/preview_images/69dc6c0874c84941b69c16abc9569792.thumbnail.0000000000.jpg?v=1788636528"
+          }
+        }
+      },
+      "block_order": ["c1", "c2", "c3", "c4"]
+    },
+    "testimonials": {
+      "type": "testimonials",
+      "settings": {
+        "eyebrow": "Client results",
+        "heading": "What changed for the brands",
+        "heading_accent": "we produce for",
+        "align": "center"
+      },
+      "blocks": {
+        "q1": {
+          "type": "quote",
+          "settings": {
+            "result": "+3",
+            "result_label": "new hires in 4 months",
+            "quote": "Thanks to the videos and the website you made for us, we've had to hire more workers.",
+            "name": "ALM Electricidad",
+            "role": "Solar panel installer"
+          }
+        },
+        "q2": {
+          "type": "quote",
+          "settings": {
+            "quote": "Ever since these videos went up, people message us from all over the world wanting me to tattoo them.",
+            "name": "Perla Negra Tattoo",
+            "role": "Tattoo studio"
+          }
+        },
+        "q3": {
+          "type": "quote",
+          "settings": {
+            "quote": "We went from a brand nobody knew to one people recognize across Spain's car parts market. The ads weren't just something we ran — they're part of why we're billing what we bill today.",
+            "name": "Recambia",
+            "role": "Car parts retailer, Spain"
+          }
+        },
+        "q4": {
+          "type": "quote",
+          "settings": {
+            "quote": "People in Murcia started recognizing us from the videos before they even walked into the shop. It's the most visibility we've had without changing anything else about the business.",
+            "name": "Automar Menor",
+            "role": "Bosch Car Service, Murcia"
+          }
+        }
+      },
+      "block_order": ["q3", "q4", "q1", "q2"]
+    },
+    "agency": {
+      "type": "agency-band",
+      "settings": {
+        "eyebrow": "For agencies",
+        "heading": "Your On-Demand",
+        "heading_accent": "Creative Production Partner",
+        "body": "<p>For agencies that need more creative capacity without hiring additional staff.</p>",
+        "cta_label": "Partner With QuickMotion",
+        "cta_url": "/pages/agencies",
+        "cta_secondary_label": "See pricing",
+        "cta_secondary_url": "/pages/pricing"
+      },
+      "blocks": {
+        "b1": { "type": "benefit", "settings": { "text": "Scale production across multiple clients" } },
+        "b2": { "type": "benefit", "settings": { "text": "No need to hire additional editors" } },
+        "b3": { "type": "benefit", "settings": { "text": "No need to manage multiple freelancers" } },
+        "b4": { "type": "benefit", "settings": { "text": "Predictable production workflow" } },
+        "b5": { "type": "benefit", "settings": { "text": "Fast turnaround" } },
+        "b6": { "type": "benefit", "settings": { "text": "White-label collaboration available" } },
+        "b7": { "type": "benefit", "settings": { "text": "Scalable creative capacity" } }
+      },
+      "block_order": ["b1", "b2", "b3", "b4", "b5", "b6", "b7"]
+    },
+    "pricing": {
+      "type": "pricing-cards",
+      "settings": {
+        "eyebrow": "Pricing",
+        "heading": "Your on-demand",
+        "heading_accent": "creative production capacity",
+        "body": "More concepts. More angles. More opportunities to find winning ads. No production team required, no freelancers to manage, no cameras or shoots.",
+        "footer_note": "We limit monthly production capacity to maintain fast turnaround and quality. Digital service: no shipping, no setup fee.",
+        "clarification": "An ad creative refers to one completed short-form advertising concept. Complex or custom productions may require a custom quote."
+      },
+      "blocks": {
+        "pk1": {
+          "type": "pack",
+          "settings": {
+            "product": "shopify://products/pack-starter-3-videos-anuncio-ia-mes",
+            "product_handle": "pack-starter-3-videos-anuncio-ia-mes",
+            "period": "/mo",
+            "name": "Starter",
+            "subtitle": "Creative Testing",
+            "pitch": "For brands testing new advertising concepts and creative angles.",
+            "features": "Up to 3 ad creatives per month\nCreative direction\nAI-powered production\nEditing\nShort-form ad formats\n1 revision round per creative\nCommercial usage rights",
+            "cta_label": "Start Creating"
+          }
+        },
+        "pk2": {
+          "type": "pack",
+          "settings": {
+            "product": "shopify://products/pack-growth-5-videos-anuncio-ia-mes",
+            "product_handle": "pack-growth-5-videos-anuncio-ia-mes",
+            "period": "/mo",
+            "name": "Growth",
+            "featured": true,
+            "badge": "Most popular",
+            "subtitle": "Creative Momentum",
+            "pitch": "For brands actively running paid advertising campaigns and testing new creative angles.",
+            "features": "Up to 5 ad creatives per month\nMultiple hooks and creative angles\nCreative direction\nAI-powered production\nProfessional editing\nPaid social ad formats\nMeta and TikTok-ready creatives\nRevisions included\nCommercial usage rights\nPriority production",
+            "cta_label": "Scale Your Creative"
+          }
+        },
+        "pk3": {
+          "type": "pack",
+          "settings": {
+            "product": "shopify://products/pack-scale-10-videos-anuncio-ia-mes",
+            "product_handle": "pack-scale-10-videos-anuncio-ia-mes",
+            "period": "/mo",
+            "name": "Scale",
+            "subtitle": "Creative Capacity",
+            "pitch": "For agencies and brands with continuous creative production needs.",
+            "features": "Up to 10 ad creatives per month\nMultiple creative concepts\nMultiple hooks and advertising angles\nAI UGC creatives\nProduct-focused ads\nImage-to-video creatives\nPriority production\nRevisions included\nCommercial usage rights\nAgency and white-label collaboration available",
+            "cta_label": "Scale Production"
+          }
+        }
+      },
+      "block_order": ["pk1", "pk2", "pk3"]
+    },
+    "compare": {
+      "type": "comparison-table",
+      "settings": {
+        "row_header": "",
+        "columns": "Traditional Production, QuickMotion",
+        "highlight_index": 1,
+        "eyebrow": "The real comparison",
+        "heading": "Traditional Production",
+        "heading_accent": "vs QuickMotion",
+        "closer": "You're not replacing creativity. You're removing production friction."
+      },
+      "blocks": {
+        "r1": { "type": "row", "settings": { "label": "Camera crews", "values": "yes, no" } },
+        "r2": { "type": "row", "settings": { "label": "Studio rentals", "values": "yes, no" } },
+        "r3": { "type": "row", "settings": { "label": "Actors and creators", "values": "yes, no" } },
+        "r4": { "type": "row", "settings": { "label": "Travel and shoot days", "values": "yes, no" } },
+        "r5": { "type": "row", "settings": { "label": "Time to first creative", "values": "Weeks, Days" } },
+        "r6": { "type": "row", "settings": { "label": "New shoot for every concept", "values": "Required, Multiple concepts possible" } },
+        "r7": { "type": "row", "settings": { "label": "People to manage", "values": "Multiple freelancers, One creative partner" } },
+        "r8": { "type": "row", "settings": { "label": "Scaling output", "values": "Difficult to scale, Built for scalable production" } }
+      },
+      "block_order": ["r1", "r2", "r3", "r4", "r5", "r6", "r7", "r8"]
+    },
+    "faq": {
+      "type": "faq-accordion",
+      "settings": {
+        "eyebrow": "FAQ",
+        "heading": "What clients ask",
+        "heading_accent": "before starting",
+        "contact_label": ""
+      },
+      "blocks": {
+        "f1": {
+          "type": "faq",
+          "settings": {
+            "question": "Who owns the final creatives?",
+            "answer": "<p>You do. Once a batch is delivered and paid for, the creatives are yours.</p>"
+          }
+        },
+        "f2": {
+          "type": "faq",
+          "settings": {
+            "question": "Can we use the content commercially?",
+            "answer": "<p>Yes. Everything we deliver is produced for commercial advertising use across your paid and organic channels.</p>"
+          }
+        },
+        "f3": {
+          "type": "faq",
+          "settings": {
+            "question": "How does the revision process work?",
+            "answer": "<p>Each plan includes revision rounds per creative: 1 on Starter, 2 on Growth, 3 on Scale. You review the batch and send your notes in one pass.</p>"
+          }
+        },
+        "f4": {
+          "type": "faq",
+          "settings": {
+            "question": "How quickly do you deliver?",
+            "answer": "<p>72 hours from an approved brief on Starter and Growth, 48 hours on Scale.</p>"
+          }
+        },
+        "f5": {
+          "type": "faq",
+          "settings": {
+            "question": "Can you create content for healthcare brands?",
+            "answer": "<p>Yes, and it is one of our focus categories. We are not a regulatory or legal advisor: health-related claims and scientific messaging should be provided or approved by you before production.</p>"
+          }
+        },
+        "f6": {
+          "type": "faq",
+          "settings": {
+            "question": "Do you work with agencies?",
+            "answer": "<p>Yes. Agencies use QuickMotion as extra production capacity across multiple client accounts, with white-label collaboration available.</p>"
+          }
+        },
+        "f7": {
+          "type": "faq",
+          "settings": {
+            "question": "Can you create multiple variations of the same ad?",
+            "answer": "<p>That is the point of the service. Every batch can be built as variations of hooks, angles and formats so you have something to test.</p>"
+          }
+        },
+        "f8": {
+          "type": "faq",
+          "settings": {
+            "question": "Do we need to provide actors or footage?",
+            "answer": "<p>No. There is no shoot, no casting and no crew to book. If you already have brand footage we can work it in.</p>"
+          }
+        },
+        "f9": {
+          "type": "faq",
+          "settings": {
+            "question": "What AI technologies do you use?",
+            "answer": "<p>We use current generative video, image and voice models and pick the right one per creative. The tools change often; the creative direction and editing are ours.</p>"
+          }
+        },
+        "f10": {
+          "type": "faq",
+          "settings": {
+            "question": "Can we provide our own product images and footage?",
+            "answer": "<p>Yes, and it usually improves the result. Product photos, brand assets and reference ads all shorten the revision cycle.</p>"
+          }
+        }
+      },
+      "block_order": ["f1", "f2", "f3", "f4", "f5", "f6", "f7", "f8", "f9", "f10"]
+    },
+    "guarantee": {
+      "type": "guarantee-band",
+      "settings": {
+        "eyebrow": "Guarantee",
+        "heading": "If the first batch doesn't convince you, we refund that month's payment",
+        "body": "<p>You have 7 days from delivery of your first batch to request a full refund of that payment. Just message us and we'll handle it.</p>",
+        "cta_label": "See full terms",
+        "cta_url": "/pages/guarantee"
+      },
+      "blocks": {
+        "gp1": { "type": "point", "settings": { "text": "No long-term contracts" } },
+        "gp2": { "type": "point", "settings": { "text": "Revisions included" } },
+        "gp3": { "type": "point", "settings": { "text": "7-day refund" } }
+      },
+      "block_order": ["gp1", "gp2", "gp3"]
+    },
+    "sticky-cta": {
+      "type": "sticky-cta",
+      "settings": {
+        "cta_label": "Start your creative batch",
+        "cta_url": "/pages/pricing",
+        "show_price": true,
+        "product_handle": "pack-starter-3-videos-anuncio-ia-mes",
+        "price_label": "From",
+        "period": "/mo",
+        "hide_when_visible": ".pricing",
+        "show_on_desktop": false
+      }
+    },
+    "closer": {
+      "type": "cta-closer",
+      "settings": {
+        "eyebrow": "",
+        "heading": "Ready to scale",
+        "heading_accent": "your creative production?",
+        "body": "More creative concepts. Faster production. Less complexity.",
+        "cta_primary_label": "Start your creative batch",
+        "cta_primary_url": "/pages/pricing",
+        "cta_secondary_label": "Talk to our team",
+        "cta_secondary_url": "mailto:hello@quickmotionai.com",
+        "note": "No long-term contracts · Cancel anytime"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "audience",
+    "problems",
+    "helps",
+    "video-wall",
+    "capabilities",
+    "industries",
+    "aitools",
+    "how-it-works",
+    "spotlight",
+    "testimonials",
+    "agency",
+    "pricing",
+    "compare",
+    "faq",
+    "guarantee",
+    "closer",
+    "sticky-cta"
+  ]
+}

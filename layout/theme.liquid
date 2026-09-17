@@ -1,0 +1,124 @@
+<!doctype html>
+<html class="no-js" lang="{{ request.locale.iso_code }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#0B0B12">
+    <meta name="color-scheme" content="dark">
+    <link rel="canonical" href="{{ canonical_url }}">
+
+    {%- comment -%}
+      OpenAI Ads (ChatGPT) — píxel de medición. Va lo antes posible en el
+      <head> para no perder conversiones tempranas mientras carga el resto.
+      Solo mide page_viewed aquí: la conversión de compra real se dispara
+      desde un píxel personalizado en Shopify (Configuración > Eventos del
+      cliente), porque el checkout no pasa por este layout.
+    {%- endcomment -%}
+    <script>!function(w,d,s,u){if(w.oaiq)return;var q=function(){q.q.push(arguments)};q.q=[];w.oaiq=q;var j=d.createElement(s);j.async=1;j.src=u;var f=d.getElementsByTagName(s)[0];f.parentNode.insertBefore(j,f)}(window,document,"script","https://bzrcdn.openai.com/sdk/oaiq.min.js");oaiq("init",{pixelId:"LoztKSiH9pGy92FzDsL633",debug:true});</script>
+
+    {%- if settings.favicon != blank -%}
+      <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 48, height: 48 }}">
+      <link rel="apple-touch-icon" href="{{ settings.favicon | image_url: width: 180, height: 180 }}">
+    {%- endif -%}
+
+    <title>
+      {{ page_title }}
+      {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
+    </title>
+
+    {%- comment -%}
+      Descripción: si la página no tiene la suya en el admin, cae en una
+      descripción del negocio. No dejar nunca el <head> sin description: es lo
+      primero que lee un rastreador de IA para resumir de qué va el sitio.
+    {%- endcomment -%}
+    {%- assign fallback_description = 'Create professional ads without a traditional production: no cameras, no studio, no actors, no crew. A person directs the creative and AI produces it, in fixed monthly batches delivered in 72 hours. Ad video production for ecommerce brands and agencies running Meta and TikTok ads.' -%}
+    <meta name="description" content="{{ page_description | default: fallback_description | escape }}">
+
+    {% render 'meta-tags' %}
+    {% render 'structured-data' %}
+
+    {%- comment -%}
+      Tipografía de marca: Space Grotesk (display) + Inter (body) via Google
+      Fonts, cargadas desde tokens.css. Se precarga la conexión para que el
+      H1 del hero (LCP en casi todas las plantillas) no espere al DNS/TLS.
+    {%- endcomment -%}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    {{ 'tokens.css' | asset_url | stylesheet_tag }}
+    {{ 'base.css' | asset_url | stylesheet_tag }}
+    {{ 'components.css' | asset_url | stylesheet_tag }}
+    {{ 'layout.css' | asset_url | stylesheet_tag }}
+
+    {%- comment -%}
+      Acento de marca configurable desde el editor sin tocar el CSS.
+    {%- endcomment -%}
+    {%- if settings.brand_accent != blank -%}
+      {% style %}
+        :root { --c-violet: {{ settings.brand_accent }}; }
+      {% endstyle %}
+    {%- endif -%}
+
+    <script>
+      document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
+      if (window.Shopify && Shopify.designMode) document.documentElement.classList.add('shopify-design-mode');
+    </script>
+
+    {%- comment -%} Standard Events de Shopify: analítica nativa de la tienda {%- endcomment -%}
+    <script type="module">
+      import * as StandardEvents from 'https://cdn.shopify.com/storefront/standard-events.js';
+      window.StandardEvents = StandardEvents;
+      document.addEventListener('DOMContentLoaded', () => {
+        const template = document.querySelector('main[data-template]')?.dataset.template || '';
+        document.dispatchEvent(
+          new StandardEvents.PageViewEvent({
+            page: { template, title: document.title, url: window.location.href }
+          })
+        );
+      }, { once: true });
+    </script>
+
+    <script src="{{ 'motion.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'video-player.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'market.js' | asset_url }}" defer="defer"></script>
+    {%- if template.name == 'cart' -%}
+      <script src="{{ 'cart.js' | asset_url }}" defer="defer"></script>
+    {%- endif -%}
+
+    {{ content_for_header }}
+  </head>
+
+  <body class="template-{{ template.name | handle }}{% if template.suffix %} template-suffix-{{ template.suffix | handle }}{% endif %}">
+    <a class="skip-to-content visually-hidden" href="#main">{{ 'accessibility.skip_to_text' | t }}</a>
+
+    <div class="grain" aria-hidden="true"></div>
+
+    {% sections 'header-group' %}
+
+    <main id="main" tabindex="-1" data-template="{{ template.name }}">
+      {{ content_for_layout }}
+    </main>
+
+    {% sections 'footer-group' %}
+
+    {%- render 'video-lightbox' -%}
+
+    <ul hidden>
+      <li id="a11y-refresh-page-message">{{ 'accessibility.refresh_page' | t }}</li>
+      <li id="a11y-new-window-message">{{ 'accessibility.link_messages.new_window' | t }}</li>
+    </ul>
+
+    <script>
+      window.shopUrl = '{{ request.origin }}';
+      window.routes = {
+        cart_add_url: '{{ routes.cart_add_url }}',
+        cart_change_url: '{{ routes.cart_change_url }}',
+        cart_update_url: '{{ routes.cart_update_url }}',
+        cart_url: '{{ routes.cart_url }}'
+      };
+      window.cartStrings = {
+        error: `{{ 'sections.cart.cart_error' | t }}`
+      };
+    </script>
+  </body>
+</html>

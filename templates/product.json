@@ -1,0 +1,75 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "eyebrow": {
+          "type": "eyebrow",
+          "settings": {
+            "text": "Pago único"
+          }
+        },
+        "title": {
+          "type": "title",
+          "settings": {}
+        },
+        "price": {
+          "type": "price",
+          "settings": {
+            "period": ""
+          }
+        },
+        "description": {
+          "type": "description",
+          "settings": {}
+        },
+        "features": {
+          "type": "features",
+          "settings": {}
+        },
+        "buy": {
+          "type": "buy",
+          "settings": {}
+        },
+        "trust": {
+          "type": "trust",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "eyebrow",
+        "title",
+        "price",
+        "description",
+        "features",
+        "buy",
+        "trust"
+      ],
+      "settings": {}
+    },
+    "closer": {
+      "type": "cta-closer",
+      "settings": {
+        "eyebrow": "",
+        "heading": "Have questions before",
+        "heading_accent": "you start?",
+        "cta_primary_label": "See guarantee & FAQ",
+        "cta_primary_url": "/pages/guarantee",
+        "cta_secondary_label": ""
+      }
+    }
+  },
+  "order": [
+    "main",
+    "closer"
+  ]
+}

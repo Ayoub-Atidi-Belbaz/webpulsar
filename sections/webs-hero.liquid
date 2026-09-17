@@ -1,0 +1,144 @@
+{{ 'qm-webs.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'qm-webs.js' | asset_url }}" defer="defer"></script>
+
+{%- liquid
+  assign s = section.settings
+-%}
+
+<section class="qw-hero qw-hero--centered{% if s.show_gridlines %} gridlines{% endif %}" data-qw-hero>
+  <div class="qw-hero__beams" data-qw-beams aria-hidden="true"></div>
+  <div class="qw-hero__beams-overlay" aria-hidden="true"></div>
+  <span class="halo halo--tl" style="--halo-color: var(--c-violet); --halo-opacity: 0.32;" aria-hidden="true"></span>
+  <span class="halo halo--tr" style="--halo-color: var(--c-cyan); --halo-opacity: 0.2;" aria-hidden="true"></span>
+
+  <div class="wrap qw-hero__center">
+    {%- if s.badge != blank -%}
+      <span class="chip chip--violet" data-reveal="fade">
+        <span class="chip__dot chip__dot--pulse" aria-hidden="true"></span>
+        {{ s.badge }}
+      </span>
+    {%- endif -%}
+
+    <h1 class="t-h1 qw-hero__title-c" data-reveal style="--reveal-delay: 70ms">
+      <span class="line">{{ s.heading }}</span>
+      {%- if s.heading_accent != blank -%}
+        <span class="t-grad line">{{ s.heading_accent }}</span>
+      {%- endif -%}
+    </h1>
+
+    {%- if s.body != blank -%}
+      <p class="t-lead qw-hero__body-c" data-reveal style="--reveal-delay: 140ms">{{ s.body }}</p>
+    {%- endif -%}
+
+    <div class="btn-row qw-hero__cta-c" data-reveal="fade" style="--reveal-delay: 210ms">
+      {%- if s.cta_label != blank -%}
+        <a
+          href="{% if s.starter_variant_id != blank %}/cart/{{ s.starter_variant_id }}:1{% else %}{{ s.cta_url | default: '#quiero-mi-web' }}{% endif %}"
+          class="btn btn--primary btn--lg"
+          data-qw-cta="click_starter"
+          data-plan="starter"
+          {%- if s.starter_variant_id != blank %}
+            data-qw-buy="{{ s.starter_variant_id }}"
+            data-qw-buy-dest="cart"
+          {%- endif %}
+        >
+          {{ s.cta_label }}
+          {% render 'icon', name: 'arrow-right', size: 16 %}
+        </a>
+      {%- endif -%}
+
+      {%- if s.cta2_label != blank -%}
+        <a href="{{ s.cta2_url | default: '#planes' }}" class="btn btn--ghost btn--lg" data-qw-cta="click_plans">
+          {{ s.cta2_label }}
+        </a>
+      {%- endif -%}
+    </div>
+
+    {%- if section.blocks.size > 0 -%}
+      <div class="qw-hero__stats" data-reveal="fade" style="--reveal-delay: 280ms">
+        {%- for block in section.blocks -%}
+          <div class="qw-hero__stat" {{ block.shopify_attributes }}>
+            <span class="qw-hero__stat-value">{{ block.settings.value }}</span>
+            <span class="qw-hero__stat-label">{{ block.settings.label }}</span>
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer="defer"></script>
+<script src="{{ 'qw-beams.js' | asset_url }}" defer="defer"></script>
+<script>
+  (function () {
+    function boot() {
+      var container = document.querySelector('[data-qw-beams]');
+      if (!container) return;
+      var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var isNarrow = window.innerWidth < 750;
+      if (reduceMotion || isNarrow || !window.THREE || !window.QWBeams) return;
+      try {
+        window.QWBeams.init(container, {
+          beamWidth: 2.5,
+          beamHeight: 18,
+          beamNumber: 10,
+          lightColor: '#A855F7',
+          speed: 2.5,
+          noiseIntensity: 2,
+          scale: 0.15,
+          rotation: 43,
+          bgColor: '#050508'
+        });
+      } catch (e) {
+        /* si WebGL falla, se queda el fondo con halos + rejilla ya presente */
+      }
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', boot);
+    } else {
+      boot();
+    }
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Webs · Hero",
+  "tag": "div",
+  "settings": [
+    { "type": "text", "id": "badge", "label": "Etiqueta superior", "default": "WEBS PARA NEGOCIOS · DESDE 49 €" },
+    { "type": "text", "id": "heading", "label": "Titular (línea 1)", "default": "Tu negocio merece una web." },
+    { "type": "text", "id": "heading_accent", "label": "Titular (línea 2, con degradado)", "default": "Créala desde 49 €." },
+    { "type": "textarea", "id": "body", "label": "Subtítulo", "default": "Te ayudamos a tener una presencia online profesional, adaptada a móvil y preparada para que tus clientes te encuentren y contacten contigo." },
+    { "type": "header", "content": "Botones" },
+    { "type": "text", "id": "cta_label", "label": "Botón principal", "default": "Quiero mi web por 49 €" },
+    { "type": "url", "id": "cta_url", "label": "Enlace del botón principal (alternativo)", "info": "Se usa sólo si el ID de variante de abajo está vacío. Vacío = lleva al formulario de la propia página." },
+    { "type": "text", "id": "starter_variant_id", "label": "ID de variante del plan STARTER", "info": "Si lo rellenas, el botón añade esta variante al carrito y lleva al carrito (para poder ofrecer el mantenimiento antes de pagar). Lo encuentras en Productos → Web STARTER → variante, en la URL del admin." },
+    { "type": "text", "id": "cta2_label", "label": "Botón secundario", "default": "Ver planes" },
+    { "type": "url", "id": "cta2_url", "label": "Enlace del botón secundario", "info": "Vacío = baja hasta la sección de planes." },
+    { "type": "header", "content": "Fondo" },
+    { "type": "checkbox", "id": "show_gridlines", "label": "Rejilla de fondo", "default": true }
+  ],
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "Estadística",
+      "limit": 3,
+      "settings": [
+        { "type": "text", "id": "value", "label": "Número", "default": "100%" },
+        { "type": "text", "id": "label", "label": "Etiqueta", "default": "Adaptada a móvil" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Webs · Hero",
+      "blocks": [
+        { "type": "stat", "settings": { "value": "100%", "label": "Adaptada a móvil" } },
+        { "type": "stat", "settings": { "value": "<7 días", "label": "Entrega media" } },
+        { "type": "stat", "settings": { "value": "<24h", "label": "Respuesta" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

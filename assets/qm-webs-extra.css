@@ -1,0 +1,141 @@
+/* ==========================================================================
+   15. MÉTRICAS / COMPROMISOS
+   ========================================================================== */
+
+.qw-metrics__grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: var(--gutter);
+  margin-top: var(--s-9);
+}
+@media (max-width: 989px) { .qw-metrics__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 480px) { .qw-metrics__grid { grid-template-columns: minmax(0, 1fr); } }
+
+.qw-metric {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+  padding: var(--s-6) var(--s-5);
+  border-radius: var(--r-lg);
+  border: 1px solid var(--c-line);
+  background: var(--c-elev-1);
+  text-align: center;
+  transition: border-color var(--d-base) var(--e-out);
+}
+.qw-metric:hover { border-color: var(--c-line-accent); }
+.qw-metric__value {
+  font-family: var(--f-display);
+  font-size: clamp(2rem, 1.6rem + 1.6vw, 2.75rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  background: var(--g-text);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.qw-metric__label {
+  font-size: var(--t-xs);
+  font-weight: 600;
+  letter-spacing: var(--tr-label);
+  text-transform: uppercase;
+  color: var(--c-text-dim);
+}
+
+/* ==========================================================================
+   16. EQUIPO
+   ========================================================================== */
+
+.qw-team__grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--gutter);
+  margin-top: var(--s-9);
+}
+
+.qw-team__card {
+  flex: 1 1 280px;
+  max-width: 340px;
+  padding: clamp(1.5rem, 1.15rem + 1.4vw, 2.25rem);
+  border-radius: var(--r-lg);
+  border: 1px solid var(--c-line);
+  background: var(--c-elev-1);
+  text-align: center;
+  transition: border-color var(--d-base) var(--e-out), transform var(--d-base) var(--e-out);
+}
+.qw-team__card:hover { border-color: var(--c-line-strong); transform: translateY(-3px); }
+
+.qw-team__photo {
+  width: 84px;
+  height: 84px;
+  margin: 0 auto var(--s-5);
+  border-radius: 50%;
+  overflow: hidden;
+  border: 1px solid var(--c-line-strong);
+}
+.qw-team__photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.qw-team__photo--placeholder {
+  display: grid;
+  place-items: center;
+  font-family: var(--f-display);
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: #d8c7ff;
+  background: rgba(108, 59, 255, 0.12);
+}
+
+.qw-team__name { font-size: var(--t-h4); font-weight: 600; letter-spacing: -0.015em; }
+.qw-team__role {
+  margin-top: var(--s-1);
+  font-size: var(--t-xs);
+  font-weight: 600;
+  letter-spacing: var(--tr-label);
+  text-transform: uppercase;
+  color: var(--c-text-dim);
+}
+.qw-team__bio { margin-top: var(--s-4); font-size: var(--t-sm); color: var(--c-text-soft); line-height: 1.6; }
+.qw-team__link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-1);
+  margin-top: var(--s-4);
+  font-size: var(--t-xs);
+  font-weight: 600;
+  color: var(--c-text-dim);
+}
+.qw-team__link:hover { color: var(--c-text); }
+
+/* ==========================================================================
+   17. CONFIANZA
+   ========================================================================== */
+
+.qw-trust-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--gutter);
+  margin-top: var(--s-9);
+}
+@media (max-width: 989px) { .qw-trust-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 599px) { .qw-trust-grid { grid-template-columns: minmax(0, 1fr); } }
+
+.qw-trust-card {
+  padding: clamp(1.35rem, 1.1rem + 0.9vw, 1.85rem);
+  border-radius: var(--r-md);
+  border: 1px solid var(--c-line);
+  background: var(--c-elev-1);
+  transition: border-color var(--d-base) var(--e-out);
+}
+.qw-trust-card:hover { border-color: var(--c-line-accent); }
+.qw-trust-card__icon {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  margin-bottom: var(--s-4);
+  border-radius: var(--r-sm);
+  background: rgba(108, 59, 255, 0.1);
+  border: 1px solid rgba(108, 59, 255, 0.2);
+  color: #c8b8ff;
+}
+.qw-trust-card__title { font-size: var(--t-h4); font-weight: 600; letter-spacing: -0.015em; }
+.qw-trust-card__text { margin-top: var(--s-3); font-size: var(--t-sm); color: var(--c-text-dim); line-height: 1.55; }
