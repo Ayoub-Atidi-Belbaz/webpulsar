@@ -1161,6 +1161,20 @@
 .qw-form__done { display: none; text-align: center; padding: var(--s-6) 0; }
 .qw-form.is-done .qw-form__live { display: none; }
 .qw-form.is-done .qw-form__done { display: block; }
+.qw-form__server-error {
+  background: rgba(239, 68, 68, 0.12);
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  color: #fca5a5;
+  padding: var(--s-3) var(--s-4);
+  border-radius: var(--r-md);
+  font-size: var(--t-sm);
+  margin-top: var(--s-4);
+  text-align: center;
+  line-height: 1.5;
+}
+.qw-form__server-error[hidden] {
+  display: none !important;
+}
 .qw-form__check {
   display: grid;
   place-items: center;

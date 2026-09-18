@@ -192,20 +192,37 @@
         var endpoint = form.dataset.endpoint || '';
         var whatsapp = (form.dataset.whatsapp || '').replace(/[^0-9]/g, '');
 
-        // Si hay WhatsApp configurado, el formulario redirige directamente ahí
-        // con el mensaje ya escrito — no se queda en la página.
-        if (whatsapp) {
-          var url = 'https://wa.me/' + whatsapp + '?text=' + encodeURIComponent(message(data, form));
-          window.location.href = url;
-          return;
-        }
+        var delivered = false;
 
         if (endpoint) {
           send(endpoint, data);
-        } else {
-          window.qmWebs.leads.push(data);
-          // eslint-disable-next-line no-console
-          console.warn('[qm-webs] Formulario sin destino configurado. Lead retenido en window.qmWebs.leads:', data);
+          delivered = true;
+        }
+
+        if (whatsapp) {
+          var url = 'https://wa.me/' + whatsapp + '?text=' + encodeURIComponent(message(data, form));
+          window.open(url, '_blank', 'noopener');
+          delivered = true;
+        }
+
+        if (!delivered) {
+          // Red de seguridad: si no hay destino configurado, NO mostrar
+          // la pantalla de éxito. Mostrar un error visible y persistir
+          // el intento localmente para no perder el dato.
+          try {
+            window.localStorage.setItem(
+              'qmWebsFailedLead_' + Date.now(),
+              JSON.stringify(data)
+            );
+          } catch (e) { /* localStorage no disponible */ }
+          track('submit_form_no_destino', { form: 'webs_lead' });
+          var card2 = form.closest('.qw-form') || form;
+          var errorBox = card2.querySelector('[data-qw-form-error]');
+          if (errorBox) {
+            errorBox.hidden = false;
+            errorBox.textContent = 'No hemos podido enviar tu solicitud. Escríbenos directamente por WhatsApp o inténtalo de nuevo en unos minutos.';
+          }
+          return; // no mostrar showDone()
         }
 
         showDone(card);
