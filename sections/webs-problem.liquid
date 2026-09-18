@@ -19,7 +19,7 @@
         <ul class="qw-problem__cards" data-stagger="80">
           {%- for block in section.blocks -%}
             {%- if block.type == 'pain' -%}
-              <li class="qw-problem__card" data-reveal="left" {{ block.shopify_attributes }}>
+              <li class="qw-problem__card card--glow" data-reveal="left" {{ block.shopify_attributes }}>
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v5.2M12 16.3v.2"/></svg>
                 {{ block.settings.text }}
               </li>
@@ -40,6 +40,7 @@
               <span data-serp-query data-serp-text="{{ s.query | escape }}">{{ s.query }}</span><span class="qw-serp__caret"></span>
             </div>
           </div>
+          <div class="qw-serp__rule" data-draw style="height: 1px; background: linear-gradient(90deg, transparent, rgba(108, 59, 255, 0.45), transparent);" aria-hidden="true"></div>
 
           <div class="qw-serp__list" data-serp-results>
             {%- for block in results -%}

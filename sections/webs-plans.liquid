@@ -32,7 +32,7 @@
           assign plan_slug = b.plan_value | default: b.name | downcase | strip
         -%}
         <div class="qw-receipt-wrap" data-reveal {{ block.shopify_attributes }}>
-          <article class="qw-receipt{% if b.featured %} qw-receipt--featured{% endif %}">
+          <article class="qw-receipt card--glow{% if b.featured %} qw-receipt--featured{% endif %}">
             {%- if b.featured and b.flag != blank -%}
               <span class="qw-receipt__flag">{{ b.flag }}</span>
             {%- endif -%}
@@ -42,21 +42,21 @@
               <p class="qw-receipt__note">Webs para negocios reales</p>
             </header>
 
-            <div class="qw-receipt__rule"></div>
+            <div class="qw-receipt__rule" data-draw></div>
 
             <dl class="qw-receipt__ledger">
               <div><dt>Pedido</dt><dd>{{ order_code }}</dd></div>
               <div><dt>Facturación</dt><dd>{{ b.pay_label | default: 'Pago único' }}</dd></div>
             </dl>
 
-            <div class="qw-receipt__rule"></div>
+            <div class="qw-receipt__rule" data-draw></div>
 
             <div class="qw-receipt__plan">
               <h3>{{ b.name }}</h3>
               {%- if b.tagline != blank -%}<p>{{ b.tagline }}</p>{%- endif -%}
             </div>
 
-            <div class="qw-receipt__rule"></div>
+            <div class="qw-receipt__rule" data-draw></div>
 
             <div class="qw-receipt__total">
               <div class="qw-receipt__total-row">
@@ -102,7 +102,7 @@
               </div>
             {%- endif -%}
 
-            <div class="qw-receipt__rule"></div>
+            <div class="qw-receipt__rule" data-draw></div>
 
             <ul class="qw-receipt__items">
               {%- for feature in features -%}

@@ -19,8 +19,37 @@
 
     <div class="qw-metrics__grid" data-stagger="90">
       {%- for block in section.blocks -%}
-        <div class="qw-metric" data-reveal {{ block.shopify_attributes }}>
-          <span class="qw-metric__value">{{ block.settings.value }}</span>
+        {%- liquid
+          assign val = block.settings.value
+          assign prefix = ''
+          assign suffix = ''
+          assign count_val = ''
+          if val contains '%'
+            assign count_val = val | remove: '%' | strip
+            assign suffix = '%'
+          elsif val contains 'días'
+            assign count_val = val | remove: '<' | remove: 'días' | strip
+            assign prefix = '<'
+            assign suffix = ' días'
+          elsif val contains 'h'
+            assign count_val = val | remove: '<' | remove: 'h' | strip
+            assign prefix = '<'
+            assign suffix = 'h'
+          elsif val contains '€'
+            assign count_val = val | remove: '€' | strip
+            assign suffix = '€'
+          else
+            assign count_val = val | strip
+          endif
+        -%}
+        <div class="qw-metric card--glow" data-reveal {{ block.shopify_attributes }}>
+          <span class="qw-metric__value">
+            {%- if count_val != blank -%}
+              {{ prefix }}<span data-count-to="{{ count_val }}">{{ count_val }}</span>{{ suffix }}
+            {%- else -%}
+              {{ val }}
+            {%- endif -%}
+          </span>
           <span class="qw-metric__label">{{ block.settings.label }}</span>
         </div>
       {%- endfor -%}

@@ -1394,6 +1394,7 @@
   --tooth-w: 14px;
   --tooth-h: 9px;
   position: relative;
+  isolation: isolate;
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -1428,6 +1429,18 @@
   transition: transform var(--d-base) var(--e-out);
 }
 .qw-receipt-wrap:hover .qw-receipt { transform: translateY(-3px); }
+
+.qw-receipt.card--glow::before {
+  mask-image: inherit;
+  -webkit-mask-image: inherit;
+  mask-size: inherit;
+  -webkit-mask-size: inherit;
+  mask-position: inherit;
+  -webkit-mask-position: inherit;
+  mask-repeat: inherit;
+  -webkit-mask-repeat: inherit;
+  border-radius: 0;
+}
 
 .qw-receipt--featured {
   background: linear-gradient(180deg, rgba(108, 59, 255, 0.16), rgba(108, 59, 255, 0.02) 60%), var(--c-elev-1);
