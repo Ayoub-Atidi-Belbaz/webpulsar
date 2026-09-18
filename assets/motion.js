@@ -70,6 +70,54 @@
   }
 
   /* ---------------------------------------------------------------
+     1b. Vídeos perezosos en tarjetas / hero — sin descargar hasta viewport
+     --------------------------------------------------------------- */
+  var lazyVideoIO = null;
+  function initLazyVideo(root) {
+    var items = (root || document).querySelectorAll('video[data-lazy-video]:not(.is-loaded)');
+    if (!items.length) return;
+
+    function loadAndPlay(video) {
+      if (video.classList.contains('is-loaded')) return;
+      video.classList.add('is-loaded');
+
+      var sources = video.querySelectorAll('source[data-src]');
+      sources.forEach(function (s) {
+        s.src = s.dataset.src;
+      });
+      if (video.dataset.src) {
+        video.src = video.dataset.src;
+      }
+      video.load();
+
+      var saveData = navigator.connection && navigator.connection.saveData;
+      if (!reduced && !saveData) {
+        var p = video.play();
+        if (p && p.catch) p.catch(function () {});
+      }
+    }
+
+    if (!lazyVideoIO) {
+      lazyVideoIO = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          var v = e.target;
+          if (e.isIntersecting) {
+            loadAndPlay(v);
+            if (!reduced && v.paused && v.readyState >= 2) {
+              var p = v.play();
+              if (p && p.catch) p.catch(function () {});
+            }
+          } else if (v.classList.contains('is-loaded') && !v.paused) {
+            v.pause();
+          }
+        });
+      }, { rootMargin: '120px 0px 120px 0px', threshold: 0.1 });
+    }
+
+    items.forEach(function (el) { lazyVideoIO.observe(el); });
+  }
+
+  /* ---------------------------------------------------------------
      2. Parallax ligero — un solo rAF para todos los elementos
      --------------------------------------------------------------- */
   var pxItems = [];
@@ -273,6 +321,7 @@
     initStagger(root);
     initReveal(root);
     initDraw(root);
+    initLazyVideo(root);
     initParallax(root);
     initGlow(root);
     initCounters(root);
