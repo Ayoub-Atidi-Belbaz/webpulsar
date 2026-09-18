@@ -6,8 +6,27 @@
 -%}
 
 <section class="qw-hero qw-hero--centered{% if s.show_gridlines %} gridlines{% endif %}" data-qw-hero>
-  <div class="qw-hero__beams" data-qw-beams aria-hidden="true"></div>
-  <div class="qw-hero__beams-overlay" aria-hidden="true"></div>
+  {%- if s.hero_video != blank -%}
+    <div class="qw-hero__media" data-parallax="0.08" aria-hidden="true">
+      <video
+        class="qw-hero__video"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="metadata"
+        {% if s.hero_video_poster != blank %}
+          poster="{{ s.hero_video_poster | image_url: width: 1920 }}"
+        {% endif %}
+      >
+        <source src="{{ s.hero_video }}" type="video/mp4">
+      </video>
+      <div class="qw-hero__scrim" aria-hidden="true"></div>
+    </div>
+  {%- else -%}
+    <div class="qw-hero__beams" data-qw-beams aria-hidden="true"></div>
+    <div class="qw-hero__beams-overlay" aria-hidden="true"></div>
+  {%- endif -%}
   <span class="halo halo--tl" style="--halo-color: var(--c-violet); --halo-opacity: 0.32;" aria-hidden="true"></span>
   <span class="halo halo--tr" style="--halo-color: var(--c-cyan); --halo-opacity: 0.2;" aria-hidden="true"></span>
 
@@ -67,6 +86,7 @@
   </div>
 </section>
 
+{%- if s.hero_video == blank -%}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer="defer"></script>
 <script src="{{ 'qw-beams.js' | asset_url }}" defer="defer"></script>
 <script>
@@ -100,6 +120,27 @@
     }
   })();
 </script>
+{%- else -%}
+<script>
+  (function () {
+    function checkMotion() {
+      var video = document.querySelector('.qw-hero__video');
+      if (!video) return;
+      var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var saveData = navigator.connection && navigator.connection.saveData;
+      if (reduceMotion || saveData) {
+        video.pause();
+        video.removeAttribute('autoplay');
+      }
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', checkMotion);
+    } else {
+      checkMotion();
+    }
+  })();
+</script>
+{%- endif -%}
 
 {% schema %}
 {
@@ -117,7 +158,9 @@
     { "type": "text", "id": "cta2_label", "label": "Botón secundario", "default": "Ver planes" },
     { "type": "url", "id": "cta2_url", "label": "Enlace del botón secundario", "info": "Vacío = baja hasta la sección de planes." },
     { "type": "header", "content": "Fondo" },
-    { "type": "checkbox", "id": "show_gridlines", "label": "Rejilla de fondo", "default": true }
+    { "type": "checkbox", "id": "show_gridlines", "label": "Rejilla de fondo", "default": true },
+    { "type": "text", "id": "hero_video", "label": "URL del vídeo de fondo (MP4)", "info": "Si se deja vacío, se mostrará el fondo de rayos 3D WebGL animado." },
+    { "type": "image_picker", "id": "hero_video_poster", "label": "Póster / Imagen del vídeo" }
   ],
   "blocks": [
     {
