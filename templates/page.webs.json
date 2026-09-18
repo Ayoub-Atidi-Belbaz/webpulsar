@@ -222,6 +222,83 @@
         "note": "Ejemplos de diseño creados por nosotros. Los negocios que aparecen son ficticios."
       }
     },
+    "trabajo": {
+      "type": "webs-work",
+      "blocks": {
+        "w1": {
+          "type": "project",
+          "settings": {
+            "title": "Portfolio Personal Interactivo",
+            "url": "https://mi-portfolio-one-lake.vercel.app/",
+            "domain": "mi-portfolio-one-lake.vercel.app",
+            "badge": "Nivel Intermedio · Experiencia Digital",
+            "highlight": "60 FPS · Next.js & 3D",
+            "desc": "Experiencia inmersiva con animaciones basadas en física, transiciones fluidas y diseño editorial de alta gama para perfiles creativos.",
+            "tags": "React, Next.js, Framer Motion, 3D Web, UI/UX",
+            "style_theme": "neon"
+          }
+        },
+        "w2": {
+          "type": "project",
+          "settings": {
+            "title": "ZenCut — SaaS para Barberías",
+            "url": "https://barber-saas-pi.vercel.app",
+            "domain": "barber-saas-pi.vercel.app",
+            "badge": "A Medida · Plataforma SaaS",
+            "highlight": "Gestión en tiempo real",
+            "desc": "Software integral en la nube: gestión de reservas por barbero y horario, catálogo interactivo de servicios, control de clientes y panel de métricas.",
+            "tags": "Java, SaaS, CRUD, SQL, Panel de Control, API",
+            "style_theme": "tech"
+          }
+        },
+        "w3": {
+          "type": "project",
+          "settings": {
+            "title": "Boles de Frutas — E-commerce",
+            "url": "https://bowl-food-web.vercel.app/",
+            "domain": "bowl-food-web.vercel.app",
+            "badge": "Plan Pro · E-commerce Experiencial",
+            "highlight": "Selector dual frío / caliente",
+            "desc": "Tienda gastronómica con selector interactivo por temperatura, microinteracciones dinámicas, diseño apetitoso y checkout directo optimizado.",
+            "tags": "React, Tailwind, Framer Motion, E-commerce, Mobile-First",
+            "style_theme": "warm"
+          }
+        },
+        "w4": {
+          "type": "project",
+          "settings": {
+            "title": "Imaan by Belbaz — Plataforma Digital",
+            "url": "https://ramadan-deen.vercel.app/",
+            "domain": "ramadan-deen.vercel.app",
+            "badge": "A Medida · Web App Fullstack",
+            "highlight": "Arquitectura Fullstack",
+            "desc": "Aplicación web completa con persistencia en base de datos, autenticación segura, widgets interactivos y despliegue de alto rendimiento.",
+            "tags": "Full Stack, Node.js, MongoDB, React, PWA, Cloud",
+            "style_theme": "dark"
+          }
+        },
+        "w5": {
+          "type": "project",
+          "settings": {
+            "title": "IMAAN BY BELBAZ — Colección Exclusiva",
+            "url": "https://imaan-belbaz-x-drake.vercel.app/",
+            "domain": "imaan-belbaz.vercel.app",
+            "badge": "Alta Gama · Tienda de Marca",
+            "highlight": "Lookbook inmersivo",
+            "desc": "Tienda digital de moda streetwear premium con dirección de arte editorial, navegación fluida, lookbook interactivo y estética depurada.",
+            "tags": "Next.js, E-commerce, Branding, Diseño Web, Awwwards Style",
+            "style_theme": "brand"
+          }
+        }
+      },
+      "block_order": ["w1", "w2", "w3", "w4", "w5"],
+      "settings": {
+        "eyebrow": "PROYECTOS REALES",
+        "heading": "No vendemos maquetas.",
+        "heading_accent": "Esto es lo que creamos.",
+        "body": "Mira algunos de los proyectos y plataformas reales que hemos diseñado y desarrollado. Desde webs interactivas de alto rendimiento hasta sistemas SaaS a medida."
+      }
+    },
     "proceso": {
       "type": "webs-process",
       "blocks": {
@@ -364,6 +441,7 @@
     "planes",
     "mantenimiento",
     "demos",
+    "trabajo",
     "proceso",
     "servicios",
     "faq",
