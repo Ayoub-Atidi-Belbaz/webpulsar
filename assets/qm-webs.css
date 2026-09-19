@@ -1360,6 +1360,19 @@
 .qw-hero--centered .qw-hero__center { position: relative; z-index: 2; }
 .qw-hero--centered .halo { z-index: 0; }
 
+/* Móvil: el lienzo vertical apaga los haces, así que se aclara la capa oscura
+   y se añade un resplandor violeta en CSS que se ve aunque WebGL falle o el
+   teléfono tenga "reducir movimiento" (entonces se queda fijo, sin animar). */
+@media (max-width: 749px) {
+  .qw-hero__beams-overlay {
+    background:
+      radial-gradient(90% 50% at 50% 34%, rgba(108, 59, 255, 0.26) 0%, transparent 70%),
+      linear-gradient(to top, var(--c-void) 0%, rgba(5,5,8,0.15) 40%, rgba(5,5,8,0.05) 65%, rgba(5,5,8,0.35) 100%),
+      linear-gradient(to bottom, var(--c-void) 0%, transparent 14%);
+  }
+  .qw-hero__body-c { text-shadow: 0 1px 14px rgba(5, 5, 8, 0.85); }
+}
+
 .qw-hero__media {
   position: absolute;
   inset: 0;

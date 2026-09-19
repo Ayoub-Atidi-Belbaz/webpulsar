@@ -149,6 +149,7 @@
     var beamHeight = opts.beamHeight || 18;
     var beamNumber = opts.beamNumber || 10;
     var lightColor = opts.lightColor || '#A855F7';
+    var lightIntensity = opts.lightIntensity || 1;
     var speed = opts.speed || 2.5;
     var noiseIntensity = opts.noiseIntensity || 2;
     var scale = opts.scale || 0.15;
@@ -223,7 +224,7 @@
     group.add(mesh);
     scene.add(group);
 
-    var light = new THREE.DirectionalLight(lightColor, 1);
+    var light = new THREE.DirectionalLight(lightColor, lightIntensity);
     light.position.set(0, 3, 10);
     scene.add(light);
     scene.add(new THREE.AmbientLight(0xffffff, 1));
