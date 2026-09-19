@@ -95,15 +95,18 @@
       var container = document.querySelector('[data-qw-beams]');
       if (!container) return;
       var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      var isNarrow = window.innerWidth < 750;
-      if (reduceMotion || isNarrow || !window.THREE || !window.QWBeams) return;
+      if (reduceMotion || !window.THREE || !window.QWBeams) return;
+      // En móvil también se dibuja: three.js ya se descarga de todas formas y
+      // el renderer va a pixelRatio 1, en low-power y se pausa fuera de
+      // pantalla. Menos haces porque el lienzo es estrecho y 10 se apelmazan.
+      var narrow = window.innerWidth < 750;
       try {
         window.QWBeams.init(container, {
           beamWidth: 2.5,
           beamHeight: 18,
-          beamNumber: 10,
+          beamNumber: narrow ? 6 : 10,
           lightColor: '#A855F7',
-          speed: 2.5,
+          speed: narrow ? 2 : 2.5,
           noiseIntensity: 2,
           scale: 0.15,
           rotation: 43,
