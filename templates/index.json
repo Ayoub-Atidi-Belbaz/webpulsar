@@ -12,7 +12,8 @@
     "oferta_popup": {
       "type": "offer-popup",
       "settings": {
-        "delay_seconds": 5,
+        "delay_seconds": 15,
+        "min_scroll_percent": 35,
         "frequency": "session",
         "badge": "OFERTA DE LANZAMIENTO",
         "heading": "¿Quieres esta oferta?",
