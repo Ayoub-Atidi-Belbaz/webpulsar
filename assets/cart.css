@@ -149,6 +149,10 @@
 .cart-care-modal__close:hover { background: rgba(255, 255, 255, 0.08); color: var(--c-text); }
 .cart-care-modal__actions { margin-top: var(--s-5); display: grid; gap: var(--s-3); justify-items: stretch; }
 
+.cart-brief { margin-top: var(--s-8); padding: var(--s-6); border: 1px solid var(--c-line-strong); border-radius: var(--r-lg); background: var(--c-elev-1); }
+.cart-brief__intro { margin-top: var(--s-2); margin-bottom: var(--s-5); }
+.cart-brief .textarea { min-height: 96px; }
+
 .cart-page__foot { margin-top: var(--s-8); padding-top: var(--s-6); border-top: 1px solid var(--c-line-strong); }
 .cart-page__totals-row { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: var(--s-2); }
 .cart-page__note { display: flex; align-items: center; gap: var(--s-2); margin-bottom: var(--s-6); }
