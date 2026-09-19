@@ -212,6 +212,27 @@
         placeholder="{{ 'sections.cart.brief_goal_ph' | t }}"
       >{{ cart.attributes['Objetivo de la web'] | escape }}</textarea>
     </div>
+
+    <div class="field">
+      <label class="field__label" for="brief-email">{{ 'sections.cart.brief_email' | t }} <span class="field__req" aria-hidden="true">*</span></label>
+      <input
+        type="email" class="input" id="brief-email" name="attributes[Email]"
+        form="CartCheckoutForm" data-brief-field required maxlength="120" autocomplete="email"
+        value="{{ cart.attributes['Email'] | escape }}"
+        placeholder="{{ 'sections.cart.brief_email_ph' | t }}"
+      >
+    </div>
+
+    <div class="field">
+      <label class="field__label" for="brief-phone">{{ 'sections.cart.brief_phone' | t }} <span class="field__req" aria-hidden="true">*</span></label>
+      <input
+        type="tel" class="input" id="brief-phone" name="attributes[Teléfono]"
+        form="CartCheckoutForm" data-brief-field required inputmode="tel" autocomplete="tel"
+        pattern="[0-9+\s\(\)\.\-]{9,20}" maxlength="20"
+        value="{{ cart.attributes['Teléfono'] | escape }}"
+        placeholder="{{ 'sections.cart.brief_phone_ph' | t }}"
+      >
+    </div>
   </section>
 
   <div class="cart-page__foot">

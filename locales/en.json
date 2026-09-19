@@ -81,7 +81,11 @@
       "brief_activity": "What does it do?",
       "brief_activity_ph": "e.g. Hair and beauty salon in Murcia",
       "brief_goal": "What do you want to do with your website?",
-      "brief_goal_ph": "e.g. Let customers see the services and book through WhatsApp"
+      "brief_goal_ph": "e.g. Let customers see the services and book through WhatsApp",
+      "brief_email": "Contact email",
+      "brief_email_ph": "you@email.com",
+      "brief_phone": "Phone (WhatsApp if possible)",
+      "brief_phone_ph": "e.g. +34 600 123 456"
     },
     "portfolio": {
       "placeholder": "Video coming soon",
