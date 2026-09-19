@@ -55,6 +55,10 @@
   border: 0;
   -moz-appearance: textfield;
 }
+/* Safari en iOS hace zoom al enfocar un campo de menos de 16px y no vuelve atrás. */
+@media (max-width: 768px) {
+  .qty-stepper__input { font-size: 16px; }
+}
 .qty-stepper__input::-webkit-outer-spin-button, .qty-stepper__input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
 
 .cart-line__price { text-align: right; font-size: var(--t-body); font-weight: 600; font-variant-numeric: tabular-nums; }
