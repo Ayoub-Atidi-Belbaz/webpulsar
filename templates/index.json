@@ -423,6 +423,6 @@
     }
   },
   "order": [
-    "oferta_popup", "hero", "problema", "calculadora", "oferta", "planes", "mantenimiento", "demos", "trabajo", "metricas", "proceso", "servicios", "faq", "cierre", "barra"
+    "oferta_popup", "hero", "problema", "oferta", "planes", "mantenimiento", "calculadora", "demos", "trabajo", "metricas", "proceso", "servicios", "faq", "cierre", "barra"
   ]
 }
