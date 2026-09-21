@@ -64,17 +64,19 @@
       {%- endif -%}
 
       {%- if section.settings.cta_label != blank -%}
-        <a href="{{ section.settings.cta_url | default: routes.root_url }}" class="btn btn--primary btn--sm hide-mobile">
-          {{ section.settings.cta_label }}
+        <a href="{{ section.settings.cta_url | default: routes.root_url }}" class="btn btn--primary btn--sm header-cta">
+          <span>{{ section.settings.cta_label }}</span>
         </a>
       {%- endif -%}
 
       {%- if section.settings.show_cart -%}
-        <a href="{{ routes.cart_url }}" class="cart-link" aria-label="{{ 'templates.cart.cart' | t }}">
+        <a
+          href="{{ routes.cart_url }}"
+          class="cart-link"
+          aria-label="{{ 'templates.cart.cart' | t | default: 'Carrito' }}{% if cart_count > 0 %}, {{ cart_count }} {% if cart_count == 1 %}artículo{% else %}artículos{% endif %}{% endif %}"
+        >
           {% render 'icon', name: 'cart', size: 19 %}
-          {%- if cart_count > 0 -%}
-            <span class="cart-link__count">{{ cart_count }}</span>
-          {%- endif -%}
+          <span class="cart-link__count{% if cart_count == 0 %} is-hidden{% endif %}" data-cart-count aria-hidden="true">{{ cart_count }}</span>
         </a>
       {%- endif -%}
 
@@ -92,28 +94,69 @@
   </div>
 </header>
 
-{%- comment -%} Menú móvil {%- endcomment -%}
-<div class="mobile-nav" id="mobile-nav" data-mobile-nav hidden>
-  {%- if menu != blank -%}
-    <nav aria-label="{{ 'sections.header.menu' | t }}">
-      {%- for link in linklists[menu].links -%}
-        <a href="{{ link.url }}" class="mobile-nav__link" style="transition-delay: {{ forloop.index0 | times: 45 }}ms">
-          {{ link.title }}
-          {% render 'icon', name: 'arrow-up-right', size: 15 %}
-        </a>
-      {%- endfor -%}
-    </nav>
-  {%- endif -%}
+{%- comment -%} Menú móvil editorial a pantalla completa (Bloque B) {%- endcomment -%}
+<div
+  class="mobile-nav"
+  id="mobile-nav"
+  data-mobile-nav
+  role="dialog"
+  aria-modal="true"
+  aria-label="{{ 'sections.header.menu' | t }}"
+  hidden
+>
+  <div class="mobile-nav__inner">
+    {%- if menu != blank -%}
+      <nav class="mobile-nav__menu" aria-label="{{ 'sections.header.menu' | t }}">
+        {%- for link in linklists[menu].links -%}
+          <a
+            href="{{ link.url }}"
+            class="mobile-nav__link"
+            style="--i: {{ forloop.index }};"
+            {% if link.current or link.child_active %}aria-current="page"{% endif %}
+          >
+            <span class="mobile-nav__num">0{{ forloop.index }}</span>
+            <span class="mobile-nav__title">{{ link.title }}</span>
+            <span class="mobile-nav__arrow" aria-hidden="true">
+              {% render 'icon', name: 'arrow-up-right', size: 18 %}
+            </span>
+          </a>
+        {%- endfor -%}
+      </nav>
+    {%- endif -%}
 
-  <div class="mobile-nav__footer">
-    {%- if section.settings.cta_label != blank -%}
-      <a href="{{ section.settings.cta_url | default: routes.root_url }}" class="btn btn--primary btn--full">
-        {{ section.settings.cta_label }}
-      </a>
-    {%- endif -%}
-    {%- if section.settings.show_market_selector -%}
-      {% render 'market-selector', id: 'mobile' %}
-    {%- endif -%}
+    <div class="mobile-nav__footer">
+      {%- if section.settings.cta_label != blank -%}
+        <a href="{{ section.settings.cta_url | default: routes.root_url }}" class="btn btn--primary btn--full btn--lg">
+          {{ section.settings.cta_label }}
+        </a>
+      {%- endif -%}
+
+      <div class="mobile-nav__meta-row">
+        {%- if section.settings.show_clock -%}
+          <div
+            class="header-clock header-clock--mobile"
+            data-header-clock
+            data-tz="{{ section.settings.clock_timezone | default: 'Europe/Madrid' }}"
+          >
+            <span class="header-clock__dot" aria-hidden="true"></span>
+            <span class="header-clock__loc">{{ section.settings.clock_location | default: 'Murcia, ES' }}</span>
+            <span class="header-clock__sep">·</span>
+            <span class="header-clock__time" data-clock-time>--:--</span>
+          </div>
+        {%- endif -%}
+
+        {%- if section.settings.show_market_selector -%}
+          {% render 'market-selector', id: 'mobile' %}
+        {%- endif -%}
+      </div>
+
+      <div class="mobile-nav__contact">
+        <a href="mailto:{{ settings.contact_email | default: 'hello@quickmotionai.com' }}" class="mobile-nav__email">
+          {{ settings.contact_email | default: 'hello@quickmotionai.com' }}
+        </a>
+        <span class="mobile-nav__badge">● Respuesta en menos de 24h</span>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -123,31 +166,72 @@
     var nav = document.querySelector('[data-mobile-nav]');
     if (!burger || !nav) return;
 
+    var focusableElementsSelector = 'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
     function setOpen(open) {
       burger.setAttribute('aria-expanded', String(open));
-      if (open) nav.hidden = false;
-      requestAnimationFrame(function () { nav.classList.toggle('is-open', open); });
-      document.body.style.overflow = open ? 'hidden' : '';
-      if (!open) {
-        // Espera a que termine la transición antes de sacarlo del árbol de foco
-        setTimeout(function () { if (!nav.classList.contains('is-open')) nav.hidden = true; }, 320);
+      if (open) {
+        nav.hidden = false;
+        document.body.style.overflow = 'hidden';
+        requestAnimationFrame(function () {
+          nav.classList.add('is-open');
+          var firstFocusable = nav.querySelector(focusableElementsSelector);
+          if (firstFocusable) firstFocusable.focus();
+        });
+      } else {
+        nav.classList.remove('is-open');
+        document.body.style.overflow = '';
+        setTimeout(function () {
+          if (!nav.classList.contains('is-open')) {
+            nav.hidden = true;
+            burger.focus();
+          }
+        }, 320);
       }
     }
 
     burger.addEventListener('click', function () {
       setOpen(burger.getAttribute('aria-expanded') !== 'true');
     });
+
     nav.addEventListener('click', function (e) {
       if (e.target.closest('a')) setOpen(false);
     });
+
+    // Accesibilidad: focus trap dentro del menú móvil
+    nav.addEventListener('keydown', function (e) {
+      if (e.key === 'Tab') {
+        var focusables = Array.prototype.slice.call(nav.querySelectorAll(focusableElementsSelector)).filter(function (el) {
+          return el.offsetParent !== null;
+        });
+        if (!focusables.length) return;
+        var first = focusables[0];
+        var last = focusables[focusables.length - 1];
+
+        if (e.shiftKey) {
+          if (document.activeElement === first || document.activeElement === nav) {
+            e.preventDefault();
+            last.focus();
+          }
+        } else {
+          if (document.activeElement === last) {
+            e.preventDefault();
+            first.focus();
+          }
+        }
+      }
+    });
+
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape' && burger.getAttribute('aria-expanded') === 'true') {
         setOpen(false);
-        burger.focus();
       }
     });
+
     window.addEventListener('resize', function () {
-      if (window.innerWidth >= 990 && burger.getAttribute('aria-expanded') === 'true') setOpen(false);
+      if (window.innerWidth >= 990 && burger.getAttribute('aria-expanded') === 'true') {
+        setOpen(false);
+      }
     });
   })();
 </script>

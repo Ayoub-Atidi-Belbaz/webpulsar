@@ -192,42 +192,174 @@
 .burger[aria-expanded='true'] span::before { top: 0; transform: rotate(45deg); }
 .burger[aria-expanded='true'] span::after  { top: 0; transform: rotate(-45deg); }
 
-/* ---------- Menú móvil ---------- */
+/* ---------- CTA de cabecera (Bloque B) ---------- */
+.header-cta {
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  transition: transform var(--d-fast) var(--e-out), box-shadow var(--d-fast) var(--e-out);
+}
+@media (max-width: 989px) {
+  .header-cta {
+    padding: 0.38rem 0.8rem;
+    font-size: 0.78rem;
+    white-space: nowrap;
+    border-radius: var(--r-pill);
+  }
+}
+@media (max-width: 375px) {
+  .header-cta {
+    padding: 0.32rem 0.6rem;
+    font-size: 0.72rem;
+  }
+}
+
+.cart-link__count.is-hidden {
+  display: none !important;
+}
+
+/* ---------- Menú móvil editorial a pantalla completa (Bloque B) ---------- */
 .mobile-nav {
   position: fixed;
-  inset: var(--header-h) 0 0 0;
+  inset: 0;
+  top: var(--header-h);
   z-index: calc(var(--z-header) - 1);
-  padding: var(--s-6) var(--page-pad) var(--s-9);
-  background: rgba(5, 5, 8, 0.97);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
+  background: radial-gradient(circle at 80% 20%, rgba(168, 85, 247, 0.08) 0%, transparent 50%),
+              rgba(11, 11, 18, 0.98);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
   overflow-y: auto;
   opacity: 0;
   visibility: hidden;
   transform: translateY(-8px);
-  transition: opacity var(--d-base) var(--e-out), transform var(--d-base) var(--e-out), visibility var(--d-base);
+  transition: opacity 300ms cubic-bezier(0.16, 1, 0.3, 1),
+              transform 300ms cubic-bezier(0.16, 1, 0.3, 1),
+              visibility 300ms;
 }
-.mobile-nav.is-open { opacity: 1; visibility: visible; transform: none; }
-@media (min-width: 990px) { .mobile-nav { display: none; } }
+.mobile-nav.is-open {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+}
+@media (min-width: 990px) {
+  .mobile-nav { display: none; }
+}
+
+.mobile-nav__inner {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: calc(100vh - var(--header-h));
+  padding: clamp(1.5rem, 3vw, 2.5rem) var(--page-pad) clamp(2rem, 5vw, 3rem);
+}
+
+.mobile-nav__menu {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
 
 .mobile-nav__link {
   display: flex;
+  align-items: baseline;
+  gap: 1.25rem;
+  padding: 1.15rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  color: var(--c-text);
+  text-decoration: none;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 400ms cubic-bezier(0.16, 1, 0.3, 1),
+              transform 400ms cubic-bezier(0.16, 1, 0.3, 1),
+              color 200ms ease;
+  transition-delay: calc(var(--i, 0) * 45ms);
+}
+.mobile-nav.is-open .mobile-nav__link {
+  opacity: 1;
+  transform: none;
+}
+.mobile-nav__link:hover,
+.mobile-nav__link:focus-visible {
+  color: var(--c-violet-glow, #c084fc);
+}
+.mobile-nav__link[aria-current='page'] {
+  color: var(--c-accent, #a855f7);
+}
+
+.mobile-nav__num {
+  font-family: var(--f-mono, monospace);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--c-text-faint, #64748b);
+}
+
+.mobile-nav__title {
+  flex: 1;
+  font-family: var(--f-display, var(--f-sans));
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+}
+
+.mobile-nav__arrow {
+  color: var(--c-text-faint, #64748b);
+  opacity: 0.6;
+  transform: translateX(-4px);
+  transition: transform 200ms ease, opacity 200ms ease;
+}
+.mobile-nav__link:hover .mobile-nav__arrow,
+.mobile-nav__link:focus-visible .mobile-nav__arrow {
+  opacity: 1;
+  transform: translateX(0);
+  color: var(--c-accent, #a855f7);
+}
+
+.mobile-nav__footer {
+  margin-top: clamp(2rem, 4vw, 3rem);
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.mobile-nav__meta-row {
+  display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: var(--s-4) 0;
-  font-family: var(--f-display);
-  font-size: 1.75rem;
-  font-weight: 500;
-  letter-spacing: -0.03em;
-  color: var(--c-text);
-  border-bottom: 1px solid var(--c-line);
-  opacity: 0;
-  transform: translateY(12px);
-  transition: opacity var(--d-base) var(--e-out), transform var(--d-base) var(--e-out);
+  flex-wrap: wrap;
+  gap: 0.75rem;
 }
-.mobile-nav.is-open .mobile-nav__link { opacity: 1; transform: none; }
-.mobile-nav__link svg { width: 15px; height: 15px; color: var(--c-text-faint); }
-.mobile-nav__footer { margin-top: var(--s-7); display: grid; gap: var(--s-4); }
+
+.header-clock--mobile {
+  display: inline-flex !important;
+}
+
+.mobile-nav__contact {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  font-size: 0.78rem;
+}
+.mobile-nav__email {
+  color: var(--c-text-muted);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 200ms ease;
+}
+.mobile-nav__email:hover {
+  color: var(--c-text);
+}
+.mobile-nav__badge {
+  color: #10b981;
+  font-weight: 500;
+  font-size: 0.72rem;
+  letter-spacing: 0.02em;
+}
+
 
 /* ==========================================================================
    SELECTOR DE MERCADO (Shopify Markets)
