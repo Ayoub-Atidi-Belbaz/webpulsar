@@ -8,13 +8,25 @@
     <link rel="canonical" href="{{ canonical_url }}">
 
     {%- comment -%}
-      OpenAI Ads (ChatGPT) — píxel de medición. Va lo antes posible en el
-      <head> para no perder conversiones tempranas mientras carga el resto.
-      Solo mide page_viewed aquí: la conversión de compra real se dispara
-      desde un píxel personalizado en Shopify (Configuración > Eventos del
-      cliente), porque el checkout no pasa por este layout.
+      OpenAI Ads (ChatGPT) — píxel de medición diferido para no competir con el LCP ni bloquear el render inicial.
     {%- endcomment -%}
-    <script>!function(w,d,s,u){if(w.oaiq)return;var q=function(){q.q.push(arguments)};q.q=[];w.oaiq=q;var j=d.createElement(s);j.async=1;j.src=u;var f=d.getElementsByTagName(s)[0];f.parentNode.insertBefore(j,f)}(window,document,"script","https://bzrcdn.openai.com/sdk/oaiq.min.js");oaiq("init",{pixelId:"LoztKSiH9pGy92FzDsL633",debug:false});</script>
+    <script>
+      (function() {
+        function loadPixel() {
+          if (window.__oaiqLoaded) return;
+          window.__oaiqLoaded = true;
+          !function(w,d,s,u){if(w.oaiq)return;var q=function(){q.q.push(arguments)};q.q=[];w.oaiq=q;var j=d.createElement(s);j.async=1;j.src=u;var f=d.getElementsByTagName(s)[0];f.parentNode.insertBefore(j,f)}(window,document,"script","https://bzrcdn.openai.com/sdk/oaiq.min.js");
+          if (window.oaiq) oaiq("init",{pixelId:"LoztKSiH9pGy92FzDsL633",debug:false});
+        }
+        if (document.readyState === 'complete') {
+          setTimeout(loadPixel, 1200);
+        } else {
+          window.addEventListener('load', function() {
+            (window.requestIdleCallback || function(cb){ setTimeout(cb, 1200); })(loadPixel);
+          }, { once: true });
+        }
+      })();
+    </script>
 
     {%- if settings.favicon != blank -%}
       <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 48, height: 48 }}">
@@ -26,29 +38,56 @@
       {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
     </title>
 
-    {%- comment -%}
-      Descripción: si la página no tiene la suya en el admin, cae en una
-      descripción del negocio. No dejar nunca el <head> sin description: es lo
-      primero que lee un rastreador de IA para resumir de qué va el sitio.
-    {%- endcomment -%}
-    {%- assign fallback_description = 'Create professional ads without a traditional production: no cameras, no studio, no actors, no crew. A person directs the creative and AI produces it, in fixed monthly batches delivered in 72 hours. Ad video production for ecommerce brands and agencies running Meta and TikTok ads.' -%}
+    {%- assign fallback_description = 'Webs profesionales para negocios locales, desde 49 €. Sin permanencia ni cuotas ocultas.' -%}
     <meta name="description" content="{{ page_description | default: fallback_description | escape }}">
 
     {% render 'meta-tags' %}
     {% render 'structured-data' %}
 
-    {%- comment -%}
-      Tipografía de marca: Space Grotesk (display) + Inter (body) via Google
-      Fonts, cargadas desde tokens.css. Se precarga la conexión para que el
-      H1 del hero (LCP en casi todas las plantillas) no espere al DNS/TLS.
-    {%- endcomment -%}
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    {%- comment -%} CSS Crítico Above-the-fold incrustado en línea {%- endcomment -%}
+    {% render 'critical' %}
 
-    {{ 'tokens.css' | asset_url | stylesheet_tag }}
-    {{ 'base.css' | asset_url | stylesheet_tag }}
-    {{ 'components.css' | asset_url | stylesheet_tag }}
-    {{ 'layout.css' | asset_url | stylesheet_tag }}
+    {%- comment -%} Precarga de tipografía local Clash Display {%- endcomment -%}
+    <link rel="preload" href="{{ 'clash-display-variable.woff2' | asset_url }}" as="font" type="font/woff2" crossorigin>
+
+    {%- comment -%} Carga diferida y asíncrona de hojas de estilo no críticas {%- endcomment -%}
+    <link rel="stylesheet" href="{{ 'tokens.css' | asset_url }}" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="{{ 'base.css' | asset_url }}" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="{{ 'components.css' | asset_url }}" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="{{ 'layout.css' | asset_url }}" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="{{ 'sections.css' | asset_url }}" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="{{ 'qm-webs.css' | asset_url }}" media="print" onload="this.media='all'">
+    <noscript>
+      {{ 'tokens.css' | asset_url | stylesheet_tag }}
+      {{ 'base.css' | asset_url | stylesheet_tag }}
+      {{ 'components.css' | asset_url | stylesheet_tag }}
+      {{ 'layout.css' | asset_url | stylesheet_tag }}
+      {{ 'sections.css' | asset_url | stylesheet_tag }}
+      {{ 'qm-webs.css' | asset_url | stylesheet_tag }}
+    </noscript>
+
+    {%- comment -%}
+      Speculation Rules API: Precarga de navegación interna para transiciones instantáneas
+    {%- endcomment -%}
+    <script type="speculationrules">
+      {
+        "prefetch": [
+          {
+            "source": "document",
+            "where": {
+              "and": [
+                { "href_matches": "/*" },
+                { "not": { "href_matches": "/cart*" } },
+                { "not": { "href_matches": "/checkout*" } },
+                { "not": { "href_matches": "/account*" } },
+                { "not": { "href_matches": "/*\\?*" } }
+              ]
+            },
+            "eagerness": "moderate"
+          }
+        ]
+      }
+    </script>
 
     {%- comment -%}
       Acento de marca configurable desde el editor sin tocar el CSS.
@@ -81,6 +120,7 @@
     <script src="{{ 'lenis.min.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'motion.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'video-player.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'qm-webs.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'market.js' | asset_url }}" defer="defer"></script>
     {%- if template.name == 'cart' -%}
       <script src="{{ 'cart.js' | asset_url }}" defer="defer"></script>

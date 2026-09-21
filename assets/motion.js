@@ -165,14 +165,19 @@
   function runPx() {
     pxTicking = false;
     var vh = window.innerHeight;
+    var reads = [];
+    // 1. Fase de LECTURA pura (cero mutaciones del DOM)
     for (var i = 0; i < pxItems.length; i++) {
       var item = pxItems[i];
       if (!item.visible) continue;
       var rect = item.el.getBoundingClientRect();
-      // -1 (elemento saliendo por arriba) → 1 (entrando por abajo)
       var progress = (rect.top + rect.height / 2 - vh / 2) / (vh / 2 + rect.height / 2);
-      var shift = progress * item.depth * 100;
-      item.el.style.setProperty('--py', shift.toFixed(2) + 'px');
+      var shift = Math.max(-20, Math.min(20, progress * item.depth * 100));
+      reads.push({ el: item.el, shift: shift });
+    }
+    // 2. Fase de ESCRITURA pura
+    for (var j = 0; j < reads.length; j++) {
+      reads[j].el.style.setProperty('--py', reads[j].shift.toFixed(1) + 'px');
     }
   }
 

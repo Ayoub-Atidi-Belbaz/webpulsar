@@ -1376,13 +1376,22 @@ body.has-sticky-bar [data-qw-whatsapp-float] {
   overflow: hidden;
   pointer-events: none;
 }
+.qw-hero__poster-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.38;
+  filter: saturate(1.15) contrast(1.05);
+  pointer-events: none;
+}
 .qw-hero__video {
   width: 100%;
   height: 100%;
   object-fit: cover;
   opacity: 0.38;
   filter: saturate(1.15) contrast(1.05);
-  will-change: transform;
 }
 .qw-hero__scrim {
   position: absolute;

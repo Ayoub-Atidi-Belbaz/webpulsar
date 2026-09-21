@@ -208,26 +208,15 @@ h1, h2, h3, h4, .t-display {
    ATMÓSFERA — grano, halos, rejilla
    ========================================================================== */
 
-/* Grano fino global: una capa fija, sin repintado al scrollear */
+/* Grano fino global: capa estática fija, sin animación ni repintado continuo */
 .grain {
-  position: fixed; inset: -50%;
+  position: fixed;
+  inset: 0;
   pointer-events: none;
   z-index: 1;
   opacity: 0.03;
   background-image: url('grain.svg');
   background-size: 160px 160px;
-  will-change: transform;
-}
-@media (prefers-reduced-motion: no-preference) {
-  .grain { animation: grain-drift 8s steps(6) infinite; }
-}
-@keyframes grain-drift {
-  0%, 100% { transform: translate(0, 0); }
-  16% { transform: translate(-4%, -3%); }
-  33% { transform: translate(3%, -5%); }
-  50% { transform: translate(-2%, 4%); }
-  66% { transform: translate(5%, 2%); }
-  83% { transform: translate(-5%, -1%); }
 }
 
 /* Halo radial de fondo; el color se pasa por --halo-color */
@@ -303,9 +292,27 @@ h1, h2, h3, h4, .t-display {
 
 @media (prefers-reduced-motion: reduce) {
   [data-reveal], [data-draw] { opacity: 1 !important; transform: none !important; transition: none !important; }
-  .grain { animation: none; }
 }
 
-/* Parallax: el JS escribe --py en píxeles sobre el contenedor */
-[data-parallax] { will-change: transform; }
+/* Parallax: el JS escribe --py en píxeles sobre el contenedor (will-change gestionado dinámicamente) */
 [data-parallax] > * { transform: translate3d(0, var(--py, 0px), 0); }
+
+/* Optimización de render: Secciones bajo el pliegue con content-visibility */
+@supports (content-visibility: auto) {
+  #problema,
+  #demos,
+  #proyectos,
+  #planes,
+  #mantenimiento,
+  #faq,
+  #contacto {
+    content-visibility: auto;
+    contain-intrinsic-size: 1px 850px;
+  }
+}
+
+/* Preservar anclaje de navegación con cabecera fija */
+#planes, #demos, #proyectos, #faq, #contacto, #quiero-mi-web {
+  scroll-margin-top: calc(var(--header-h, 72px) + 24px);
+}
+

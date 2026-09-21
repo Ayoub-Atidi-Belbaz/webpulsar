@@ -620,3 +620,26 @@
   }
 }
 
+/* Optimización móvil: Reducción de coste de backdrop-filter y fillrate GPU */
+@media (max-width: 768px) {
+  .site-header.is-scrolled {
+    background: rgba(11, 11, 18, 0.94);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+  .mobile-nav {
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+  .cookie-banner {
+    background: rgba(14, 14, 23, 0.98);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+  .qw-sticky {
+    background: rgba(11, 11, 18, 0.96);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+}
+
