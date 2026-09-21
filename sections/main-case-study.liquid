@@ -1,0 +1,171 @@
+{{ 'qm-webs.css' | asset_url | stylesheet_tag }}
+{{ 'qm-webs-extra.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign s = section.settings
+-%}
+
+<article class="case-study" data-reveal="fade">
+  <div class="wrap">
+    <!-- Breadcrumb & Top Bar -->
+    <nav class="case-study__nav" aria-label="Ruta de navegación">
+      <a href="{{ routes.root_url }}" class="case-study__back-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
+        <span>Volver a Inicio</span>
+      </a>
+      <span class="case-study__nav-sep" aria-hidden="true">/</span>
+      <span class="case-study__nav-current">{{ s.sector | default: 'Casos de estudio' }}</span>
+    </nav>
+
+    <!-- Header Section -->
+    <header class="case-study__head">
+      <div class="case-study__badge-row">
+        <span class="chip chip--violet case-study__tag">{{ s.sector | default: 'Hostelería & Gastronomía' }}</span>
+        <span class="chip chip--green case-study__status">
+          <span class="chip__dot chip__dot--pulse" aria-hidden="true"></span>
+          Proyecto entregado
+        </span>
+      </div>
+
+      <h1 class="case-study__title">{{ s.title | default: 'Boles de Frutas — E-commerce & Menú Interactivo' }}</h1>
+      <p class="case-study__lead">{{ s.subtitle | default: 'Diseño web editorial y arquitectura de conversión móvil para captar pedidos locales sin depender de comisiones de terceros.' }}</p>
+
+      <!-- Key Metrics Row -->
+      <div class="case-study__metrics" data-stagger="80">
+        <div class="case-study__metric" data-reveal>
+          <span class="case-study__metric-val t-grad">{{ s.metric_1_val | default: '+140%' }}</span>
+          <span class="case-study__metric-label">{{ s.metric_1_label | default: 'Contactos y reservas' }}</span>
+        </div>
+        <div class="case-study__metric" data-reveal>
+          <span class="case-study__metric-val">{{ s.metric_2_val | default: '5 días' }}</span>
+          <span class="case-study__metric-label">{{ s.metric_2_label | default: 'Plazo de entrega' }}</span>
+        </div>
+        <div class="case-study__metric" data-reveal>
+          <span class="case-study__metric-val">{{ s.metric_3_val | default: '100%' }}</span>
+          <span class="case-study__metric-label">{{ s.metric_3_label | default: 'Rendimiento móvil' }}</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Dual Device Showcase Stage -->
+    <div class="case-study__stage" data-reveal>
+      <div class="macbook-device macbook-device--case">
+        <div class="macbook-screen">
+          <div class="macbook-camera"><i></i></div>
+          <div class="macbook-safari-bar">
+            <div class="macbook-traffic-lights">
+              <span class="light close"></span>
+              <span class="light minimize"></span>
+              <span class="light zoom"></span>
+            </div>
+            <div class="macbook-address-bar">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              <span class="url-text">{{ s.project_domain | default: 'bowl-food-web.vercel.app' }}</span>
+            </div>
+          </div>
+          <div class="macbook-content">
+            {%- if s.video_url != blank -%}
+              <video class="case-study__video" autoplay muted loop playsinline poster="{{ s.desktop_poster | default: '/assets/web-browsing-laptop.jpg' }}">
+                <source src="{{ s.video_url }}" type="video/mp4">
+              </video>
+            {%- else -%}
+              <img src="{{ s.desktop_poster | default: '/assets/web-browsing-laptop.jpg' }}" alt="{{ s.title | escape }}" class="case-study__img" loading="eager">
+            {%- endif -%}
+          </div>
+        </div>
+        <div class="macbook-bottom"><div class="macbook-notch-lip"></div></div>
+      </div>
+
+      <!-- Overlaid iPhone Mockup -->
+      <div class="iphonex-device iphonex-device--case">
+        <div class="iphonex-body">
+          <div class="iphonex-screen">
+            <div class="iphonex-topbar">
+              <span class="iphonex-time">9:41</span>
+              <div class="iphonex-notch"><span class="notch-camera"></span><span class="notch-speaker"></span></div>
+            </div>
+            <div class="iphonex-content">
+              <img src="{{ s.mobile_poster | default: '/assets/web-design-search.jpg' }}" alt="Vista móvil del proyecto" class="case-study__mobile-img" loading="lazy">
+            </div>
+            <div class="iphonex-home-bar"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Editorial Story Columns -->
+    <div class="case-study__content-grid">
+      <div class="case-study__col" data-reveal>
+        <h2 class="case-study__sec-title">El Reto</h2>
+        <div class="case-study__prose">
+          <p>{{ s.challenge | default: 'El negocio dependía de redes sociales y plataformas intermediarias que cobraban altas comisiones por cada pedido. Necesitaban una web propia, rápida, con un menú visual claro que permitiese a los comensales pedir directamente por WhatsApp sin intermediarios ni costes recurrentes.' }}</p>
+        </div>
+      </div>
+
+      <div class="case-study__col" data-reveal>
+        <h2 class="case-study__sec-title">Nuestra Solución</h2>
+        <div class="case-study__prose">
+          <p>{{ s.solution | default: 'Diseñamos una experiencia web fluida y atractiva con selector de temperatura, carga instantánea en teléfonos móviles y llamadas a la acción directas hacia WhatsApp. La web se entregó en 5 días completamente configurada, optimizada para SEO local y lista para recibir clientes.' }}</p>
+        </div>
+
+        <div class="case-study__tech-stack">
+          <span class="case-study__tech-label">Stack y herramientas:</span>
+          <div class="case-study__tags">
+            <span class="qw-tag">Liquid OS 2.0</span>
+            <span class="qw-tag">Responsive Mobile-First</span>
+            <span class="qw-tag">Integración WhatsApp</span>
+            <span class="qw-tag">SEO Local</span>
+            <span class="qw-tag">Velocidad 95+</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA Footer Box -->
+    <footer class="case-study__footer card--glow" data-reveal>
+      <div class="case-study__footer-copy">
+        <h3 class="case-study__footer-title">¿Quieres un resultado como este para tu negocio?</h3>
+        <p class="case-study__footer-desc">Te asesoramos sin compromiso y te entregamos tu web en menos de 7 días. Desde 49 € sin permanencia.</p>
+      </div>
+      <div class="case-study__footer-actions">
+        {%- if s.project_url != blank -%}
+          <a href="{{ s.project_url }}" target="_blank" rel="noopener" class="btn btn--ghost btn--lg">
+            <span>Ver web en vivo</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7m0 0H8.5M17 7v8.5"/></svg>
+          </a>
+        {%- endif -%}
+        <a href="{{ routes.root_url }}#planes" class="btn btn--primary btn--lg">
+          <span>Quiero mi web</span>
+        </a>
+      </div>
+    </footer>
+  </div>
+</article>
+
+{% schema %}
+{
+  "name": "Caso de estudio principal",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "sector", "label": "Sector / Industria", "default": "Hostelería & Gastronomía" },
+    { "type": "text", "id": "title", "label": "Título del proyecto", "default": "Boles de Frutas — E-commerce & Menú Interactivo" },
+    { "type": "textarea", "id": "subtitle", "label": "Subtítulo / Resumen", "default": "Diseño web editorial y arquitectura de conversión móvil para captar pedidos locales sin depender de comisiones de terceros." },
+    { "type": "text", "id": "project_domain", "label": "Dominio visible en barra Safari", "default": "bowl-food-web.vercel.app" },
+    { "type": "url", "id": "project_url", "label": "URL del proyecto en vivo" },
+    { "type": "header", "content": "Métricas de Impacto" },
+    { "type": "text", "id": "metric_1_val", "label": "Métrica 1 valor", "default": "+140%" },
+    { "type": "text", "id": "metric_1_label", "label": "Métrica 1 etiqueta", "default": "Contactos y reservas" },
+    { "type": "text", "id": "metric_2_val", "label": "Métrica 2 valor", "default": "5 días" },
+    { "type": "metric_2_label", "type": "text", "id": "metric_2_label", "label": "Métrica 2 etiqueta", "default": "Plazo de entrega" },
+    { "type": "text", "id": "metric_3_val", "label": "Métrica 3 valor", "default": "100%" },
+    { "type": "text", "id": "metric_3_label", "label": "Métrica 3 etiqueta", "default": "Rendimiento móvil" },
+    { "type": "header", "content": "Historia Editorial" },
+    { "type": "textarea", "id": "challenge", "label": "El Reto" },
+    { "type": "textarea", "id": "solution", "label": "Nuestra Solución" },
+    { "type": "header", "content": "Multimedia" },
+    { "type": "text", "id": "video_url", "label": "Vídeo MP4 preview (opcional)", "default": "/assets/web-browsing-laptop.mp4" },
+    { "type": "text", "id": "desktop_poster", "label": "Póster de escritorio", "default": "/assets/web-browsing-laptop.jpg" },
+    { "type": "text", "id": "mobile_poster", "label": "Captura móvil", "default": "/assets/web-design-search.jpg" }
+  ]
+}
+{% endschema %}

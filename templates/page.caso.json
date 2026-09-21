@@ -1,0 +1,42 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-case-study",
+      "settings": {
+        "sector": "Hostelería & Gastronomía",
+        "title": "Boles de Frutas — E-commerce & Menú Interactivo",
+        "subtitle": "Diseño web editorial y arquitectura de conversión móvil para captar pedidos locales sin depender de comisiones de terceros.",
+        "project_domain": "bowl-food-web.vercel.app",
+        "project_url": "https://bowl-food-web.vercel.app/",
+        "metric_1_val": "+140%",
+        "metric_1_label": "Contactos y pedidos",
+        "metric_2_val": "5 días",
+        "metric_2_label": "Plazo de entrega",
+        "metric_3_val": "100%",
+        "metric_3_label": "Rendimiento móvil",
+        "challenge": "El negocio dependía de redes sociales y plataformas intermediarias que cobraban altas comisiones por cada pedido. Necesitaban una web propia, rápida, con un menú visual claro que permitiese a los comensales pedir directamente por WhatsApp sin intermediarios ni costes recurrentes.",
+        "solution": "Diseñamos una experiencia web fluida y atractiva con selector de temperatura, carga instantánea en teléfonos móviles y llamadas a la acción directas hacia WhatsApp. La web se entregó en 5 días completamente configurada, optimizada para SEO local y lista para recibir clientes.",
+        "video_url": "/assets/web-browsing-laptop.mp4",
+        "desktop_poster": "/assets/web-browsing-laptop.jpg",
+        "mobile_poster": "/assets/web-design-search.jpg"
+      }
+    },
+    "cierre": {
+      "type": "webs-close",
+      "settings": {
+        "eyebrow": "Siguiente paso",
+        "heading": "¿Tienes un proyecto similar en mente?",
+        "heading_accent": "Te lo entregamos en menos de 7 días.",
+        "body": "Cuéntanos qué necesita tu negocio y te preparamos una propuesta a medida sin compromiso.",
+        "whatsapp": "34632358260",
+        "wa_intro": "Hola, he visto el caso de estudio de Boles de Frutas y quiero una web para mi negocio.",
+        "wa_label": "Consultar por WhatsApp",
+        "form_title": "Pide presupuesto sin compromiso"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "cierre"
+  ]
+}
