@@ -1280,6 +1280,13 @@
 
 @media (max-width: 989px) { .qw-links { padding-bottom: calc(var(--s-7) + 76px); } }
 
+/* Coordinación con botones flotantes para evitar solapamientos en móvil (Bloque H) */
+body.has-sticky-bar .floating-wa-btn,
+body.has-sticky-bar [data-qw-whatsapp-float] {
+  bottom: calc(76px + env(safe-area-inset-bottom, 12px)) !important;
+  transition: bottom var(--d-base) var(--e-out);
+}
+
 /* ==========================================================================
    14. AJUSTES FINOS RESPONSIVE
    ========================================================================== */

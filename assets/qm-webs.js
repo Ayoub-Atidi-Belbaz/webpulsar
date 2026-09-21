@@ -322,15 +322,19 @@
     var pastHero = false;
     var overCta = false;
 
-    function apply() { bar.classList.toggle('is-in', pastHero && !overCta); }
+    function apply() {
+      var isSticky = pastHero && !overCta;
+      bar.classList.toggle('is-in', isSticky);
+      document.body.classList.toggle('has-sticky-bar', isSticky);
+    }
 
-    var hero = document.querySelector('[data-qw-hero]');
-    if (hero) {
+    var heroTarget = document.querySelector('.qw-hero__cta-c, .qw-hero__cta, [data-qw-hero]');
+    if (heroTarget) {
       new IntersectionObserver(function (entries) {
         var entry = entries[0];
-        pastHero = !entry.isIntersecting && entry.boundingClientRect.top < 0;
+        pastHero = entry.boundingClientRect.bottom < 0;
         apply();
-      }, { threshold: 0 }).observe(hero);
+      }, { threshold: 0 }).observe(heroTarget);
     } else {
       pastHero = true;
     }

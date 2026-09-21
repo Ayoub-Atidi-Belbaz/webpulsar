@@ -127,10 +127,31 @@
         if (custOut) custOut.textContent = fmtNum(lostCustomers);
         if (moOut) moOut.textContent = fmtEUR(lostMonthly);
         if (yrOut) yrOut.textContent = fmtEUR(lostYearly);
+
+        trackCalc(lostCustomers, lostMonthly, lostYearly);
+      }
+
+      var trackDebounce = null;
+      var hasInteracted = false;
+      function trackCalc(lostCustomers, lostMonthly, lostYearly) {
+        if (!hasInteracted) return;
+        if (trackDebounce) clearTimeout(trackDebounce);
+        trackDebounce = setTimeout(function () {
+          if (window.qmWebs && window.qmWebs.track) {
+            window.qmWebs.track('calculator_interact', {
+              lost_customers: Math.round(lostCustomers),
+              lost_monthly: Math.round(lostMonthly),
+              lost_yearly: Math.round(lostYearly)
+            });
+          }
+        }, 800);
       }
 
       [visits, ticket, rate].forEach(function (el) {
-        el.addEventListener('input', update);
+        el.addEventListener('input', function () {
+          hasInteracted = true;
+          update();
+        });
       });
       update();
     }
