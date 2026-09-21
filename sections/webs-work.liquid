@@ -23,6 +23,14 @@
       {%- if s.body != blank -%}
         <p class="t-lead" data-reveal style="--reveal-delay: 80ms">{{ s.body }}</p>
       {%- endif -%}
+
+      {%- comment -%} Filtros editoriales por tipo de proyecto (Bloque D) {%- endcomment -%}
+      <div class="qw-work__filters" data-reveal="fade" role="tablist" aria-label="Filtrar por tipo de proyecto">
+        <button type="button" class="qw-work__filter-btn is-active" data-work-filter="all" role="tab" aria-selected="true">Todos</button>
+        <button type="button" class="qw-work__filter-btn" data-work-filter="client" role="tab" aria-selected="false">Clientes reales</button>
+        <button type="button" class="qw-work__filter-btn" data-work-filter="demo" role="tab" aria-selected="false">Demos interactivas</button>
+        <button type="button" class="qw-work__filter-btn" data-work-filter="concept" role="tab" aria-selected="false">Proyectos propios</button>
+      </div>
     </div>
 
     <div class="qw-work__container">
@@ -30,7 +38,7 @@
         {%- for block in section.blocks -%}
           {%- assign b = block.settings -%}
           {%- assign tags = b.tags | split: ',' -%}
-          <article class="qw-work-card card--glow" data-reveal {{ block.shopify_attributes }}>
+          <article class="qw-work-card card--glow" data-project-type="{{ b.project_type | default: 'client' }}" data-reveal {{ block.shopify_attributes }}>
             <!-- Mockup Window Bar -->
             <div class="qw-work-card__preview">
               <div class="qw-work-card__chrome">
@@ -82,7 +90,14 @@
             <!-- Content -->
             <div class="qw-work-card__body">
               <div class="qw-work-card__meta">
-                <span class="chip chip--sm chip--violet">{{ b.badge }}</span>
+                <span class="chip chip--sm {% if b.project_type == 'demo' %}chip--cyan{% elsif b.project_type == 'concept' %}chip--violet{% else %}chip--green{% endif %}">
+                  {%- case b.project_type -%}
+                    {%- when 'demo' -%}Demo interactiva
+                    {%- when 'concept' -%}Proyecto propio
+                    {%- else -%}Cliente real
+                  {%- endcase -%}
+                </span>
+                <span class="chip chip--sm chip--outline">{{ b.badge }}</span>
                 {%- if b.highlight != blank -%}
                   <span class="qw-work-card__highlight">{{ b.highlight }}</span>
                 {%- endif -%}
@@ -128,6 +143,33 @@
   </div>
 </section>
 
+<script>
+  (function () {
+    var container = document.querySelector('.qw-work');
+    if (!container || container.__workFiltersInit) return;
+    container.__workFiltersInit = true;
+
+    var filterBtns = container.querySelectorAll('[data-work-filter]');
+    var cards = container.querySelectorAll('.qw-work-card');
+
+    filterBtns.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var filter = btn.dataset.workFilter;
+        filterBtns.forEach(function (b) {
+          var active = b === btn;
+          b.classList.toggle('is-active', active);
+          b.setAttribute('aria-selected', String(active));
+        });
+        cards.forEach(function (card) {
+          var type = card.dataset.projectType || 'client';
+          var show = filter === 'all' || type === filter;
+          card.style.display = show ? '' : 'none';
+        });
+      });
+    });
+  })();
+</script>
+
 {% schema %}
 {
   "name": "Webs · Nuestro Trabajo",
@@ -145,6 +187,17 @@
       "limit": 10,
       "settings": [
         { "type": "text", "id": "title", "label": "Título del proyecto", "default": "Proyecto Destacado" },
+        {
+          "type": "select",
+          "id": "project_type",
+          "label": "Tipo de proyecto",
+          "options": [
+            { "value": "client", "label": "Cliente real" },
+            { "value": "demo", "label": "Demo interactiva" },
+            { "value": "concept", "label": "Proyecto propio / Concepto" }
+          ],
+          "default": "client"
+        },
         { "type": "url", "id": "url", "label": "URL del proyecto en vivo" },
         { "type": "text", "id": "domain", "label": "Dominio visible", "default": "ejemplo.vercel.app" },
         { "type": "text", "id": "badge", "label": "Tipo / Plan", "default": "Plan Pro" },
