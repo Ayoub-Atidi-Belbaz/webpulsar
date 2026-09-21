@@ -79,6 +79,15 @@
 
     function loadAndPlay(video) {
       if (video.classList.contains('is-loaded')) return;
+
+      var isMobile = window.matchMedia && window.matchMedia('(max-width: 768px)').matches;
+      var saveData = navigator.connection && navigator.connection.saveData;
+
+      // On mobile or data-saver, preserve bandwidth: keep the high-res poster and skip heavy background hero video
+      if ((isMobile || saveData) && video.closest('.qw-hero__media')) {
+        return;
+      }
+
       video.classList.add('is-loaded');
 
       var sources = video.querySelectorAll('source[data-src]');
@@ -90,7 +99,6 @@
       }
       video.load();
 
-      var saveData = navigator.connection && navigator.connection.saveData;
       if (!reduced && !saveData) {
         var p = video.play();
         if (p && p.catch) p.catch(function () {});

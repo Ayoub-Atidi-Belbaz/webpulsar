@@ -297,20 +297,6 @@ h1, h2, h3, h4, .t-display {
 /* Parallax: el JS escribe --py en píxeles sobre el contenedor (will-change gestionado dinámicamente) */
 [data-parallax] > * { transform: translate3d(0, var(--py, 0px), 0); }
 
-/* Optimización de render: Secciones bajo el pliegue con content-visibility */
-@supports (content-visibility: auto) {
-  #problema,
-  #demos,
-  #proyectos,
-  #planes,
-  #mantenimiento,
-  #faq,
-  #contacto {
-    content-visibility: auto;
-    contain-intrinsic-size: 1px 850px;
-  }
-}
-
 /* Preservar anclaje de navegación con cabecera fija */
 #planes, #demos, #proyectos, #faq, #contacto, #quiero-mi-web {
   scroll-margin-top: calc(var(--header-h, 72px) + 24px);

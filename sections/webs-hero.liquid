@@ -6,9 +6,13 @@
   {%- if s.hero_video != blank -%}
     <div class="qw-hero__media" data-parallax="0.08" aria-hidden="true">
       {%- if s.hero_video_poster != blank -%}
+        {%- assign poster_url = s.hero_video_poster -%}
+        {%- unless poster_url contains '/' -%}
+          {%- assign poster_url = poster_url | image_url: width: 1920 -%}
+        {%- endunless -%}
         <img
           class="qw-hero__poster-img"
-          src="{{ s.hero_video_poster | image_url: width: 1920 }}"
+          src="{{ poster_url }}"
           alt=""
           width="1920"
           height="1080"
@@ -26,10 +30,10 @@
         playsinline
         preload="none"
         {% if s.hero_video_poster != blank %}
-          poster="{{ s.hero_video_poster | image_url: width: 1920 }}"
+          poster="{{ poster_url }}"
         {% endif %}
       >
-        <source src="{{ s.hero_video }}" data-src="{{ s.hero_video }}" type="video/mp4">
+        <source data-src="{{ s.hero_video }}" type="video/mp4">
       </video>
       <div class="qw-hero__scrim" aria-hidden="true"></div>
     </div>
