@@ -52,6 +52,7 @@
 
     {%- comment -%} Carga diferida y asíncrona de hojas de estilo no críticas {%- endcomment -%}
     <link rel="stylesheet" href="{{ 'tokens.css' | asset_url }}" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="{{ 'motion-system.css' | asset_url }}" media="print" onload="this.media='all'">
     <link rel="stylesheet" href="{{ 'base.css' | asset_url }}" media="print" onload="this.media='all'">
     <link rel="stylesheet" href="{{ 'components.css' | asset_url }}" media="print" onload="this.media='all'">
     <link rel="stylesheet" href="{{ 'layout.css' | asset_url }}" media="print" onload="this.media='all'">
@@ -59,6 +60,7 @@
     <link rel="stylesheet" href="{{ 'qm-webs.css' | asset_url }}" media="print" onload="this.media='all'">
     <noscript>
       {{ 'tokens.css' | asset_url | stylesheet_tag }}
+      {{ 'motion-system.css' | asset_url | stylesheet_tag }}
       {{ 'base.css' | asset_url | stylesheet_tag }}
       {{ 'components.css' | asset_url | stylesheet_tag }}
       {{ 'layout.css' | asset_url | stylesheet_tag }}

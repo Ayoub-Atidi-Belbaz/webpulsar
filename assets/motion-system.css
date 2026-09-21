@@ -1,0 +1,216 @@
+/* ==========================================================================
+   MOTION SYSTEM — Una sola fuente de verdad para movimiento, curvas y reveals
+   Reglas:
+   1. Animar SOLO transform y opacity (y clip-path puntual).
+   2. will-change solo durante la animación, nunca permanente.
+   3. Mejora progresiva: visible y usable si JS no carga.
+   4. prefers-reduced-motion: solo fundidos <= 150ms, sin movimiento.
+   ========================================================================== */
+
+:root {
+  /* Duraciones canónicas */
+  --dur-fast: 150ms;
+  --dur-base: 300ms;
+  --dur-slow: 600ms;
+  --dur-hero: 900ms;
+
+  /* Curvas canónicas */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* Escalonado */
+  --stagger-step: 60ms;
+  --stagger-max: 8;
+}
+
+/* --------------------------------------------------------------------------
+   1. Revelado al Scroll (.reveal y .reveal-stagger)
+   -------------------------------------------------------------------------- */
+/* Por defecto visible (Progressive Enhancement) */
+.reveal, [data-reveal] {
+  opacity: 1;
+}
+
+/* Solo si JS está activo y cargado, se prepara para la animación */
+html.js .reveal:not(.is-in),
+html.js [data-reveal]:not(.is-in) {
+  opacity: 0;
+  transform: translateY(18px);
+}
+
+html.js .reveal.is-in,
+html.js [data-reveal].is-in {
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity var(--dur-slow) var(--ease-out),
+    transform var(--dur-slow) var(--ease-out);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+/* Soporte moderno Scroll-Driven Animations donde el navegador lo soporte */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal--timeline {
+      animation: reveal-view-timeline var(--dur-slow) var(--ease-out) both;
+      animation-timeline: view();
+      animation-range: entry 10% cover 30%;
+    }
+    @keyframes reveal-view-timeline {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  }
+}
+
+/* Escalonado automático por CSS para hasta 8 hijos */
+.reveal-stagger > :nth-child(1) { --reveal-delay: calc(var(--stagger-step) * 0); }
+.reveal-stagger > :nth-child(2) { --reveal-delay: calc(var(--stagger-step) * 1); }
+.reveal-stagger > :nth-child(3) { --reveal-delay: calc(var(--stagger-step) * 2); }
+.reveal-stagger > :nth-child(4) { --reveal-delay: calc(var(--stagger-step) * 3); }
+.reveal-stagger > :nth-child(5) { --reveal-delay: calc(var(--stagger-step) * 4); }
+.reveal-stagger > :nth-child(6) { --reveal-delay: calc(var(--stagger-step) * 5); }
+.reveal-stagger > :nth-child(7) { --reveal-delay: calc(var(--stagger-step) * 6); }
+.reveal-stagger > :nth-child(8) { --reveal-delay: calc(var(--stagger-step) * 7); }
+
+/* --------------------------------------------------------------------------
+   2. Hover Lift & Microinteracciones (.hover-lift)
+   -------------------------------------------------------------------------- */
+@media (hover: hover) and (pointer: fine) {
+  .hover-lift {
+    transition:
+      transform var(--dur-base) var(--ease-out),
+      box-shadow var(--dur-base) var(--ease-out),
+      border-color var(--dur-base) var(--ease-out);
+  }
+  .hover-lift:hover {
+    transform: translateY(-4px);
+  }
+  .hover-lift:active {
+    transform: translateY(-1px) scale(0.98);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   3. Botones y Elementos Magnéticos (.magnetic)
+   -------------------------------------------------------------------------- */
+.magnetic {
+  display: inline-flex;
+  transform-origin: center center;
+  transition: transform var(--dur-base) var(--ease-out);
+}
+.magnetic.is-active {
+  transition: transform 80ms linear;
+}
+
+/* --------------------------------------------------------------------------
+   4. Revelado de Imágenes con Máscara y Leve Escala (.img-reveal)
+   -------------------------------------------------------------------------- */
+.img-reveal {
+  overflow: hidden;
+  position: relative;
+}
+.img-reveal img,
+.img-reveal video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.06);
+  clip-path: inset(0 0 0 0);
+  transition:
+    transform var(--dur-hero) var(--ease-out),
+    opacity var(--dur-slow) var(--ease-out);
+}
+.img-reveal.is-in img,
+.img-reveal.is-in video {
+  transform: scale(1);
+}
+
+/* --------------------------------------------------------------------------
+   5. Revelado Tipográfico por Líneas (.text-reveal)
+   -------------------------------------------------------------------------- */
+.text-reveal {
+  display: block;
+  overflow: hidden;
+}
+.text-reveal > .line,
+.text-reveal > span {
+  display: inline-block;
+  transform: translateY(102%);
+  opacity: 0;
+  transition:
+    transform var(--dur-slow) var(--ease-out),
+    opacity var(--dur-slow) var(--ease-out);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+.text-reveal.is-in > .line,
+.text-reveal.is-in > span {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* --------------------------------------------------------------------------
+   6. View Transitions API (Navegación Suave entre Páginas)
+   -------------------------------------------------------------------------- */
+@view-transition {
+  navigation: auto;
+}
+
+::view-transition-old(root) {
+  animation: vt-fade-out var(--dur-base) var(--ease-out) both;
+}
+::view-transition-new(root) {
+  animation: vt-fade-in var(--dur-base) var(--ease-out) both;
+}
+
+@keyframes vt-fade-out {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(-4px); }
+}
+@keyframes vt-fade-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Mantener estable la cabecera durante transiciones de página */
+.site-header {
+  view-transition-name: site-header;
+}
+
+/* --------------------------------------------------------------------------
+   7. Respeto Estricto a prefers-reduced-motion: reduce
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur-fast: 80ms;
+    --dur-base: 120ms;
+    --dur-slow: 150ms;
+    --dur-hero: 150ms;
+    --stagger-step: 0ms;
+  }
+
+  html.js .reveal:not(.is-in),
+  html.js [data-reveal]:not(.is-in),
+  html.js .reveal.is-in,
+  html.js [data-reveal].is-in,
+  .img-reveal img,
+  .text-reveal > .line,
+  .text-reveal > span {
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
+    transition: opacity 150ms ease !important;
+  }
+
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none !important;
+  }
+}
