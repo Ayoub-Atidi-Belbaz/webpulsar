@@ -60,7 +60,7 @@
 
             <div class="qw-receipt__total">
               <div class="qw-receipt__total-row">
-                <span>Total</span>
+                <span>{% if b.pay_label contains 'Desde' or plan_slug == 'a-medida' %}Desde{% else %}Total{% endif %}</span>
                 <span class="qw-price qw-price--md">
                   <span>{{ b.price }}</span>
                   <span class="qw-price__cur">{{ b.currency | default: '€' }}</span>

@@ -67,7 +67,7 @@
                     muted
                     loop
                     playsinline
-                    preload="auto"
+                    preload="none"
                     {% if b.image != blank %}poster="{{ b.image | image_url: width: 800 }}"{% endif %}
                   >
                     <source src="{{ b.video_url }}" data-src="{{ b.video_url }}" type="video/mp4">
