@@ -1,22 +1,13 @@
 {%- comment -%}
-  Datos estructurados (JSON-LD) para rastreadores de IA.
-
-  Por qué existe esto: OAI-AdsBot (el crawler de ChatGPT Ads) no solo revisa la
-  página para aprobar el anuncio — OpenAI usa el contenido de la landing para
-  decidir en qué conversaciones mostrarlo. Un rastreador no puede ver un vídeo,
-  así que toda la prueba visual del sitio le resulta invisible: lo que entiende
-  es el texto y este esquema.
-
-  Los precios salen de los productos de Shopify, nunca escritos a mano, para que
-  no puedan desincronizarse (mismo criterio que el resto del tema).
+  Datos estructurados (JSON-LD) para SEO y motores de IA (Bloque G).
+  Esquema oficial de WebPulsar: ProfessionalService, WebSite y Ofertas de planes web.
 {%- endcomment -%}
 
 {%- liquid
-  assign starter = all_products['pack-starter-3-videos-anuncio-ia-mes']
-  assign growth = all_products['pack-growth-5-videos-anuncio-ia-mes']
-  assign scale = all_products['pack-scale-10-videos-anuncio-ia-mes']
-  assign single = all_products['single-ad-video']
-  assign currency = cart.currency.iso_code | default: shop.currency
+  assign currency = cart.currency.iso_code | default: shop.currency | default: 'EUR'
+  assign contact_email = settings.contact_email | default: 'hello@quickmotionai.com'
+  assign contact_wa = settings.contact_whatsapp | default: '34632358260'
+  assign contact_loc = settings.contact_location | default: 'Murcia, España'
 -%}
 
 <script type="application/ld+json">
@@ -24,113 +15,90 @@
   "@context": "https://schema.org",
   "@graph": [
     {
-      "@type": "Organization",
+      "@type": "ProfessionalService",
       "@id": "{{ shop.url }}/#organization",
-      "name": {{ shop.name | json }},
+      "name": {{ shop.name | default: 'WebPulsar' | json }},
       "url": "{{ shop.url }}",
-      "description": "Ad video production without a traditional production: no cameras, no studio, no actors, no crew. A person directs the creative strategy and AI produces the footage, in fixed monthly batches of UGC-style video ads for Meta and TikTok, delivered in 72 hours from brief. For ecommerce brands and agencies that want more ad variants without an agency, production company or in-house video team.",
-      "email": "{{ settings.contact_email | default: 'hello@quickmotionai.com' }}",
-      "areaServed": { "@type": "Country", "name": "United States" }
-      {%- if settings.logo != blank -%},
-      "logo": "https:{{ settings.logo | image_url: width: 512 }}"
+      "description": "Diseño y desarrollo de páginas web profesionales para negocios locales y pymes desde 49 €. Sin permanencia, adaptadas a móvil y optimizadas para Google y WhatsApp.",
+      "email": {{ contact_email | json }},
+      "telephone": "+{{ contact_wa }}",
+      "priceRange": "€€",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": {{ contact_loc | json }},
+        "addressCountry": "ES"
+      },
+      "areaServed": {
+        "@type": "Country",
+        "name": "España"
+      }
+      {%- if settings.favicon != blank -%},
+      "logo": "https:{{ settings.favicon | image_url: width: 512 }}"
       {%- endif -%}
     },
     {
       "@type": "WebSite",
       "@id": "{{ shop.url }}/#website",
       "url": "{{ shop.url }}",
-      "name": {{ shop.name | json }},
+      "name": {{ shop.name | default: 'WebPulsar' | json }},
       "publisher": { "@id": "{{ shop.url }}/#organization" },
-      "inLanguage": "en"
+      "inLanguage": "es"
     },
     {
       "@type": "Service",
       "@id": "{{ shop.url }}/#service",
-      "name": "Ad video production without a traditional shoot",
-      "serviceType": "Video advertising production",
+      "name": "Desarrollo de páginas web para negocios locales",
+      "serviceType": "Diseño y desarrollo web",
       "provider": { "@id": "{{ shop.url }}/#organization" },
-      "areaServed": { "@type": "Country", "name": "United States" },
+      "areaServed": { "@type": "Country", "name": "España" },
       "audience": {
         "@type": "BusinessAudience",
-        "name": "Ecommerce brands, DTC stores and marketing agencies running paid social ads"
+        "name": "Negocios locales, pymes, clínicas, talleres, restaurantes y profesionales autónomos"
       },
-      "description": "Monthly subscription that replaces the cost and the infrastructure of a traditional ad shoot. Instead of hiring an agency, a production company, a studio, actors or UGC creators, a person directs the sales angle, hook and edit, and the footage is produced with AI. You get a fixed number of UGC-style video ads for Meta and TikTok from a short brief, delivered in 72 hours (48 hours on the Scale plan), with revision rounds included and no long-term contract. Suited to small brands that cannot justify an agency and to larger teams that want many more creative variants without expanding their production infrastructure. Single one-off videos are also available without a subscription.",
-      "termsOfService": "{{ shop.url }}/pages/terminos",
+      "description": "Servicio de diseño y creación de páginas web profesionales entregadas en menos de 7 días. Adaptación total a dispositivos móviles, integración con WhatsApp para reservas y consultas directas, optimización de velocidad y SEO local.",
       "offers": {
         "@type": "AggregateOffer",
         "priceCurrency": "{{ currency }}",
-        {%- if single != blank %}"lowPrice": "{{ single.price | divided_by: 100.0 }}",{% endif %}
-        {%- if scale != blank %}"highPrice": "{{ scale.price | divided_by: 100.0 }}",{% endif %}
+        "lowPrice": "49.00",
+        "highPrice": "799.00",
         "offerCount": 4,
         "offers": [
-          {%- if starter != blank -%}
           {
             "@type": "Offer",
-            "name": "Starter — 3 ad videos per month",
-            "description": "3 AI-produced ad videos per month, 9:16 and 4:5 formats, 1 revision round per video, delivered in 72 hours from brief.",
-            "price": "{{ starter.price | divided_by: 100.0 }}",
+            "name": "Plan STARTER",
+            "description": "Web profesional de una página adaptada a móvil con botón directo a WhatsApp. Entrega en menos de 7 días sin cuotas mensuales.",
+            "price": "49.00",
             "priceCurrency": "{{ currency }}",
-            "url": "{{ shop.url }}{{ starter.url }}",
-            "availability": "https://schema.org/InStock",
-            "priceSpecification": {
-              "@type": "UnitPriceSpecification",
-              "price": "{{ starter.price | divided_by: 100.0 }}",
-              "priceCurrency": "{{ currency }}",
-              "billingDuration": 1,
-              "billingIncrement": 1,
-              "unitCode": "MON"
-            }
+            "url": "{{ shop.url }}/#planes",
+            "availability": "https://schema.org/InStock"
           },
-          {%- endif -%}
-          {%- if growth != blank -%}
           {
             "@type": "Offer",
-            "name": "Growth — 5 ad videos per month",
-            "description": "5 AI-produced ad videos per month, 9:16, 4:5 and 1:1 formats, 2 revision rounds per video, delivered in 72 hours from brief.",
-            "price": "{{ growth.price | divided_by: 100.0 }}",
+            "name": "Plan PRO",
+            "description": "Hasta 5 páginas profesionales, diseño personalizado, SEO básico, Google Maps y optimización móvil avanzada.",
+            "price": "199.00",
             "priceCurrency": "{{ currency }}",
-            "url": "{{ shop.url }}{{ growth.url }}",
-            "availability": "https://schema.org/InStock",
-            "priceSpecification": {
-              "@type": "UnitPriceSpecification",
-              "price": "{{ growth.price | divided_by: 100.0 }}",
-              "priceCurrency": "{{ currency }}",
-              "billingDuration": 1,
-              "billingIncrement": 1,
-              "unitCode": "MON"
-            }
+            "url": "{{ shop.url }}/#planes",
+            "availability": "https://schema.org/InStock"
           },
-          {%- endif -%}
-          {%- if scale != blank -%}
           {
             "@type": "Offer",
-            "name": "Scale — 10 ad videos per month",
-            "description": "10 AI-produced ad videos per month, all formats, 3 revision rounds per video, delivered in 48 hours from brief, with a dedicated account manager.",
-            "price": "{{ scale.price | divided_by: 100.0 }}",
+            "name": "Plan BUSINESS",
+            "description": "Web completa con sistema de reservas, citas, automatizaciones y analítica avanzada.",
+            "price": "499.00",
             "priceCurrency": "{{ currency }}",
-            "url": "{{ shop.url }}{{ scale.url }}",
-            "availability": "https://schema.org/InStock",
-            "priceSpecification": {
-              "@type": "UnitPriceSpecification",
-              "price": "{{ scale.price | divided_by: 100.0 }}",
-              "priceCurrency": "{{ currency }}",
-              "billingDuration": 1,
-              "billingIncrement": 1,
-              "unitCode": "MON"
-            }
+            "url": "{{ shop.url }}/#planes",
+            "availability": "https://schema.org/InStock"
           },
-          {%- endif -%}
-          {%- if single != blank -%}
           {
             "@type": "Offer",
-            "name": "Single ad video — one-time purchase",
-            "description": "One AI-produced ad video, bought individually with no subscription. 9:16 and 4:5 formats, 1 revision round, delivered in 72 hours from brief.",
-            "price": "{{ single.price | divided_by: 100.0 }}",
+            "name": "Plan A MEDIDA",
+            "description": "Plataformas SaaS, ecommerce y aplicaciones web a medida con presupuesto cerrado antes de empezar.",
+            "price": "799.00",
             "priceCurrency": "{{ currency }}",
-            "url": "{{ shop.url }}{{ single.url }}",
+            "url": "{{ shop.url }}/#planes",
             "availability": "https://schema.org/InStock"
           }
-          {%- endif -%}
         ]
       }
     }
