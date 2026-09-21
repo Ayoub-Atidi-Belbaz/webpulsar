@@ -1,0 +1,79 @@
+{%- comment -%}
+  Banner de privacidad y cookies RGPD (Bloque F)
+  Cumplimiento normativo RGPD / ePrivacy con integración Shopify Customer Privacy API.
+{%- endcomment -%}
+<aside
+  class="cookie-banner"
+  id="cookie-banner"
+  data-cookie-banner
+  role="region"
+  aria-label="Consentimiento de cookies"
+  hidden
+>
+  <div class="cookie-banner__inner">
+    <div class="cookie-banner__content">
+      <p class="cookie-banner__title">
+        <span class="cookie-banner__shield" aria-hidden="true">🔒</span>
+        <span>Privacidad y cookies</span>
+      </p>
+      <p class="cookie-banner__text">
+        Utilizamos cookies esenciales para el funcionamiento técnico de la web y analítica anónima para medir visitas sin almacenar datos personales, conforme al RGPD.
+      </p>
+    </div>
+    <div class="cookie-banner__actions">
+      <button type="button" class="btn btn--ghost btn--sm" data-cookie-accept="necessary">
+        Solo necesarias
+      </button>
+      <button type="button" class="btn btn--primary btn--sm" data-cookie-accept="all">
+        Aceptar todas
+      </button>
+    </div>
+  </div>
+</aside>
+
+<script>
+  (function () {
+    var banner = document.querySelector('[data-cookie-banner]');
+    if (!banner) return;
+
+    var STORAGE_KEY = 'qw_cookie_consent';
+    var consent = null;
+
+    try {
+      consent = localStorage.getItem(STORAGE_KEY);
+    } catch (e) {}
+
+    function setConsent(choice) {
+      try {
+        localStorage.setItem(STORAGE_KEY, choice);
+      } catch (e) {}
+
+      // Shopify Customer Privacy API integración
+      if (window.Shopify && window.Shopify.customerPrivacy) {
+        try {
+          window.Shopify.customerPrivacy.setTrackingConsent(choice === 'all', function () {});
+        } catch (e) {}
+      }
+
+      banner.classList.remove('is-visible');
+      setTimeout(function () {
+        banner.hidden = true;
+      }, 350);
+    }
+
+    if (!consent) {
+      setTimeout(function () {
+        banner.hidden = false;
+        requestAnimationFrame(function () {
+          banner.classList.add('is-visible');
+        });
+      }, 1200);
+    }
+
+    banner.querySelectorAll('[data-cookie-accept]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        setConsent(btn.dataset.cookieAccept);
+      });
+    });
+  })();
+</script>

@@ -48,5 +48,29 @@
       { "type": "text", "id": "social_instagram_link", "label": "Instagram" },
       { "type": "text", "id": "social_linkedin_link", "label": "LinkedIn" }
     ]
+  },
+  {
+    "name": "Contacto y Ubicación",
+    "settings": [
+      {
+        "type": "text",
+        "id": "contact_email",
+        "label": "Correo de contacto principal",
+        "default": "hello@quickmotionai.com",
+        "info": "Configura el email centralizado en todo el sitio."
+      },
+      {
+        "type": "text",
+        "id": "contact_whatsapp",
+        "label": "Número de WhatsApp (con prefijo)",
+        "default": "34632358260"
+      },
+      {
+        "type": "text",
+        "id": "contact_location",
+        "label": "Ubicación / Ciudad",
+        "default": "Murcia, España"
+      }
+    ]
   }
 ]

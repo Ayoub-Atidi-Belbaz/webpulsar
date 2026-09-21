@@ -29,7 +29,7 @@
       "name": {{ shop.name | json }},
       "url": "{{ shop.url }}",
       "description": "Ad video production without a traditional production: no cameras, no studio, no actors, no crew. A person directs the creative strategy and AI produces the footage, in fixed monthly batches of UGC-style video ads for Meta and TikTok, delivered in 72 hours from brief. For ecommerce brands and agencies that want more ad variants without an agency, production company or in-house video team.",
-      "email": "hello@quickmotionai.com",
+      "email": "{{ settings.contact_email | default: 'hello@quickmotionai.com' }}",
       "areaServed": { "@type": "Country", "name": "United States" }
       {%- if settings.logo != blank -%},
       "logo": "https:{{ settings.logo | image_url: width: 512 }}"

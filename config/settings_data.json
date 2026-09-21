@@ -11,6 +11,9 @@
   "current": {
     "brand_accent": "#6C3BFF",
     "market_shortcuts": "es|ES|€|Español\nen|US|$|English",
+    "contact_email": "hello@quickmotionai.com",
+    "contact_whatsapp": "34632358260",
+    "contact_location": "Murcia, España",
     "content_for_index": [],
     "blocks": {
       "1768834845299682660": {
@@ -31,7 +34,10 @@
   "presets": {
     "Default": {
       "brand_accent": "#6C3BFF",
-      "market_shortcuts": "es|ES|€|Español\nen|US|$|English"
+      "market_shortcuts": "es|ES|€|Español\nen|US|$|English",
+      "contact_email": "hello@quickmotionai.com",
+      "contact_whatsapp": "34632358260",
+      "contact_location": "Murcia, España"
     }
   }
 }
