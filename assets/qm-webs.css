@@ -2295,5 +2295,76 @@
   border-radius: var(--r-full);
 }
 
+/* ==========================================================================
+   Hero Marquee continuo editorial (Bloque A)
+   ========================================================================== */
+.qw-hero-ticker {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  margin-top: clamp(2rem, 4vw, 3.5rem);
+  padding: 0.9rem 0;
+  background: rgba(11, 11, 18, 0.65);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  user-select: none;
+  z-index: 5;
+}
 
+.qw-hero-ticker__inner {
+  display: flex;
+  width: max-content;
+}
 
+.qw-hero-ticker__track {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  white-space: nowrap;
+  animation: qwTickerScroll 36s linear infinite;
+  will-change: transform;
+}
+
+.qw-hero-ticker:hover .qw-hero-ticker__track,
+.qw-hero-ticker:focus-within .qw-hero-ticker__track {
+  animation-play-state: paused;
+}
+
+.qw-hero-ticker__item {
+  font-family: var(--f-display, var(--f-sans));
+  font-size: clamp(0.75rem, 0.7rem + 0.35vw, 0.95rem);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--c-text-muted, #94a3b8);
+  padding: 0 0.5rem;
+}
+
+.qw-hero-ticker__dot {
+  display: inline-block;
+  color: var(--c-accent, #a855f7);
+  font-size: 1.1rem;
+  padding: 0 0.85rem;
+  opacity: 0.7;
+}
+
+@keyframes qwTickerScroll {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-100%, 0, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .qw-hero-ticker__track {
+    animation: none;
+  }
+  .qw-hero-ticker {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}

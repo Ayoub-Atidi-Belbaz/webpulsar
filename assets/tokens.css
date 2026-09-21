@@ -4,7 +4,15 @@
    Paleta y tipografía calcadas de somsyngular.com (SOM SYNGULAR).
    ========================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono&display=swap');
+
+@font-face {
+  font-family: 'Clash Display';
+  src: url('clash-display-variable.woff2') format('woff2');
+  font-weight: 200 700;
+  font-display: swap;
+  font-style: normal;
+}
 
 :root {
   /* ---------- Color: fondos ---------- */
@@ -48,7 +56,7 @@
   --shadow-lift:   0 40px 80px -32px rgba(0, 0, 0, 0.95);
 
   /* ---------- Familias ---------- */
-  --f-display: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --f-display: 'Clash Display', 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --f-body:    'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   --f-mono:    'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
 
@@ -103,7 +111,7 @@
   --d-fast:   180ms;
   --d-base:   320ms;
   --d-slow:   620ms;
-  --d-reveal: 900ms;
+  --d-reveal: 550ms;
 
   /* ---------- Chrome ---------- */
   --header-h: 68px;

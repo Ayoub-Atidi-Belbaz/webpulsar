@@ -29,6 +29,22 @@
       {%- endif -%}
     </a>
 
+    {%- comment -%} Reloj y ubicación local editorial (Bloque A) {%- endcomment -%}
+    {%- if section.settings.show_clock -%}
+      <div
+        class="header-clock hide-mobile"
+        data-header-clock
+        data-tz="{{ section.settings.clock_timezone | default: 'Europe/Madrid' }}"
+        title="Hora local en {{ section.settings.clock_location | default: 'Murcia, ES' }}"
+        aria-label="Ubicación y hora local: {{ section.settings.clock_location | default: 'Murcia, ES' }}"
+      >
+        <span class="header-clock__dot" aria-hidden="true"></span>
+        <span class="header-clock__loc">{{ section.settings.clock_location | default: 'Murcia, ES' }}</span>
+        <span class="header-clock__sep" aria-hidden="true">·</span>
+        <span class="header-clock__time" data-clock-time>--:--</span>
+      </div>
+    {%- endif -%}
+
     {%- comment -%} Navegación de escritorio {%- endcomment -%}
     {%- if menu != blank -%}
       <nav class="nav" aria-label="{{ 'sections.header.menu' | t }}">
@@ -147,6 +163,10 @@
     { "type": "url", "id": "cta_url", "label": "Enlace del botón" },
     { "type": "checkbox", "id": "show_market_selector", "label": "Mostrar selector de mercado", "default": true },
     { "type": "checkbox", "id": "show_cart", "label": "Mostrar icono de carrito", "default": true },
+    { "type": "header", "content": "Reloj de cabecera" },
+    { "type": "checkbox", "id": "show_clock", "label": "Mostrar reloj y ubicación", "default": true },
+    { "type": "text", "id": "clock_location", "label": "Texto de ubicación", "default": "Murcia, ES" },
+    { "type": "text", "id": "clock_timezone", "label": "Zona horaria IANA", "default": "Europe/Madrid" },
     { "type": "header", "content": "Comportamiento" },
     { "type": "checkbox", "id": "static_header", "label": "Cabecera siempre visible", "default": false, "info": "Por defecto la cabecera se oculta al bajar y reaparece al subir." }
   ],

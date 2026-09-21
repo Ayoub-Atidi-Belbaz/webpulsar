@@ -315,9 +315,68 @@
   }
 
   /* ---------------------------------------------------------------
+     8. Smooth scroll con Lenis (solo puntero fino y sin reduced-motion)
+     --------------------------------------------------------------- */
+  function initLenis() {
+    if (reduced || coarse) return;
+    if (!window.matchMedia || !window.matchMedia('(pointer: fine)').matches) return;
+    if (window.Lenis && !window.__lenisInstance) {
+      try {
+        var lenis = new window.Lenis({
+          duration: 1.15,
+          easing: function (t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)); },
+          smoothWheel: true,
+          smoothTouch: false
+        });
+        window.__lenisInstance = lenis;
+
+        function raf(time) {
+          lenis.raf(time);
+          requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+      } catch (e) {
+        console.warn('Lenis initialization skipped:', e);
+      }
+    }
+  }
+
+  /* ---------------------------------------------------------------
+     9. Reloj y ubicación en cabecera
+     --------------------------------------------------------------- */
+  function initClock() {
+    var clockEls = document.querySelectorAll('[data-header-clock]');
+    if (!clockEls.length) return;
+
+    function update() {
+      var now = new Date();
+      clockEls.forEach(function (el) {
+        var tz = el.dataset.tz || 'Europe/Madrid';
+        var timeEl = el.querySelector('[data-clock-time]');
+        if (!timeEl) return;
+        try {
+          var str = now.toLocaleTimeString('es-ES', { timeZone: tz, hour: '2-digit', minute: '2-digit', hour12: false });
+          timeEl.textContent = str;
+        } catch (e) {
+          var h = String(now.getHours()).padStart(2, '0');
+          var m = String(now.getMinutes()).padStart(2, '0');
+          timeEl.textContent = h + ':' + m;
+        }
+      });
+    }
+
+    update();
+    if (!window.__clockInterval) {
+      window.__clockInterval = setInterval(update, 15000);
+    }
+  }
+
+  /* ---------------------------------------------------------------
      Bootstrap
      --------------------------------------------------------------- */
   function initAll(root) {
+    initLenis();
+    initClock();
     initStagger(root);
     initReveal(root);
     initDraw(root);

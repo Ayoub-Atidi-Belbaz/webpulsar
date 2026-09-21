@@ -26,6 +26,9 @@
         "cta_url": "/#planes",
         "show_market_selector": true,
         "show_cart": true,
+        "show_clock": true,
+        "clock_location": "Murcia, ES",
+        "clock_timezone": "Europe/Madrid",
         "static_header": false
       }
     }

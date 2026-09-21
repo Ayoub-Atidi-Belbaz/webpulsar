@@ -63,6 +63,52 @@
   flex: none;
 }
 
+/* ---------- Reloj y ubicación en cabecera (Bloque A) ---------- */
+.header-clock {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: var(--f-mono, var(--f-sans));
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--c-text-muted);
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  padding: 0.28rem 0.65rem;
+  border-radius: var(--r-full);
+  line-height: 1;
+  flex: none;
+}
+.header-clock__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 8px #10b981;
+  animation: pulseClockDot 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+@keyframes pulseClockDot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.35; transform: scale(0.8); }
+}
+.header-clock__loc {
+  color: var(--c-text-dim);
+}
+.header-clock__sep {
+  opacity: 0.35;
+}
+.header-clock__time {
+  color: var(--c-text);
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+}
+@media (max-width: 989px) {
+  .header-clock.hide-mobile {
+    display: none !important;
+  }
+}
+
 /* ---------- Navegación de escritorio ---------- */
 .nav { display: flex; align-items: center; gap: var(--s-2); margin-inline: auto; }
 @media (max-width: 989px) { .nav { display: none; } }
