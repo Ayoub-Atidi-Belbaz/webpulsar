@@ -134,6 +134,10 @@
         {%- endfor -%}
       </div>
 
+      <div class="qw-work__progress" aria-hidden="true">
+        <div class="qw-work__progress-bar" data-work-progress></div>
+      </div>
+
       <div class="qw-work__nav-hint" aria-hidden="true">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         <span>Desliza para ver más proyectos</span>
@@ -150,6 +154,18 @@
 
     var filterBtns = container.querySelectorAll('[data-work-filter]');
     var cards = container.querySelectorAll('.qw-work-card');
+    var grid = container.querySelector('.qw-work__grid');
+    var progressBar = container.querySelector('[data-work-progress]');
+    var wrap = container.querySelector('.qw-work__container');
+
+    function applyFilter(filter) {
+      cards.forEach(function (card) {
+        var type = card.dataset.projectType || 'client';
+        var show = filter === 'all' || type === filter;
+        card.style.display = show ? '' : 'none';
+      });
+      updateProgress();
+    }
 
     filterBtns.forEach(function (btn) {
       btn.addEventListener('click', function () {
@@ -159,13 +175,96 @@
           b.classList.toggle('is-active', active);
           b.setAttribute('aria-selected', String(active));
         });
-        cards.forEach(function (card) {
-          var type = card.dataset.projectType || 'client';
-          var show = filter === 'all' || type === filter;
-          card.style.display = show ? '' : 'none';
-        });
+        if (typeof document.startViewTransition === 'function') {
+          document.startViewTransition(function () {
+            applyFilter(filter);
+          });
+        } else {
+          applyFilter(filter);
+        }
       });
     });
+
+    function updateProgress() {
+      if (!grid || !progressBar) return;
+      var maxScroll = grid.scrollWidth - grid.clientWidth;
+      if (wrap) {
+        wrap.classList.toggle('has-overflow', maxScroll > 10);
+      }
+      if (maxScroll <= 0) {
+        progressBar.style.transform = 'scaleX(1)';
+        return;
+      }
+      var p = Math.min(1, Math.max(0, grid.scrollLeft / maxScroll));
+      progressBar.style.transform = 'scaleX(' + p.toFixed(4) + ')';
+    }
+
+    if (grid) {
+      grid.addEventListener('scroll', function () {
+        requestAnimationFrame(updateProgress);
+      }, { passive: true });
+
+      window.addEventListener('resize', function () {
+        requestAnimationFrame(updateProgress);
+      }, { passive: true });
+
+      // Mouse drag-to-scroll
+      var isDown = false;
+      var startX = 0;
+      var scrollLeft = 0;
+      var hasDragged = false;
+
+      grid.addEventListener('mousedown', function (e) {
+        if (e.button !== 0) return;
+        isDown = true;
+        hasDragged = false;
+        startX = e.pageX - grid.offsetLeft;
+        scrollLeft = grid.scrollLeft;
+      });
+
+      window.addEventListener('mousemove', function (e) {
+        if (!isDown) return;
+        var x = e.pageX - grid.offsetLeft;
+        var walk = (x - startX) * 1.4;
+        if (Math.abs(walk) > 6) {
+          hasDragged = true;
+          grid.style.cursor = 'grabbing';
+          grid.style.userSelect = 'none';
+        }
+        grid.scrollLeft = scrollLeft - walk;
+      });
+
+      window.addEventListener('mouseup', function () {
+        if (!isDown) return;
+        isDown = false;
+        grid.style.cursor = '';
+        grid.style.userSelect = '';
+      });
+
+      // Prevent link clicks if dragging
+      grid.addEventListener('click', function (e) {
+        if (hasDragged) {
+          e.preventDefault();
+          e.stopPropagation();
+          hasDragged = false;
+        }
+      }, true);
+
+      // Keyboard navigation
+      grid.setAttribute('tabindex', '0');
+      grid.setAttribute('aria-label', 'Carrusel de proyectos');
+      grid.addEventListener('keydown', function (e) {
+        if (e.key === 'ArrowRight') {
+          e.preventDefault();
+          grid.scrollBy({ left: 340, behavior: 'smooth' });
+        } else if (e.key === 'ArrowLeft') {
+          e.preventDefault();
+          grid.scrollBy({ left: -340, behavior: 'smooth' });
+        }
+      });
+
+      requestAnimationFrame(updateProgress);
+    }
   })();
 </script>
 

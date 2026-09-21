@@ -170,6 +170,8 @@
         var dot = document.createElement('button');
         dot.type = 'button';
         dot.className = 'qw-plans__dot';
+        dot.setAttribute('role', 'tab');
+        dot.setAttribute('aria-selected', i === 0 ? 'true' : 'false');
         dot.setAttribute('aria-label', 'Ir al plan ' + (i + 1));
         dot.addEventListener('click', function () {
           cards[i].scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
@@ -188,7 +190,11 @@
           var dist = Math.abs((r.left + r.width / 2) - center);
           if (dist < closestDist) { closestDist = dist; closest = i; }
         });
-        dots.forEach(function (dot, i) { dot.classList.toggle('is-active', i === closest); });
+        dots.forEach(function (dot, i) {
+          var active = i === closest;
+          dot.classList.toggle('is-active', active);
+          dot.setAttribute('aria-selected', active ? 'true' : 'false');
+        });
       }
 
       var ticking = false;

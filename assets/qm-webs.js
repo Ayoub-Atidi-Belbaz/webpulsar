@@ -136,17 +136,26 @@
       if (!tabs.length) return;
 
       function select(tab, focus) {
-        tabs.forEach(function (other) {
-          var on = other === tab;
-          other.setAttribute('aria-selected', String(on));
-          other.setAttribute('tabindex', on ? '0' : '-1');
-          var panel = document.getElementById(other.getAttribute('aria-controls'));
-          if (panel) {
-            panel.classList.toggle('is-active', on);
-            panel.hidden = !on;
-          }
-        });
-        if (focus) tab.focus();
+        function updateTabs() {
+          tabs.forEach(function (other) {
+            var on = other === tab;
+            other.setAttribute('aria-selected', String(on));
+            other.setAttribute('tabindex', on ? '0' : '-1');
+            var panel = document.getElementById(other.getAttribute('aria-controls'));
+            if (panel) {
+              panel.classList.toggle('is-active', on);
+              panel.hidden = !on;
+            }
+          });
+          if (focus) tab.focus();
+        }
+
+        var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (document.startViewTransition && !reduced) {
+          document.startViewTransition(updateTabs);
+        } else {
+          updateTabs();
+        }
         track('view_demo', { sector: tab.dataset.sector || '' });
       }
 
@@ -186,6 +195,12 @@
 
         if (!validate(form)) return;
 
+        var submitBtn = form.querySelector('button[type="submit"]');
+        if (submitBtn) {
+          submitBtn.classList.add('is-loading');
+          submitBtn.setAttribute('aria-busy', 'true');
+        }
+
         var data = collect(form);
         track('submit_form', { form: 'webs_lead', plan: data.plan || '' });
 
@@ -206,9 +221,10 @@
         }
 
         if (!delivered) {
-          // Red de seguridad: si no hay destino configurado, NO mostrar
-          // la pantalla de éxito. Mostrar un error visible y persistir
-          // el intento localmente para no perder el dato.
+          if (submitBtn) {
+            submitBtn.classList.remove('is-loading');
+            submitBtn.removeAttribute('aria-busy');
+          }
           try {
             window.localStorage.setItem(
               'qmWebsFailedLead_' + Date.now(),
@@ -222,7 +238,7 @@
             errorBox.hidden = false;
             errorBox.textContent = 'No hemos podido enviar tu solicitud. Escríbenos directamente por WhatsApp o inténtalo de nuevo en unos minutos.';
           }
-          return; // no mostrar showDone()
+          return;
         }
 
         showDone(card);
@@ -370,9 +386,40 @@
         if (stage) {
           var display = stage.querySelector('[data-demo-display]');
           if (display) {
-            display.className = 'qw-demos__display view-' + device;
+            var updateDev = function () {
+              display.className = 'qw-demos__display view-' + device;
+            };
+            var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (document.startViewTransition && !reduced) {
+              document.startViewTransition(updateDev);
+            } else {
+              updateDev();
+            }
           }
         }
+      });
+    });
+  }
+
+  function initMagnetic(root) {
+    if (window.matchMedia && (window.matchMedia('(hover: none)').matches || window.matchMedia('(prefers-reduced-motion: reduce)').matches)) return;
+    (root || document).querySelectorAll('.btn--primary, .btn--ghost, [data-magnetic]').forEach(function (el) {
+      if (el.__mag) return;
+      el.__mag = true;
+      el.addEventListener('pointermove', function (e) {
+        if (e.pointerType === 'touch') return;
+        var r = el.getBoundingClientRect();
+        var dx = (e.clientX - (r.left + r.width / 2)) * 0.2;
+        var dy = (e.clientY - (r.top + r.height / 2)) * 0.2;
+        var d = Math.hypot(dx, dy);
+        if (d > 8) {
+          dx = (dx / d) * 8;
+          dy = (dy / d) * 8;
+        }
+        el.style.transform = 'translate3d(' + dx.toFixed(1) + 'px,' + dy.toFixed(1) + 'px,0)';
+      });
+      el.addEventListener('pointerleave', function () {
+        el.style.transform = 'translate3d(0,0,0)';
       });
     });
   }
@@ -382,6 +429,7 @@
     initCtas(root);
     initDemos(root);
     initDeviceSwitcher(root);
+    initMagnetic(root);
     initForm(root);
     initWhatsapp(root);
     initSticky(root);

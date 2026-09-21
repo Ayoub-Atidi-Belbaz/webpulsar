@@ -1467,6 +1467,27 @@ body.has-sticky-bar [data-qw-whatsapp-float] {
 .qw-receipt--featured {
   background: linear-gradient(180deg, rgba(108, 59, 255, 0.16), rgba(108, 59, 255, 0.02) 60%), var(--c-elev-1);
   color: var(--c-text);
+  overflow: hidden;
+}
+.qw-receipt--featured::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(to right, transparent 0%, rgba(168, 85, 247, 0.25) 50%, transparent 100%);
+  pointer-events: none;
+  animation: featured-shimmer 2.2s var(--ease-out) 2;
+  animation-delay: 600ms;
+}
+@keyframes featured-shimmer {
+  0% { transform: translateX(-120%) rotate(25deg); opacity: 0; }
+  20% { opacity: 0.35; }
+  100% { transform: translateX(250%) rotate(25deg); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .qw-receipt--featured::after { animation: none; }
 }
 
 .qw-receipt__flag {

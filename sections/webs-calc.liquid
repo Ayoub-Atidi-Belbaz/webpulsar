@@ -112,21 +112,60 @@
       var yrOut = root.querySelector('[data-qw-calc-yearly]');
       if (!visits || !ticket || !rate) return;
 
+      var currentValues = { customers: 0, monthly: 0, yearly: 0 };
+      var animId = null;
+
       function update() {
         var v = Math.max(0, parseFloat(visits.value) || 0);
         var t = Math.max(0, parseFloat(ticket.value) || 0);
         var r = Math.max(0, Math.min(100, parseFloat(rate.value) || 0));
 
-        var lostCustomers = v * (r / 100);
-        var lostMonthly = lostCustomers * t;
-        var lostYearly = lostMonthly * 12;
+        var targetCustomers = v * (r / 100);
+        var targetMonthly = targetCustomers * t;
+        var targetYearly = targetMonthly * 12;
 
         if (rateOut) rateOut.textContent = Math.round(r);
-        if (custOut) custOut.textContent = fmtNum(lostCustomers);
-        if (moOut) moOut.textContent = fmtEUR(lostMonthly);
-        if (yrOut) yrOut.textContent = fmtEUR(lostYearly);
 
-        trackCalc(lostCustomers, lostMonthly, lostYearly);
+        var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (reduced) {
+          if (custOut) custOut.textContent = fmtNum(targetCustomers);
+          if (moOut) moOut.textContent = fmtEUR(targetMonthly);
+          if (yrOut) yrOut.textContent = fmtEUR(targetYearly);
+          currentValues.customers = targetCustomers;
+          currentValues.monthly = targetMonthly;
+          currentValues.yearly = targetYearly;
+        } else {
+          var startCust = currentValues.customers;
+          var startMo = currentValues.monthly;
+          var startYr = currentValues.yearly;
+          var startTime = performance.now();
+          var duration = 500;
+
+          if (animId) cancelAnimationFrame(animId);
+          function tick(now) {
+            var progress = Math.min(1, (now - startTime) / duration);
+            var ease = 1 - Math.pow(1 - progress, 3);
+            var curC = startCust + (targetCustomers - startCust) * ease;
+            var curM = startMo + (targetMonthly - startMo) * ease;
+            var curY = startYr + (targetYearly - startYr) * ease;
+
+            if (custOut) custOut.textContent = fmtNum(curC);
+            if (moOut) moOut.textContent = fmtEUR(curM);
+            if (yrOut) yrOut.textContent = fmtEUR(curY);
+
+            if (progress < 1) {
+              animId = requestAnimationFrame(tick);
+            } else {
+              currentValues.customers = targetCustomers;
+              currentValues.monthly = targetMonthly;
+              currentValues.yearly = targetYearly;
+              animId = null;
+            }
+          }
+          animId = requestAnimationFrame(tick);
+        }
+
+        trackCalc(targetCustomers, targetMonthly, targetYearly);
       }
 
       var trackDebounce = null;

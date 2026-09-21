@@ -133,17 +133,24 @@
         if (!isOpen) return;
         isOpen = false;
         popup.classList.remove('is-active');
+        popup.classList.add('is-closing');
         document.body.style.overflow = '';
 
-        if (typeof popup.close === 'function') {
-          try { popup.close(); } catch (e) { popup.removeAttribute('open'); }
-        } else {
-          popup.removeAttribute('open');
-        }
+        var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        var exitDur = prefersReduced ? 50 : 220;
 
-        if (previouslyFocused && previouslyFocused.focus) {
-          previouslyFocused.focus();
-        }
+        setTimeout(function () {
+          popup.classList.remove('is-closing');
+          if (typeof popup.close === 'function') {
+            try { popup.close(); } catch (e) { popup.removeAttribute('open'); }
+          } else {
+            popup.removeAttribute('open');
+          }
+
+          if (previouslyFocused && previouslyFocused.focus) {
+            previouslyFocused.focus();
+          }
+        }, exitDur);
       }
 
       // Cerrar en clics a dismiss

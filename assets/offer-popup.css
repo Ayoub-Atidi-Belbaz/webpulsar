@@ -20,8 +20,8 @@ dialog.offer-popup {
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transition: opacity 280ms cubic-bezier(0.16, 1, 0.3, 1),
-              visibility 280ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity var(--dur-base, 280ms) var(--ease-out, cubic-bezier(0.22, 1, 0.36, 1)),
+              visibility var(--dur-base, 280ms) var(--ease-out, cubic-bezier(0.22, 1, 0.36, 1));
 }
 
 dialog.offer-popup[open] {
@@ -33,18 +33,24 @@ dialog.offer-popup.is-active {
   opacity: 1;
 }
 
+dialog.offer-popup.is-closing {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--dur-fast, 200ms) var(--ease-in-out, cubic-bezier(0.65, 0, 0.35, 1));
+}
+
 dialog.offer-popup::backdrop {
-  background: rgba(7, 7, 12, 0.78);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background: rgba(7, 7, 12, 0.82);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 .offer-popup__overlay {
   position: absolute;
   inset: 0;
-  background: rgba(7, 7, 12, 0.78);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background: rgba(7, 7, 12, 0.82);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 .offer-popup__panel {
@@ -57,18 +63,42 @@ dialog.offer-popup::backdrop {
   border: 1px solid rgba(168, 85, 247, 0.32);
   background:
     radial-gradient(110% 130% at 0% 0%, rgba(168, 85, 247, 0.18), transparent 65%),
-    rgba(14, 14, 23, 0.95);
+    rgba(14, 14, 23, 0.96);
   box-shadow:
     0 0 0 1px rgba(255, 255, 255, 0.06),
     0 24px 64px rgba(0, 0, 0, 0.65),
     0 0 40px rgba(168, 85, 247, 0.12);
   text-align: center;
   transform: translateY(16px) scale(0.96);
-  transition: transform 320ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform var(--dur-base, 320ms) var(--ease-out, cubic-bezier(0.22, 1, 0.36, 1));
 }
 
 dialog.offer-popup.is-active .offer-popup__panel {
   transform: translateY(0) scale(1);
+}
+
+dialog.offer-popup.is-closing .offer-popup__panel {
+  transform: translateY(12px) scale(0.96);
+  transition: transform var(--dur-fast, 200ms) var(--ease-in-out, cubic-bezier(0.65, 0, 0.35, 1));
+}
+
+@media (max-width: 768px) {
+  dialog.offer-popup::backdrop,
+  .offer-popup__overlay {
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    background: rgba(7, 7, 12, 0.92);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  dialog.offer-popup,
+  .offer-popup__panel,
+  dialog.offer-popup.is-closing,
+  dialog.offer-popup.is-closing .offer-popup__panel {
+    transform: none !important;
+    transition: opacity var(--dur-fast, 150ms) linear !important;
+  }
 }
 
 .offer-popup__close {
