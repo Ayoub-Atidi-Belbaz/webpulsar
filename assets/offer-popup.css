@@ -1,59 +1,155 @@
 /* ==========================================================================
-   OFFER POPUP — aviso de oferta a los pocos segundos de entrar
+   OFFER POPUP — aviso de oferta inteligente y no intrusivo (Bloque C)
    ========================================================================== */
 
-.offer-popup {
+dialog.offer-popup {
   position: fixed;
   inset: 0;
-  z-index: 70;
+  z-index: 1000;
   display: grid;
   place-items: center;
+  width: 100vw;
+  max-width: 100vw;
+  height: 100vh;
+  max-height: 100vh;
+  margin: 0;
   padding: var(--s-5);
-  visibility: hidden;
+  background: transparent;
+  border: none;
+  overflow: hidden;
   opacity: 0;
-  transition: opacity var(--d-fast), visibility var(--d-fast);
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 280ms cubic-bezier(0.16, 1, 0.3, 1),
+              visibility 280ms cubic-bezier(0.16, 1, 0.3, 1);
 }
-.offer-popup[aria-hidden="false"] { visibility: visible; opacity: 1; }
+
+dialog.offer-popup[open] {
+  visibility: visible;
+  pointer-events: auto;
+}
+
+dialog.offer-popup.is-active {
+  opacity: 1;
+}
+
+dialog.offer-popup::backdrop {
+  background: rgba(7, 7, 12, 0.78);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
 
 .offer-popup__overlay {
   position: absolute;
   inset: 0;
-  background: rgba(5, 5, 8, 0.75);
-  backdrop-filter: blur(2px);
+  background: rgba(7, 7, 12, 0.78);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
 .offer-popup__panel {
   position: relative;
+  z-index: 2;
   width: 100%;
-  max-width: 460px;
-  padding: var(--s-7) var(--s-6);
-  border-radius: var(--r-lg);
-  border: 1px solid var(--c-line-accent);
+  max-width: 480px;
+  padding: clamp(1.75rem, 4vw, 2.5rem) clamp(1.5rem, 3.5vw, 2.25rem);
+  border-radius: var(--r-xl, 20px);
+  border: 1px solid rgba(168, 85, 247, 0.32);
   background:
-    radial-gradient(120% 140% at 0% 0%, rgba(108, 59, 255, 0.22), transparent 60%),
-    var(--c-elev-1);
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
+    radial-gradient(110% 130% at 0% 0%, rgba(168, 85, 247, 0.18), transparent 65%),
+    rgba(14, 14, 23, 0.95);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.06),
+    0 24px 64px rgba(0, 0, 0, 0.65),
+    0 0 40px rgba(168, 85, 247, 0.12);
   text-align: center;
-  transform: translateY(10px) scale(0.97);
-  transition: transform var(--d-fast);
+  transform: translateY(16px) scale(0.96);
+  transition: transform 320ms cubic-bezier(0.16, 1, 0.3, 1);
 }
-.offer-popup[aria-hidden="false"] .offer-popup__panel { transform: translateY(0) scale(1); }
+
+dialog.offer-popup.is-active .offer-popup__panel {
+  transform: translateY(0) scale(1);
+}
 
 .offer-popup__close {
   position: absolute;
-  top: var(--s-4);
-  right: var(--s-4);
+  top: 1rem;
+  right: 1rem;
   display: grid;
   place-items: center;
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
-  color: var(--c-text-soft);
+  color: var(--c-text-muted);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  cursor: pointer;
+  transition: color 200ms ease, background-color 200ms ease, border-color 200ms ease;
 }
-.offer-popup__close:hover { background: rgba(255, 255, 255, 0.08); color: var(--c-text); }
+.offer-popup__close:hover,
+.offer-popup__close:focus-visible {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.2);
+}
 
-.offer-popup__badge { display: inline-flex; margin-bottom: var(--s-4); }
-.offer-popup__title { font-family: var(--f-display); font-size: 2.4rem; line-height: 1.15; margin-bottom: var(--s-3); }
-.offer-popup__body { color: var(--c-text-soft); margin-bottom: var(--s-6); }
-.offer-popup__actions { display: grid; gap: var(--s-3); }
-.offer-popup__skip { opacity: 0.7; }
+.offer-popup__badge-wrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.25rem;
+}
+
+.offer-popup__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--f-mono, monospace);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.offer-popup__badge-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #a855f7;
+  box-shadow: 0 0 8px #a855f7;
+  animation: pulseDot 2s infinite;
+}
+
+.offer-popup__title {
+  font-family: var(--f-display);
+  font-size: clamp(1.85rem, 3.5vw, 2.35rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  color: #fff;
+  margin-bottom: 0.75rem;
+}
+
+.offer-popup__body {
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: var(--c-text-soft);
+  margin-bottom: 1.75rem;
+}
+
+.offer-popup__actions {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.offer-popup__skip {
+  color: var(--c-text-dim);
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: color 200ms ease;
+}
+.offer-popup__skip:hover,
+.offer-popup__skip:focus-visible {
+  color: var(--c-text);
+  text-decoration: underline;
+}
+

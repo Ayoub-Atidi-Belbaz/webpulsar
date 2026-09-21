@@ -5,18 +5,37 @@
   assign s = section.settings
 -%}
 
-<div class="offer-popup" data-offer-popup data-delay="{{ s.delay_seconds | default: 5 }}" data-frequency="{{ s.frequency }}" aria-hidden="true">
-  <div class="offer-popup__overlay" data-offer-popup-dismiss></div>
-  <div class="offer-popup__panel" role="dialog" aria-modal="true" aria-label="{{ s.heading }}">
-    <button type="button" class="offer-popup__close" data-offer-popup-dismiss aria-label="{{ 'accessibility.close' | t }}">
+<dialog
+  class="offer-popup"
+  data-offer-popup
+  data-delay="{{ s.delay_seconds | default: 25 }}"
+  data-frequency="{{ s.frequency | default: 'session' }}"
+  data-scroll-trigger="{{ s.enable_scroll_trigger | default: true }}"
+  data-exit-intent="{{ s.enable_exit_intent | default: true }}"
+  aria-modal="true"
+  aria-labelledby="offer-popup-title"
+>
+  <div class="offer-popup__overlay" data-offer-popup-dismiss aria-hidden="true"></div>
+  <div class="offer-popup__panel">
+    <button
+      type="button"
+      class="offer-popup__close"
+      data-offer-popup-dismiss
+      aria-label="{{ 'accessibility.close' | t | default: 'Cerrar ventana' }}"
+    >
       {% render 'icon', name: 'close', size: 15 %}
     </button>
 
     {%- if s.badge != blank -%}
-      <span class="chip chip--violet offer-popup__badge">{{ s.badge }}</span>
+      <div class="offer-popup__badge-wrap">
+        <span class="chip chip--violet offer-popup__badge">
+          <span class="offer-popup__badge-dot" aria-hidden="true"></span>
+          {{ s.badge }}
+        </span>
+      </div>
     {%- endif -%}
 
-    <h2 class="offer-popup__title">{{ s.heading }}</h2>
+    <h2 id="offer-popup-title" class="offer-popup__title">{{ s.heading }}</h2>
 
     {%- if s.body != blank -%}
       <p class="offer-popup__body">{{ s.body }}</p>
@@ -39,7 +58,7 @@
       </button>
     </div>
   </div>
-</div>
+</dialog>
 
 <script>
   (function () {
@@ -50,7 +69,13 @@
 
       var STORAGE_KEY = 'qwOfferPopupSeenAt';
       var frequency = popup.dataset.frequency || 'session';
-      var delay = (parseFloat(popup.dataset.delay) || 5) * 1000;
+      var delayMs = (parseFloat(popup.dataset.delay) || 25) * 1000;
+      var enableScroll = popup.dataset.scrollTrigger !== 'false';
+      var enableExit = popup.dataset.exitIntent !== 'false';
+
+      var previouslyFocused = null;
+      var isOpen = false;
+      var timerId = null;
 
       function alreadyShown() {
         try {
@@ -66,28 +91,141 @@
 
       function markShown() {
         try {
-          if (frequency === 'session') sessionStorage.setItem(STORAGE_KEY, '1');
-          else if (frequency !== 'always') localStorage.setItem(STORAGE_KEY, String(Date.now()));
+          sessionStorage.setItem(STORAGE_KEY, '1');
+          if (frequency !== 'session' && frequency !== 'always') {
+            localStorage.setItem(STORAGE_KEY, String(Date.now()));
+          }
         } catch (e) {}
       }
 
-      function open() {
-        popup.setAttribute('aria-hidden', 'false');
-        markShown();
-      }
-      function close() {
-        popup.setAttribute('aria-hidden', 'true');
+      function isUserInteractingWithForm() {
+        var active = document.activeElement;
+        if (!active) return false;
+        var tag = active.tagName.toLowerCase();
+        return tag === 'input' || tag === 'textarea' || tag === 'select' || active.isContentEditable;
       }
 
+      function open() {
+        if (isOpen || alreadyShown() || isUserInteractingWithForm()) return;
+        isOpen = true;
+        markShown();
+        cleanupListeners();
+
+        previouslyFocused = document.activeElement;
+
+        if (typeof popup.showModal === 'function') {
+          try {
+            popup.showModal();
+          } catch (e) {
+            popup.setAttribute('open', '');
+          }
+        } else {
+          popup.setAttribute('open', '');
+        }
+
+        popup.classList.add('is-active');
+        document.body.style.overflow = 'hidden';
+
+        var firstBtn = popup.querySelector('.btn--primary, .offer-popup__close');
+        if (firstBtn) firstBtn.focus();
+      }
+
+      function close() {
+        if (!isOpen) return;
+        isOpen = false;
+        popup.classList.remove('is-active');
+        document.body.style.overflow = '';
+
+        if (typeof popup.close === 'function') {
+          try { popup.close(); } catch (e) { popup.removeAttribute('open'); }
+        } else {
+          popup.removeAttribute('open');
+        }
+
+        if (previouslyFocused && previouslyFocused.focus) {
+          previouslyFocused.focus();
+        }
+      }
+
+      // Cerrar en clics a dismiss
       popup.querySelectorAll('[data-offer-popup-dismiss]').forEach(function (el) {
         el.addEventListener('click', close);
       });
-      document.addEventListener('keydown', function (event) {
-        if (event.key === 'Escape') close();
+
+      // Cerrar con Escape desde cualquier parte del documento
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && isOpen) {
+          e.preventDefault();
+          close();
+        }
       });
 
+      // Focus trap dentro del popup cuando está abierto
+      popup.addEventListener('keydown', function (e) {
+        if (e.key === 'Tab') {
+          var focusables = Array.prototype.slice.call(
+            popup.querySelectorAll('a[href], button:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])')
+          ).filter(function (el) { return el.offsetParent !== null; });
+          if (!focusables.length) return;
+          var first = focusables[0];
+          var last = focusables[focusables.length - 1];
+          if (e.shiftKey) {
+            if (document.activeElement === first) {
+              e.preventDefault();
+              last.focus();
+            }
+          } else {
+            if (document.activeElement === last) {
+              e.preventDefault();
+              first.focus();
+            }
+          }
+        }
+      });
+
+      // Disparador 1: Scroll >= 35% de la página o llegada a sección de planes
+      function onScroll() {
+        if (isOpen) return;
+        var scrollPos = window.scrollY + window.innerHeight;
+        var docHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
+        var planesEl = document.getElementById('planes');
+        var passedPlanes = planesEl && (window.scrollY + window.innerHeight * 0.6 >= planesEl.offsetTop);
+        if ((docHeight > 800 && scrollPos / docHeight >= 0.35) || passedPlanes) {
+          open();
+        }
+      }
+
+      // Disparador 2: Exit-intent en escritorio (ratón saliendo por la parte superior tras >= 6s)
+      var pageStartTime = Date.now();
+      function onMouseLeave(e) {
+        if (isOpen) return;
+        if (Date.now() - pageStartTime > 6000 && e.clientY <= 10) {
+          open();
+        }
+      }
+
+      function cleanupListeners() {
+        if (timerId) clearTimeout(timerId);
+        window.removeEventListener('scroll', onScroll);
+        document.documentElement.removeEventListener('mouseleave', onMouseLeave);
+        if (window.__lenisInstance && window.__lenisInstance.off) {
+          window.__lenisInstance.off('scroll', onScroll);
+        }
+      }
+
       if (!alreadyShown()) {
-        setTimeout(open, delay);
+        if (delayMs > 0) {
+          timerId = setTimeout(open, delayMs);
+        }
+        if (enableScroll) {
+          window.addEventListener('scroll', onScroll, { passive: true });
+          if (window.__lenisInstance && window.__lenisInstance.on) {
+            window.__lenisInstance.on('scroll', onScroll);
+          }
+        }
+        if (enableExit && window.matchMedia('(pointer: fine)').matches) {
+          document.documentElement.addEventListener('mouseleave', onMouseLeave);
+        }
       }
     }
 
@@ -104,7 +242,9 @@
   "name": "Popup de oferta",
   "tag": "div",
   "settings": [
-    { "type": "number", "id": "delay_seconds", "label": "Segundos antes de mostrarse", "default": 5 },
+    { "type": "number", "id": "delay_seconds", "label": "Segundos antes de mostrarse (tiempo prudente)", "default": 25 },
+    { "type": "checkbox", "id": "enable_scroll_trigger", "label": "Mostrar al hacer 50% de scroll", "default": true },
+    { "type": "checkbox", "id": "enable_exit_intent", "label": "Mostrar en intención de salida (PC)", "default": true },
     {
       "type": "select",
       "id": "frequency",
@@ -130,3 +270,4 @@
   "presets": [{ "name": "Popup de oferta" }]
 }
 {% endschema %}
+
