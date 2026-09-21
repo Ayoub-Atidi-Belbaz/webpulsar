@@ -10,6 +10,16 @@ html {
   scroll-behavior: smooth;
   scroll-padding-top: calc(var(--header-h) + var(--s-5));
 }
+html.lenis, html.lenis body {
+  height: auto;
+}
+html.lenis.lenis-smooth,
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 
 body {
@@ -260,17 +270,16 @@ h1, h2, h3, h4, .t-display {
 
 [data-reveal] {
   opacity: 0;
-  transform: translate3d(0, var(--reveal-y, 22px), 0) scale(var(--reveal-s, 1));
+  transform: translate3d(0, var(--reveal-y, 14px), 0) scale(var(--reveal-s, 1));
   transition:
-    opacity var(--d-reveal) var(--e-out),
-    transform var(--d-reveal) var(--e-out);
+    opacity var(--d-reveal, 320ms) var(--e-out),
+    transform var(--d-reveal, 320ms) var(--e-out);
   transition-delay: var(--reveal-delay, 0ms);
-  will-change: opacity, transform;
 }
 [data-reveal='fade']  { --reveal-y: 0px; }
-[data-reveal='scale'] { --reveal-y: 12px; --reveal-s: 0.97; }
-[data-reveal='left']  { transform: translate3d(-28px, 0, 0); }
-[data-reveal='right'] { transform: translate3d(28px, 0, 0); }
+[data-reveal='scale'] { --reveal-y: 10px; --reveal-s: 0.98; }
+[data-reveal='left']  { transform: translate3d(-18px, 0, 0); }
+[data-reveal='right'] { transform: translate3d(18px, 0, 0); }
 
 [data-reveal].is-in {
   opacity: 1;

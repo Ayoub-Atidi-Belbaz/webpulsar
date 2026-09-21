@@ -32,7 +32,7 @@
             revealIO.unobserve(entry.target);
           });
         },
-        { rootMargin: '0px 0px -8% 0px', threshold: 0.05 }
+        { rootMargin: '0px 0px 60px 0px', threshold: 0.02 }
       );
     }
     items.forEach(function (el) { revealIO.observe(el); });
@@ -41,7 +41,7 @@
   /* Aplica delays escalonados a los hijos de [data-stagger] */
   function initStagger(root) {
     (root || document).querySelectorAll('[data-stagger]').forEach(function (group) {
-      var step = parseInt(group.dataset.stagger, 10) || 70;
+      var step = parseInt(group.dataset.stagger, 10) || 45;
       var max = parseInt(group.dataset.staggerMax, 10) || 8;
       var kids = group.querySelectorAll(':scope > [data-reveal], :scope > * > [data-reveal]');
       kids.forEach(function (kid, i) {
@@ -331,13 +331,15 @@
      8. Smooth scroll con Lenis (solo puntero fino y sin reduced-motion)
      --------------------------------------------------------------- */
   function initLenis() {
-    if (reduced || coarse) return;
+    if (reduced) return;
     if (!window.matchMedia || !window.matchMedia('(pointer: fine)').matches) return;
     if (window.Lenis && !window.__lenisInstance) {
       try {
         var lenis = new window.Lenis({
-          duration: 1.15,
+          duration: 0.78,
           easing: function (t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)); },
+          wheelMultiplier: 1.25,
+          touchMultiplier: 1.2,
           smoothWheel: true,
           smoothTouch: false
         });
@@ -348,6 +350,29 @@
           requestAnimationFrame(raf);
         }
         requestAnimationFrame(raf);
+
+        // Desplazamiento ultra fluido a anclas internas con Lenis
+        document.addEventListener('click', function (e) {
+          var link = e.target.closest('a[href*="#"]');
+          if (!link) return;
+          var href = link.getAttribute('href');
+          if (!href) return;
+          var hashIdx = href.indexOf('#');
+          var hash = href.substring(hashIdx);
+          if (hash.length <= 1) return;
+          var path = href.substring(0, hashIdx);
+          if (path && path !== window.location.pathname && path !== '/') return;
+
+          var target = document.querySelector(hash);
+          if (target) {
+            e.preventDefault();
+            lenis.scrollTo(target, {
+              offset: -72,
+              duration: 0.75,
+              easing: function (t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)); }
+            });
+          }
+        });
       } catch (e) {
         console.warn('Lenis initialization skipped:', e);
       }

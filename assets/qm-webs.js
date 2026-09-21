@@ -101,7 +101,11 @@
   function scrollToId(id) {
     var target = document.getElementById(id);
     if (!target) return;
-    target.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' });
+    if (window.__lenisInstance && typeof window.__lenisInstance.scrollTo === 'function') {
+      window.__lenisInstance.scrollTo(target, { offset: -72, duration: 0.75 });
+    } else {
+      target.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' });
+    }
   }
 
   function preselectPlan(plan) {
